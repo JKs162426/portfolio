@@ -1,6 +1,7 @@
 import '../styles/skills.css'
 import { useLang } from '../context/LanguageContext'
 import content from '../data/content'
+import useIntersect from '../hooks/useIntersect'
 
 const skills = [
   { name: 'React', color: 'accent' },
@@ -18,18 +19,21 @@ const skills = [
 function Skills() {
   const { lang } = useLang()
   const t = content[lang].skills
+  const ref = useIntersect()
 
   return (
     <section className="skills" id="skills">
-      <div className="section-label">{t.label}</div>
-      <h2 className="section-title">{t.title}</h2>
-      <div className="skills-grid">
-        {skills.map(skill => (
-          <div className="skill-chip" key={skill.name}>
-            <span className={`skill-dot ${skill.color}`} />
-            {skill.name}
-          </div>
-        ))}
+      <div className="fade-in" ref={ref}>
+        <div className="section-label">{t.label}</div>
+        <h2 className="section-title">{t.title}</h2>
+        <div className="skills-grid">
+          {skills.map(skill => (
+            <div className="skill-chip" key={skill.name}>
+              <span className={`skill-dot ${skill.color}`} />
+              {skill.name}
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   )
