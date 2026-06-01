@@ -57,3 +57,19 @@
     }
   }
   
+  .lang-btn {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    padding: 0.4rem 0.9rem;
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .lang-btn:hover {
+    background: rgba(0, 212, 255, 0.08);
+  }
+  

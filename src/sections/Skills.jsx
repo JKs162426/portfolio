@@ -1,4 +1,6 @@
 import '../styles/skills.css'
+import { useLang } from '../context/LanguageContext'
+import content from '../data/content'
 
 const skills = [
   { name: 'React', color: 'accent' },
@@ -10,14 +12,17 @@ const skills = [
   { name: 'Git / GitHub', color: 'purple' },
   { name: 'HTML / CSS', color: 'accent' },
   { name: 'SQL', color: 'purple' },
-  { name: 'Python', color: 'accent' },
+  { name: 'Tailwind CSS', color: 'accent' },
 ]
 
 function Skills() {
+  const { lang } = useLang()
+  const t = content[lang].skills
+
   return (
     <section className="skills" id="skills">
-      <div className="section-label">02 // skills</div>
-      <h2 className="section-title">Tech I work with</h2>
+      <div className="section-label">{t.label}</div>
+      <h2 className="section-title">{t.title}</h2>
       <div className="skills-grid">
         {skills.map(skill => (
           <div className="skill-chip" key={skill.name}>

@@ -1,4 +1,6 @@
 import '../styles/projects.css'
+import { useLang } from '../context/LanguageContext'
+import content from '../data/content'
 
 const projects = [
   {
@@ -28,10 +30,13 @@ const projects = [
 ]
 
 function Projects() {
+  const { lang } = useLang()
+  const t = content[lang].projects
+
   return (
     <section className="projects" id="projects">
-      <div className="section-label">03 // projects</div>
-      <h2 className="section-title">What I've built</h2>
+      <div className="section-label">{t.label}</div>
+      <h2 className="section-title">{t.title}</h2>
       <div className="projects-grid">
         {projects.map(project => (
           <div className="project-card" key={project.id}>
@@ -44,9 +49,9 @@ function Projects() {
               ))}
             </div>
             <div className="project-links">
-              <a href={project.github} className="project-link">↗ GitHub</a>
+              <a href={project.github} className="project-link">{t.github}</a>
               {project.live && (
-                <a href={project.live} className="project-link">↗ Live</a>
+                <a href={project.live} className="project-link">{t.live}</a>
               )}
             </div>
           </div>
