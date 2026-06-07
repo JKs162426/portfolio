@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#080b0f"/>
+  
+  <!-- Grid lines -->
+  <line x1="0" y1="0" x2="1200" y2="0" stroke="#1e2d3d" stroke-width="1"/>
+  <line x1="0" y1="210" x2="1200" y2="210" stroke="#1e2d3d" stroke-width="1"/>
+  <line x1="0" y1="420" x2="1200" y2="420" stroke="#1e2d3d" stroke-width="1"/>
+  <line x1="0" y1="630" x2="1200" y2="630" stroke="#1e2d3d" stroke-width="1"/>
+  <line x1="0" y1="0" x2="0" y2="630" stroke="#1e2d3d" stroke-width="1"/>
+  <line x1="400" y1="0" x2="400" y2="630" stroke="#1e2d3d" stroke-width="1"/>
+  <line x1="800" y1="0" x2="800" y2="630" stroke="#1e2d3d" stroke-width="1"/>
+  <line x1="1200" y1="0" x2="1200" y2="630" stroke="#1e2d3d" stroke-width="1"/>
+
+  <!-- Top accent line -->
+  <rect width="1200" height="3" fill="#00d4ff"/>
+
+  <!-- Tag -->
+  <text x="100" y="220" font-family="monospace" font-size="22" fill="#00d4ff" letter-spacing="8">— FULLSTACK DEVELOPER</text>
+
+  <!-- Name -->
+  <text x="100" y="340" font-family="monospace" font-size="96" font-weight="bold" fill="#e6edf3">Jesus</text>
+  <text x="620" y="340" font-family="monospace" font-size="96" font-weight="bold" fill="#00d4ff">.</text>
+
+  <!-- Stack -->
+  <text x="100" y="420" font-family="monospace" font-size="24" fill="#556372">React · Node.js · PostgreSQL</text>
+
+  <!-- URL -->
+  <text x="100" y="530" font-family="monospace" font-size="20" fill="#556372">jesus.dev</text>
+</svg>
