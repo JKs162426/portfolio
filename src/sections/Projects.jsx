@@ -52,7 +52,7 @@ function Projects() {
                 ))}
               </div>
               <div className="project-links">
-                <a href={project.github} className="project-link">{t.github}</a>
+                  <a href={project.github} target="_blank" rel="noreferrer" className="project-link">{t.github}</a>
                 {project.live && (
                   <a href={project.live} className="project-link">{t.live}</a>
                 )}

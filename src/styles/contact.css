@@ -60,4 +60,22 @@
     color: var(--muted);
     letter-spacing: 0.05em;
   }
+  @media (max-width: 768px) {
+    .contact {
+      padding: 4rem 1.5rem;
+    }
+  
+    .contact-inner {
+      padding: 2.5rem 1.5rem;
+    }
+  
+    .contact-title {
+      font-size: 1.8rem;
+    }
+  
+    .contact-links {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
   
