@@ -7,6 +7,7 @@ const content = {
         desc: 'Computer Science student at BYU-Idaho. I build fullstack web applications from the database up to the UI — clean APIs, solid data models, and interfaces people actually want to use.',
         cta1: 'View Projects →',
         cta2: 'Get in touch',
+        cta3: 'Download CV ↓',
       },
       about: {
         label: '01 // about',
@@ -47,6 +48,7 @@ const content = {
         desc: 'Estudiante de Ciencias de la Computación en BYU-Idaho. Construyo aplicaciones web fullstack desde la base de datos hasta la interfaz — APIs limpias, modelos de datos sólidos e interfaces que la gente realmente quiere usar.',
         cta1: 'Ver Proyectos →',
         cta2: 'Contáctame',
+        cta3: 'Descargar CV ↓',
       },
       about: {
         label: '01 // sobre mí',

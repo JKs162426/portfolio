@@ -37,6 +37,7 @@ function Hero() {
         <div className="hero-cta">
           <a href="#projects" className="btn-primary">{t.cta1}</a>
           <a href="#contact" className="btn-outline">{t.cta2}</a>
+          <a href="/cv.pdf" download className='btn-outline'>{t.cta3}</a>
         </div>
       </div>
     </section>
