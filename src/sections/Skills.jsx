@@ -18,6 +18,7 @@ const skills = [
   { name: "JWT", color: "accent" },
   { name: "TypeScript", color: "accent" },
   { name: "Next.js", color: "accent" },
+  { name: "AI-Assisted Dev", color: "accent" },
 ];
 
 function Skills() {
