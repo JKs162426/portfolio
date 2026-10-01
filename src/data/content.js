@@ -1,6 +1,6 @@
 const content = {
   en: {
-    nav: ["about", "skills", "projects", "contact"],
+    nav: ["about", "skills", "projects", "contact", "lab"],
     hero: {
       tag: "Fullstack Developer",
       role: "React · Node.js · PostgreSQL — Building things that work.",
@@ -39,9 +39,29 @@ const content = {
       left: "© 2026",
       right: "Built with React · No templates.",
     },
+    todo: {
+      label: "lab // todo",
+      title: "Loop",
+      sub: "A small task manager — useReducer + localStorage.",
+      placeholder: "What needs to be done?",
+      add: "Add",
+      toggleAll: "Toggle all tasks",
+      edit: "Edit",
+      delete: "Delete",
+      editHint: "Double-click to edit",
+      filters: { all: "All", active: "Active", completed: "Done" },
+      left: (n) => `${n} ${n === 1 ? "task" : "tasks"} left`,
+      clear: "Clear completed",
+      empty: {
+        all: "No tasks yet. Add your first one above.",
+        active: "Nothing pending. Nice work.",
+        completed: "No completed tasks yet.",
+      },
+      loading: "Loading...",
+    },
   },
   es: {
-    nav: ["sobre mí", "habilidades", "proyectos", "contacto"],
+    nav: ["sobre mí", "habilidades", "proyectos", "contacto", "lab"],
     hero: {
       tag: "Desarrollador Fullstack",
       role: "React · Node.js · PostgreSQL — Construyendo cosas que funcionan.",
@@ -84,6 +104,26 @@ const content = {
     footer: {
       left: "© 2026",
       right: "Hecho con React · Sin plantillas.",
+    },
+    todo: {
+      label: "lab // todo",
+      title: "Loop",
+      sub: "Un pequeño gestor de tareas — useReducer + localStorage.",
+      placeholder: "¿Qué necesitas hacer?",
+      add: "Agregar",
+      toggleAll: "Marcar todas las tareas",
+      edit: "Editar",
+      delete: "Eliminar",
+      editHint: "Doble clic para editar",
+      filters: { all: "Todas", active: "Pendientes", completed: "Hechas" },
+      left: (n) => `${n} ${n === 1 ? "tarea pendiente" : "tareas pendientes"}`,
+      clear: "Borrar completadas",
+      empty: {
+        all: "No hay tareas todavía. Agrega la primera arriba.",
+        active: "Nada pendiente. Buen trabajo.",
+        completed: "Aún no hay tareas completadas.",
+      },
+      loading: "Cargando...",
     },
   },
 };

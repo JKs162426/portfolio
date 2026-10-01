@@ -1,37 +1,44 @@
-import { useState } from 'react'
-import '../styles/navbar.css'
-import { useLang } from '../context/LanguageContext'
-import content from '../data/content'
+import { useState } from "react";
+import "../styles/navbar.css";
+import { useLang } from "../context/LanguageContext";
+import content from "../data/content";
+import { Link } from "react-router-dom";
+
+// Mismo orden que content[lang].nav
+const NAV_PATHS = ["/#about", "/#skills", "/#projects", "/#contact", "/lab/todo"];
 
 function Navbar() {
-  const { lang, toggleLang } = useLang()
-  const t = content[lang].nav
-  const [menuOpen, setMenuOpen] = useState(false)
+  const { lang, toggleLang } = useLang();
+  const t = content[lang].nav;
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  const toggleMenu = () => setMenuOpen(prev => !prev)
-  const closeMenu = () => setMenuOpen(false)
+  const toggleMenu = () => setMenuOpen((prev) => !prev);
+  const closeMenu = () => setMenuOpen(false);
 
   return (
     <nav className="nav">
-      <div className="nav-logo">
+      <Link to="/" className="nav-logo" onClick={closeMenu}>
         jesus<span>.dev</span>
-      </div>
-      <ul className={`nav-links ${menuOpen ? 'open' : ''}`}>
-        <li><a href="#about" onClick={closeMenu}>// {t[0]}</a></li>
-        <li><a href="#skills" onClick={closeMenu}>// {t[1]}</a></li>
-        <li><a href="#projects" onClick={closeMenu}>// {t[2]}</a></li>
-        <li><a href="#contact" onClick={closeMenu}>// {t[3]}</a></li>
+      </Link>
+      <ul className={`nav-links ${menuOpen ? "open" : ""}`}>
+        {NAV_PATHS.map((path, i) => (
+          <li key={path}>
+            <Link to={path} onClick={closeMenu}>
+              // {t[i]}
+            </Link>
+          </li>
+        ))}
       </ul>
       <div className="nav-right">
         <button className="lang-btn" onClick={toggleLang}>
-          {lang === 'en' ? 'ES' : 'EN'}
+          {lang === "en" ? "ES" : "EN"}
         </button>
         <button className="hamburger" onClick={toggleMenu}>
-          {menuOpen ? '✕' : '☰'}
+          {menuOpen ? "✕" : "☰"}
         </button>
       </div>
     </nav>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;

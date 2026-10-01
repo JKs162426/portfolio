@@ -1,23 +1,41 @@
-import Navbar from "./components/Navbar"
-import Hero from "./sections/Hero"
-import About from "./sections/About"
-import Skills from "./sections/Skills"
-import Projects from "./sections/Projects"
-import Contact from "./sections/Contact"
-import Footer from "./components/Footer"
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { lazy, Suspense } from "react";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import HomePage from "./HomePage";
+import ScrollToHash from "./components/ScrollToHash";
+import { useLang } from "./context/LanguageContext";
+import content from "./data/content";
+
+const TodoApp = lazy(() => import("./pages/lab/todo/TodoApp"));
 
 function App() {
+  const { lang } = useLang();
+
   return (
-    <div>
+    <BrowserRouter>
       <Navbar />
-      <Hero />
-      <About />
-      <Skills />
-      <Projects />
-      <Contact />
+      <ScrollToHash />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/lab/todo"
+          element={
+            <Suspense
+              fallback={
+                <div style={{ minHeight: "100vh", paddingTop: "8rem", textAlign: "center" }}>
+                  {content[lang].todo.loading}
+                </div>
+              }
+            >
+              <TodoApp />
+            </Suspense>
+          }
+        />
+      </Routes>
       <Footer />
-    </div>
-  )
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
