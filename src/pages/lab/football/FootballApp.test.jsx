@@ -1,11 +1,15 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { act, cleanup, render, screen, within } from "@testing-library/react";
+import { act, cleanup, configure, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { LanguageProvider } from "../../../context/LanguageContext";
 import FootballApp from "./FootballApp";
 import { rawMatches, rawStandings } from "./fixtures.test-data";
+
+// Margen para máquinas lentas o en frío: la búsqueda espera un debounce de
+// 300 ms y el límite por defecto de findBy* (1 s) se quedaba justo
+configure({ asyncUtilTimeout: 3000 });
 
 const json = (body, status = 200) =>
   Promise.resolve(new Response(JSON.stringify(body), { status }));
