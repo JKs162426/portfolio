@@ -1,17 +1,22 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 
 function ScrollToHash() {
   const { pathname, hash, key } = useLocation();
+  const previousPath = useRef(pathname);
 
   useEffect(() => {
-    // Sin hash (p. ej. al entrar a /lab/todo) volvemos arriba
-    if (!hash) {
-      window.scrollTo(0, 0);
+    const pathChanged = previousPath.current !== pathname;
+    previousPath.current = pathname;
+
+    if (hash) {
+      const el = document.querySelector(hash);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
       return;
     }
-    const el = document.querySelector(hash);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    // Solo al cambiar de página: los cambios de ?query (filtros del lab)
+    // no deben mandar al usuario arriba
+    if (pathChanged) window.scrollTo(0, 0);
   }, [pathname, hash, key]);
 
   return null;

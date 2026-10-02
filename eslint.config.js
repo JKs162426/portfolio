@@ -18,4 +18,11 @@ export default defineConfig([
       parserOptions: { ecmaFeatures: { jsx: true } },
     },
   },
+  {
+    // Código que corre en Node: funciones de Vercel, config de Vite y tests
+    files: ['api/**/*.js', 'vite.config.js', '**/*.test.{js,jsx}'],
+    languageOptions: {
+      globals: { ...globals.node, ...globals.browser },
+    },
+  },
 ])

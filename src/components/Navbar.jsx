@@ -5,7 +5,7 @@ import content from "../data/content";
 import { Link } from "react-router-dom";
 
 // Mismo orden que content[lang].nav
-const NAV_PATHS = ["/#about", "/#skills", "/#projects", "/#contact", "/lab/todo"];
+const NAV_PATHS = ["/#about", "/#skills", "/#projects", "/#contact", "/lab"];
 
 function Navbar() {
   const { lang, toggleLang } = useLang();
