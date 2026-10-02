@@ -4,6 +4,8 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import HomePage from "./HomePage";
 import ScrollToHash from "./components/ScrollToHash";
+import RouteErrorBoundary from "./components/RouteErrorBoundary";
+import NotFound from "./components/NotFound";
 import { useLang } from "./context/useLang";
 import content from "./data/content";
 
@@ -19,20 +21,23 @@ function App() {
     <BrowserRouter>
       <Navbar />
       <ScrollToHash />
-      <Suspense
-        fallback={
-          <div style={{ minHeight: "100vh", paddingTop: "8rem", textAlign: "center" }}>
-            {content[lang].loading}
-          </div>
-        }
-      >
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/lab" element={<LabIndex />} />
-          <Route path="/lab/todo" element={<TodoApp />} />
-          <Route path="/lab/football" element={<FootballApp />} />
-        </Routes>
-      </Suspense>
+      <RouteErrorBoundary>
+        <Suspense
+          fallback={
+            <div style={{ minHeight: "100vh", paddingTop: "8rem", textAlign: "center" }}>
+              {content[lang].loading}
+            </div>
+          }
+        >
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/lab" element={<LabIndex />} />
+            <Route path="/lab/todo" element={<TodoApp />} />
+            <Route path="/lab/football" element={<FootballApp />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
+      </RouteErrorBoundary>
       <Footer />
     </BrowserRouter>
   );

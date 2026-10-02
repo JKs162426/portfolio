@@ -2,6 +2,20 @@ const content = {
   en: {
     nav: ["about", "skills", "projects", "contact", "lab"],
     loading: "Loading...",
+    notFound: {
+      title: "Page not found",
+      text: "This page doesn't exist or was moved. Let's get you back on track.",
+      home: "← Home",
+      lab: "Go to the Lab",
+    },
+    routeError: {
+      title: "Something broke",
+      text: "An unexpected error stopped this page from loading.",
+      updateTitle: "There's a new version",
+      updateText: "The site was updated while you had it open. Reload to get the latest version.",
+      reload: "Reload",
+      home: "← Home",
+    },
     hero: {
       tag: "Fullstack Developer",
       role: "React · Node.js · PostgreSQL — Building things that work.",
@@ -224,6 +238,20 @@ const content = {
   es: {
     nav: ["sobre mí", "habilidades", "proyectos", "contacto", "lab"],
     loading: "Cargando...",
+    notFound: {
+      title: "Página no encontrada",
+      text: "Esta página no existe o se movió. Te ayudo a volver al camino.",
+      home: "← Inicio",
+      lab: "Ir al Lab",
+    },
+    routeError: {
+      title: "Algo se rompió",
+      text: "Un error inesperado impidió cargar esta página.",
+      updateTitle: "Hay una versión nueva",
+      updateText: "La web se actualizó mientras la tenías abierta. Recarga para ver la última versión.",
+      reload: "Recargar",
+      home: "← Inicio",
+    },
     hero: {
       tag: "Desarrollador Fullstack",
       role: "React · Node.js · PostgreSQL — Construyendo cosas que funcionan.",

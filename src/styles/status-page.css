@@ -1,0 +1,69 @@
+.status-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 8rem 1.5rem 5rem;
+  text-align: center;
+}
+
+.status-code {
+  font-family: var(--mono);
+  font-size: clamp(4rem, 15vw, 7rem);
+  line-height: 1;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 40px rgba(0, 212, 255, 0.25);
+}
+
+.status-title {
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-weight: 800;
+  color: var(--heading);
+  letter-spacing: -0.02em;
+}
+
+.status-text {
+  max-width: 44ch;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.status-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.status-btn {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  padding: 0.85rem 2rem;
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.status-btn:hover {
+  transform: translateY(-2px);
+}
+
+.status-btn.primary {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.status-btn.primary:hover {
+  background: #fff;
+  border-color: #fff;
+}
