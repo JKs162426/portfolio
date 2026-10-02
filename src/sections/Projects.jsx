@@ -1,5 +1,5 @@
 import "../styles/projects.css";
-import { useLang } from "../context/LanguageContext";
+import { useLang } from "../context/useLang";
 import content from "../data/content";
 import useIntersect from "../hooks/useIntersect";
 

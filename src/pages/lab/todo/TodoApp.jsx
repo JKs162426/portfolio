@@ -4,7 +4,7 @@ import TodoInput from "./TodoInput";
 import TodoList from "./TodoList";
 import TodoFooter from "./TodoFooter";
 import { readStorage, writeStorage } from "../../../hooks/useLocalStorage";
-import { useLang } from "../../../context/LanguageContext";
+import { useLang } from "../../../context/useLang";
 import content from "../../../data/content";
 import "../../../styles/todo.css";
 

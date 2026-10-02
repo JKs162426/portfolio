@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import HomePage from "./HomePage";
 import ScrollToHash from "./components/ScrollToHash";
-import { useLang } from "./context/LanguageContext";
+import { useLang } from "./context/useLang";
 import content from "./data/content";
 
 const TodoApp = lazy(() => import("./pages/lab/todo/TodoApp"));

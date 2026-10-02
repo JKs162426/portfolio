@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import '../styles/hero.css'
-import { useLang } from '../context/LanguageContext'
+import { useLang } from '../context/useLang'
 import content from '../data/content'
 
 function Hero() {

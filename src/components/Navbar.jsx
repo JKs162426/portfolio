@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "../styles/navbar.css";
-import { useLang } from "../context/LanguageContext";
+import { useLang } from "../context/useLang";
 import content from "../data/content";
 import { Link } from "react-router-dom";
 

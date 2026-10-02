@@ -1,19 +1,24 @@
-import { createContext, useContext, useState } from 'react'
+import { useEffect } from 'react'
+import { LanguageContext } from './useLang'
+import { useLocalStorage } from '../hooks/useLocalStorage'
 
-const LanguageContext = createContext()
+const LANGS = ['en', 'es']
 
 export function LanguageProvider({ children }) {
-  const [lang, setLang] = useState('en')
+  // Se recuerda entre visitas; un valor guardado inválido vuelve a inglés
+  const [stored, setLang] = useLocalStorage('lang', 'en')
+  const lang = LANGS.includes(stored) ? stored : 'en'
 
-  const toggleLang = () => setLang(prev => prev === 'en' ? 'es' : 'en')
+  const toggleLang = () => setLang(lang === 'en' ? 'es' : 'en')
+
+  // Lectores de pantalla y buscadores usan el atributo lang del documento
+  useEffect(() => {
+    document.documentElement.lang = lang
+  }, [lang])
 
   return (
     <LanguageContext.Provider value={{ lang, toggleLang }}>
       {children}
     </LanguageContext.Provider>
   )
-}
-
-export function useLang() {
-  return useContext(LanguageContext)
 }
