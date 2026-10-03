@@ -18,7 +18,7 @@ function Navbar() {
   return (
     <nav className="nav">
       <Link to="/" className="nav-logo" onClick={closeMenu}>
-        jesus<span>.dev</span>
+        jfigueroa<span>.dev</span>
       </Link>
       <ul className={`nav-links ${menuOpen ? "open" : ""}`}>
         {NAV_PATHS.map((path, i) => (
