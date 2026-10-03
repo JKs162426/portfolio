@@ -1,8 +1,27 @@
-# Matchday — Premier League (lab)
+# Matchday — las 5 grandes ligas europeas (lab)
 
-Mini app del portafolio para consultar la Premier League: clasificación,
-partidos por equipo y mes, partidos por día y detalle de cada partido.
-Ruta: **`/lab/football`**. Bilingüe ES/EN (usa el idioma del portafolio).
+Mini app del portafolio para consultar la **Premier League, LaLiga, Serie A,
+Bundesliga y Ligue 1**: clasificación, partidos por equipo y mes, partidos por
+día y detalle de cada partido.
+Ruta: **`/lab/football`** (`?league=PD` para LaLiga, etc.). Bilingüe ES/EN.
+
+## Ligas
+
+| Código | Liga | Zonas marcadas en la tabla |
+|---|---|---|
+| `PL` | Premier League | Champions 1–4 · descenso 18–20 |
+| `PD` | LaLiga | Champions 1–4 · descenso 18–20 |
+| `SA` | Serie A | Champions 1–4 · descenso 18–20 |
+| `BL1` | Bundesliga (18) | Champions 1–4 · promoción 16 · descenso 17–18 |
+| `FL1` | Ligue 1 (18) | Champions 1–3 · promoción 16 · descenso 17–18 |
+
+Las zonas son orientativas (los cupos cambian según la temporada) y están en
+`leagues.js`. **Para añadir una liga:** agrégala en `leagues.js` y su código en
+`LEAGUE_CODES` de `api/_lib/footballProxy.js`.
+
+**Liga FUTVE (Venezuela): no disponible.** football-data.org no la ofrece en
+ningún plan; de Sudamérica solo tiene el Brasileirão (`BSA`) y la Copa
+Libertadores. Requeriría otro proveedor (p. ej. API-Football).
 
 ## Puesta en marcha
 
@@ -33,8 +52,9 @@ blanca de rutas para no convertirse en un proxy abierto.
 
 ### Estrategia de datos (límite: 10 peticiones/min en el plan gratuito)
 
-- Al entrar se hacen **2 peticiones**: clasificación y todos los partidos de
-  la temporada. Las vistas (por equipo, por día, filtros, búsqueda) filtran
+- Al entrar en una liga se hacen **2 peticiones**: clasificación y todos los
+  partidos de la temporada. Recorrer las cinco ligas cuesta 10 (justo el límite
+  por minuto); volver a una liga ya vista sale de la caché. Las vistas (por equipo, por día, filtros, búsqueda) filtran
   en el cliente, sin más peticiones.
 - El detalle de un partido hace 1 petición al abrirlo.
 - **Caché en `localStorage`** con marca de tiempo (`football:v1:*`):
@@ -48,7 +68,8 @@ blanca de rutas para no convertirse en un proxy abierto.
 ### Estado y navegación
 
 Vista, equipo, mes, fecha, estado, página y partido abierto viven en la URL
-(`?view=team&team=57&month=2026-10&match=123`). Así:
+(`?league=PD&view=team&team=81&month=2026-10&match=123`). Al cambiar de liga se
+descartan el equipo, la fecha y el partido abiertos (los ids son de otra liga). Así:
 - “Atrás” vuelve a la vista anterior y cierra el modal.
 - El detalle es un modal: la lista de debajo no se desmonta, no se pierde el scroll.
 - Cualquier vista se puede compartir por enlace.
@@ -67,7 +88,9 @@ src/hooks/
   useDocumentTitle.js
 src/pages/lab/football/
   FootballApp.jsx             componente principal: URL ↔ estado, pestañas, modal
-  FootballProvider.jsx        contexto con clasificación + partidos (evita prop drilling)
+  FootballProvider.jsx        contexto con clasificación + partidos de la liga activa
+  leagues.js                  ligas disponibles, escudos, ejemplos de búsqueda y zonas
+  LeagueSelect.jsx            selector de liga
   footballContext.js          createContext + useFootball()
   api.js                      cliente: recursos, caché, errores tipados
   normalize.js                respuestas de la API → forma estable
@@ -111,5 +134,6 @@ npm test
 
 ## Ideas para v2 (fuera del alcance actual)
 
-Más ligas (el proxy y `RESOURCES` ya están parametrizados por ruta), temporadas
-anteriores, goleadores (`/competitions/PL/scorers`), pronósticos.
+Más ligas (Eredivisie, Primeira Liga, Brasileirão ya están en el plan gratuito),
+Liga FUTVE con otro proveedor, temporadas anteriores, goleadores
+(`/competitions/{code}/scorers`), pronósticos.

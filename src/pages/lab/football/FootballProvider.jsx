@@ -3,7 +3,8 @@ import { useLang } from "../../../context/useLang";
 import content from "../../../data/content";
 import { useFootballData } from "../../../hooks/useFootballData";
 import { useLivePolling } from "../../../hooks/useLivePolling";
-import { RESOURCES } from "./api";
+import { getLeagueResources } from "./api";
+import { getLeague } from "./leagues";
 import { statusGroup } from "./utils";
 import { FootballContext } from "./footballContext";
 
@@ -19,12 +20,14 @@ function teamsFromMatches(matches) {
 }
 
 // Carga una sola vez la clasificación y todos los partidos de la temporada
-// (2 peticiones). Las vistas filtran en el cliente, lo que respeta el
-// límite de 10 peticiones/minuto del plan gratuito.
-export function FootballProvider({ children }) {
+// de una liga (2 peticiones). Las vistas filtran en el cliente, lo que
+// respeta el límite de 10 peticiones/minuto del plan gratuito.
+// Se monta con key={league}: cambiar de liga reinicia todo su estado.
+export function FootballProvider({ league: code, children }) {
   const { lang } = useLang();
-  const standings = useFootballData(RESOURCES.standings);
-  const matches = useFootballData(RESOURCES.matches);
+  const resources = getLeagueResources(code);
+  const standings = useFootballData(resources.standings);
+  const matches = useFootballData(resources.matches);
 
   // Con partidos en vivo, los marcadores se refrescan solos cada minuto
   // (1 de las 10 peticiones/min del plan gratuito)
@@ -49,6 +52,8 @@ export function FootballProvider({ children }) {
 
     return {
       t: content[lang].football,
+      lang,
+      league: getLeague(code),
       locale: lang === "es" ? "es-ES" : "en-GB",
       standings,
       matches,
@@ -57,7 +62,7 @@ export function FootballProvider({ children }) {
       teamsById: new Map(teams.map((team) => [team.id, team])),
       matchesById: new Map(matchList.map((m) => [m.id, m])),
     };
-  }, [lang, standings, matches]);
+  }, [lang, code, standings, matches]);
 
   return <FootballContext.Provider value={value}>{children}</FootballContext.Provider>;
 }

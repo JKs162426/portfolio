@@ -8,7 +8,8 @@ export function normalizeTeam(team) {
     id: team.id,
     name: team.name ?? team.shortName ?? "—",
     shortName: team.shortName ?? team.name ?? "—",
-    tla: team.tla ?? "",
+    // Algunas siglas llegan con espacios (p. ej. Estrasburgo: "RC ")
+    tla: team.tla?.trim() ?? "",
     crest: team.crest ?? null,
   };
 }

@@ -5,7 +5,7 @@ import userEvent from "@testing-library/user-event";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { LanguageProvider } from "../../../context/LanguageContext";
 import FootballApp from "./FootballApp";
-import { rawMatches, rawStandings } from "./fixtures.test-data";
+import { rawMatches, rawStandings, rawStandingsPD } from "./fixtures.test-data";
 
 // Margen para máquinas lentas o en frío: la búsqueda espera un debounce de
 // 300 ms y el límite por defecto de findBy* (1 s) se quedaba justo
@@ -19,6 +19,8 @@ function apiMock(url) {
   const path = new URL(url, "http://localhost").searchParams.get("path");
   if (path === "competitions/PL/standings") return json(rawStandings);
   if (path === "competitions/PL/matches") return json(rawMatches);
+  if (path === "competitions/PD/standings") return json(rawStandingsPD);
+  if (path === "competitions/PD/matches") return json({ matches: [] });
   const match = rawMatches.matches.find((m) => `matches/${m.id}` === path);
   return match ? json(match) : json({ message: "not found" }, 404);
 }
@@ -113,6 +115,23 @@ describe("FootballApp", () => {
     expect(await screen.findByRole("button", { name: /Man City vs Liverpool/ })).toBeTruthy();
     await user.click(screen.getByRole("button", { name: "Next day with matches" }));
     expect(await screen.findByRole("button", { name: /Man United vs Arsenal/ })).toBeTruthy();
+  });
+
+  it("cambia de liga y descarta el equipo de la liga anterior", async () => {
+    const user = userEvent.setup();
+    renderApp("/lab/football?view=team&team=57");
+    expect(await screen.findByRole("heading", { name: "Arsenal FC" })).toBeTruthy();
+
+    await user.click(screen.getByRole("button", { name: "LaLiga" }));
+    expect(screen.getByRole("button", { name: "LaLiga" }).getAttribute("aria-pressed")).toBe("true");
+    // El Arsenal no existe en LaLiga: se pide elegir equipo
+    expect(await screen.findByText("Pick a team")).toBeTruthy();
+    expect(screen.getByRole("combobox").getAttribute("placeholder")).toContain("Barça");
+
+    await user.type(screen.getByRole("combobox"), "barca");
+    expect((await screen.findAllByRole("option"))[0].textContent).toContain("FC Barcelona");
+    await user.keyboard("{Enter}");
+    expect(await screen.findByRole("heading", { name: "FC Barcelona" })).toBeTruthy();
   });
 
   it("en el detalle, el marcador va en una sola fila", async () => {

@@ -9,7 +9,7 @@ import TeamCrest from "./TeamCrest";
  * desde el padre y es lo que dispara la búsqueda.
  */
 export default function SearchBar({ query, debouncedQuery, onQueryChange, onSelectTeam }) {
-  const { t, teams } = useFootball();
+  const { t, teams, league } = useFootball();
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(-1);
   const listId = useId();
@@ -65,7 +65,7 @@ export default function SearchBar({ query, debouncedQuery, onQueryChange, onSele
         aria-activedescendant={showList && activeIndex >= 0 ? `${listId}-${activeIndex}` : undefined}
         autoComplete="off"
         spellCheck="false"
-        placeholder={t.search.placeholder}
+        placeholder={t.search.placeholder(league.examples)}
         value={query}
         onChange={(e) => {
           onQueryChange(e.target.value);

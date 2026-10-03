@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { FootballApiError, RESOURCES, fetchResource } from "./api";
+import { FootballApiError, fetchResource, getLeagueResources } from "./api";
 import { rawStandings } from "./fixtures.test-data";
 
 function jsonResponse(body, status = 200, headers = {}) {
@@ -21,6 +21,8 @@ function memoryStorage() {
     clear: () => store.clear(),
   };
 }
+
+const RESOURCES = getLeagueResources("PL");
 
 describe("fetchResource", () => {
   let fetchMock;

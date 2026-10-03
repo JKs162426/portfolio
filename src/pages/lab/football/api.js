@@ -6,21 +6,29 @@ const ENDPOINT = "/api/football";
 const CACHE_PREFIX = "football:v1:";
 const MINUTE = 60 * 1000;
 
-// Recursos disponibles. El TTL puede depender de los datos: si hay
-// partidos en vivo, la caché caduca antes.
-export const RESOURCES = {
-  standings: {
-    path: "competitions/PL/standings",
-    ttl: () => 10 * MINUTE,
-    normalize: normalizeStandings,
-  },
-  matches: {
-    path: "competitions/PL/matches",
-    ttl: (matches) =>
-      matches.some((m) => statusGroup(m.status) === "live") ? MINUTE : 5 * MINUTE,
-    normalize: normalizeMatches,
-  },
-};
+// Recursos de una liga. El TTL puede depender de los datos: si hay
+// partidos en vivo, la caché caduca antes. Se memorizan por código para
+// que cada liga tenga siempre el mismo objeto (useFootballData lo necesita).
+const leagueResources = new Map();
+
+export function getLeagueResources(code) {
+  if (!leagueResources.has(code)) {
+    leagueResources.set(code, {
+      standings: {
+        path: `competitions/${code}/standings`,
+        ttl: () => 10 * MINUTE,
+        normalize: normalizeStandings,
+      },
+      matches: {
+        path: `competitions/${code}/matches`,
+        ttl: (matches) =>
+          matches.some((m) => statusGroup(m.status) === "live") ? MINUTE : 5 * MINUTE,
+        normalize: normalizeMatches,
+      },
+    });
+  }
+  return leagueResources.get(code);
+}
 
 export function matchResource(id) {
   return {

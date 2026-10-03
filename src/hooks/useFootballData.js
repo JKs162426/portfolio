@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { fetchResource } from "../pages/lab/football/api";
 
 /**
- * Carga un recurso de la API de fútbol (ver RESOURCES / matchResource en api.js).
+ * Carga un recurso de la API de fútbol (ver getLeagueResources / matchResource en api.js).
  * `resource` debe ser estable entre renders (constante de módulo o useMemo).
  *
  * Devuelve { status, data, error, stale, fetchedAt, retry }

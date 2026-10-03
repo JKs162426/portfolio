@@ -66,15 +66,29 @@ export function normalizeText(text) {
     .trim();
 }
 
-// Apodos habituales que la API no incluye (clave: siglas del equipo)
+// Apodos habituales que la API no incluye. Clave: id del equipo en
+// football-data.org (las siglas se repiten entre ligas: FCB = Barça y Bayern)
 const ALIASES = {
-  TOT: ["spurs"],
-  MUN: ["man utd"],
-  WOL: ["wolves"],
-  NOT: ["forest"],
-  NFO: ["forest"],
-  BHA: ["seagulls"],
-  WHU: ["hammers"],
+  // Premier League
+  73: ["spurs"],
+  66: ["man utd"],
+  76: ["wolves"],
+  351: ["forest"],
+  397: ["seagulls"],
+  563: ["hammers"],
+  // LaLiga
+  81: ["barcelona"],
+  78: ["atletico de madrid"],
+  77: ["athletic bilbao", "bilbao"],
+  // Serie A
+  108: ["inter milan"],
+  109: ["juve"],
+  // Bundesliga
+  5: ["bayern munich"],
+  18: ["gladbach"],
+  // Ligue 1
+  524: ["paris saint-germain"],
+  516: ["olympique de marseille"],
 };
 
 // Ordena por relevancia: coincidencia exacta > empieza por > palabra > contiene
@@ -84,7 +98,7 @@ export function searchTeams(teams, query, limit = 6) {
 
   const results = [];
   for (const team of teams) {
-    const fields = [team.name, team.shortName, team.tla, ...(ALIASES[team.tla] ?? [])].map(
+    const fields = [team.name, team.shortName, team.tla, ...(ALIASES[team.id] ?? [])].map(
       normalizeText
     );
     let score = -1;

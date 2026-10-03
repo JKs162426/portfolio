@@ -1,6 +1,7 @@
 import { memo, useMemo, useState } from "react";
 import { useFootball } from "./footballContext";
 import { searchTeams, sortTable } from "./utils";
+import { zoneFor } from "./leagues";
 import { DataNotice, ErrorState, Loading, EmptyState } from "./States";
 import TeamCrest from "./TeamCrest";
 
@@ -37,7 +38,7 @@ const TableRow = memo(function TableRow({ row, zone, onSelectTeam, t }) {
 });
 
 export default function LeagueTable({ query, onSelectTeam }) {
-  const { t, standings } = useFootball();
+  const { t, standings, league } = useFootball();
   const [sort, setSort] = useState({ key: "position", dir: "asc" });
 
   const table = useMemo(() => standings.data?.table ?? [], [standings.data]);
@@ -66,10 +67,9 @@ export default function LeagueTable({ query, onSelectTeam }) {
     );
   }
 
-  // Las zonas solo tienen sentido con la tabla completa en su orden oficial
-  const showZones = table.length >= 20;
-  const zoneFor = (position) =>
-    !showZones ? null : position <= 4 ? "top" : position > table.length - 3 ? "bottom" : null;
+  // Las zonas dependen de la liga y se calculan sobre la posición oficial,
+  // así siguen siendo correctas con la tabla ordenada o filtrada
+  const showZones = table.length >= 10;
 
   return (
     <div className="fb-panel">
@@ -85,7 +85,7 @@ export default function LeagueTable({ query, onSelectTeam }) {
       ) : (
         <div className="fb-table-scroll">
           <table className="fb-table">
-            <caption className="fb-sr-only">{t.table.caption}</caption>
+            <caption className="fb-sr-only">{t.table.caption(league.name)}</caption>
             <thead>
               <tr>
                 {COLUMNS.map((key) => {
@@ -119,7 +119,7 @@ export default function LeagueTable({ query, onSelectTeam }) {
                 <TableRow
                   key={row.team.id}
                   row={row}
-                  zone={zoneFor(row.position)}
+                  zone={showZones ? zoneFor(league, row.position, table.length) : null}
                   onSelectTeam={onSelectTeam}
                   t={t}
                 />
@@ -132,6 +132,7 @@ export default function LeagueTable({ query, onSelectTeam }) {
       {showZones && rows.length > 0 && (
         <ul className="fb-legend">
           <li className="fb-legend-top">{t.table.top}</li>
+          {league.zones.playoff > 0 && <li className="fb-legend-playoff">{t.table.playoff}</li>}
           <li className="fb-legend-bottom">{t.table.bottom}</li>
         </ul>
       )}

@@ -44,3 +44,16 @@ export const rawMatches = {
     { id: 6, status: "TIMED" }, // incompleto: sin fecha → se descarta
   ],
 };
+
+export const rawStandingsPD = {
+  season: { startDate: "2026-08-16", endDate: "2027-05-30", currentMatchday: 8 },
+  standings: [
+    {
+      type: "TOTAL",
+      table: [
+        { position: 1, team: { id: 81, name: "FC Barcelona", shortName: "Barça", tla: "FCB", crest: "fcb.png" }, playedGames: 8, won: 7, draw: 1, lost: 0, points: 22, goalsFor: 24, goalsAgainst: 6 },
+        { position: 2, team: { id: 86, name: "Real Madrid CF", shortName: "Real Madrid", tla: "RMA", crest: "rma.png" }, playedGames: 8, won: 6, draw: 1, lost: 1, points: 19, goalsFor: 18, goalsAgainst: 7 },
+      ],
+    },
+  ],
+};

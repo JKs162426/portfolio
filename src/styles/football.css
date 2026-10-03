@@ -73,6 +73,73 @@
   white-space: nowrap;
 }
 
+/* ---------- Selector de liga ---------- */
+
+.fb-leagues {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  /* Deja ver que hay más opciones al hacer scroll en móvil */
+  mask-image: linear-gradient(to right, #000 calc(100% - 2rem), transparent);
+  padding-bottom: 2px;
+}
+
+.fb-leagues::-webkit-scrollbar {
+  display: none;
+}
+
+.fb-league {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.45rem 0.9rem 0.45rem 0.45rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.fb-league:hover {
+  color: var(--text);
+  border-color: var(--muted);
+}
+
+.fb-league.active {
+  color: var(--heading);
+  border-color: var(--accent);
+  background: rgba(0, 212, 255, 0.06);
+}
+
+/* Fondo claro: algunos escudos son oscuros y no se verían sobre el tema */
+.fb-league-emblem {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  background: #e6edf3;
+  border-radius: 50%;
+  opacity: 0.75;
+  transition: opacity 0.2s;
+}
+
+.fb-league-emblem img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.fb-league:hover .fb-league-emblem,
+.fb-league.active .fb-league-emblem {
+  opacity: 1;
+}
+
 /* ---------- Buscador ---------- */
 
 .fb-search {
@@ -568,6 +635,10 @@
   box-shadow: inset 3px 0 0 var(--accent);
 }
 
+.fb-zone-playoff .fb-col-pos {
+  box-shadow: inset 3px 0 0 var(--fb-warn);
+}
+
 .fb-zone-bottom .fb-col-pos {
   box-shadow: inset 3px 0 0 var(--fb-live);
 }
@@ -628,6 +699,10 @@
 
 .fb-legend-top::before {
   background: var(--accent);
+}
+
+.fb-legend-playoff::before {
+  background: var(--fb-warn);
 }
 
 .fb-legend-bottom::before {

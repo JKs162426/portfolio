@@ -48,7 +48,7 @@ const content = {
         dankar:
           "E-commerce site for a handmade accessories store. Features a public catalog with category filters, direct WhatsApp ordering, and a JWT-protected admin panel. Real client, live in production.",
         matchday:
-          "Premier League standings, fixtures and results from a live API. Server-side proxy for the API key, local caching within the free plan's rate limit, debounced search, live auto-refresh and an accessible, bilingual UI.",
+          "Standings, fixtures and results from the Premier League, LaLiga, Serie A, Bundesliga and Ligue 1 via a live API. Server-side proxy for the API key, local caching within the free plan's rate limit, debounced search, live auto-refresh and an accessible, bilingual UI.",
       },
     },
     contact: {
@@ -93,19 +93,20 @@ const content = {
         },
         football: {
           title: "Matchday",
-          desc: "Premier League standings, fixtures and results from a live API, with search, filters and caching.",
+          desc: "Standings, fixtures and results from Europe's top five leagues via a live API, with search, filters and caching.",
         },
       },
     },
     football: {
       label: "lab // football",
       title: "Matchday",
-      sub: "Premier League standings, fixtures and results.",
-      docTitle: "Matchday · Premier League | Jesus Figueroa",
+      sub: "Standings, fixtures and results from Europe's top five leagues.",
+      docTitle: (league) => `Matchday · ${league} | Jesus Figueroa`,
+      leagues: { label: "League" },
       source: "Data: football-data.org",
       search: {
         label: "Search a team",
-        placeholder: "Search a team — e.g. Arsenal, Man City, LIV",
+        placeholder: (examples) => `Search a team — e.g. ${examples}`,
         clear: "Clear search",
         results: (n) => `${n} ${n === 1 ? "team" : "teams"} found`,
         noResults: (q) => `No team matches “${q}”.`,
@@ -124,7 +125,7 @@ const content = {
       },
       statusFilter: "Filter by status",
       table: {
-        caption: "Premier League standings",
+        caption: (league) => `${league} standings`,
         pos: "Pos",
         team: "Team",
         points: "Pts",
@@ -147,6 +148,7 @@ const content = {
         },
         sortBy: (col) => `Sort by ${col}`,
         top: "Champions League places",
+        playoff: "Relegation play-off",
         bottom: "Relegation",
         filtered: (n, total) => `Showing ${n} of ${total} teams`,
         empty: (q) => `No team in the table matches “${q}”.`,
@@ -171,7 +173,7 @@ const content = {
         today: "Today",
         teamFilter: "Team",
         allTeams: "All teams",
-        empty: "No Premier League matches on this day.",
+        empty: (league) => `No ${league} matches on this day.`,
         emptyHint: "Jump to the closest day with matches.",
         goNearest: "Go to next matchday →",
         emptyFiltered: "No matches match these filters.",
@@ -289,7 +291,7 @@ const content = {
         dankar:
           "Tienda online para una marca de accesorios artesanales. Catálogo público con filtros por categoría, pedidos directos por WhatsApp y panel de administración protegido con JWT. Cliente real, en producción.",
         matchday:
-          "Clasificación, calendario y resultados de la Premier League desde una API en vivo. Proxy en el servidor para la API key, caché local dentro del límite del plan gratuito, búsqueda con debounce, refresco automático en vivo e interfaz accesible y bilingüe.",
+          "Clasificación, calendario y resultados de la Premier League, LaLiga, Serie A, Bundesliga y Ligue 1 desde una API en vivo. Proxy en el servidor para la API key, caché local dentro del límite del plan gratuito, búsqueda con debounce, refresco automático en vivo e interfaz accesible y bilingüe.",
       },
     },
     contact: {
@@ -334,19 +336,20 @@ const content = {
         },
         football: {
           title: "Matchday",
-          desc: "Clasificación, calendario y resultados de la Premier League desde una API en vivo, con búsqueda, filtros y caché.",
+          desc: "Clasificación, calendario y resultados de las cinco grandes ligas europeas desde una API en vivo, con búsqueda, filtros y caché.",
         },
       },
     },
     football: {
       label: "lab // fútbol",
       title: "Matchday",
-      sub: "Clasificación, calendario y resultados de la Premier League.",
-      docTitle: "Matchday · Premier League | Jesus Figueroa",
+      sub: "Clasificación, calendario y resultados de las cinco grandes ligas europeas.",
+      docTitle: (league) => `Matchday · ${league} | Jesus Figueroa`,
+      leagues: { label: "Liga" },
       source: "Datos: football-data.org",
       search: {
         label: "Buscar un equipo",
-        placeholder: "Busca un equipo — p. ej. Arsenal, Man City, LIV",
+        placeholder: (examples) => `Busca un equipo — p. ej. ${examples}`,
         clear: "Borrar búsqueda",
         results: (n) => `${n} ${n === 1 ? "equipo encontrado" : "equipos encontrados"}`,
         noResults: (q) => `Ningún equipo coincide con “${q}”.`,
@@ -365,7 +368,7 @@ const content = {
       },
       statusFilter: "Filtrar por estado",
       table: {
-        caption: "Clasificación de la Premier League",
+        caption: (league) => `Clasificación de ${league}`,
         pos: "Pos",
         team: "Equipo",
         points: "Pts",
@@ -388,6 +391,7 @@ const content = {
         },
         sortBy: (col) => `Ordenar por ${col}`,
         top: "Puestos de Champions League",
+        playoff: "Promoción de permanencia",
         bottom: "Descenso",
         filtered: (n, total) => `Mostrando ${n} de ${total} equipos`,
         empty: (q) => `Ningún equipo de la tabla coincide con “${q}”.`,
@@ -412,7 +416,7 @@ const content = {
         today: "Hoy",
         teamFilter: "Equipo",
         allTeams: "Todos los equipos",
-        empty: "No hay partidos de la Premier League este día.",
+        empty: (league) => `No hay partidos de ${league} este día.`,
         emptyHint: "Salta al día más cercano con partidos.",
         goNearest: "Ir a la próxima jornada →",
         emptyFiltered: "Ningún partido coincide con estos filtros.",

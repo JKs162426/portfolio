@@ -7,7 +7,7 @@ import MatchList from "./MatchList";
 import StatusFilter from "./StatusFilter";
 
 export default function MatchesByDay({ date, teamId, status, page, onChange, onOpen }) {
-  const { t, locale, matches, matchList, teams } = useFootball();
+  const { t, locale, matches, matchList, teams, league } = useFootball();
   const id = useId();
 
   const dates = useMemo(() => matchDates(matchList), [matchList]);
@@ -102,7 +102,7 @@ export default function MatchesByDay({ date, teamId, status, page, onChange, onO
         <Loading rows={5} />
       ) : visible.length === 0 ? (
         onDay.length === 0 ? (
-          <EmptyState title={t.day.empty} hint={t.day.emptyHint}>
+          <EmptyState title={t.day.empty(league.name)} hint={t.day.emptyHint}>
             {(next || prev) && (
               <button type="button" className="fb-btn" onClick={() => onChange({ date: next ?? prev })}>
                 {t.day.goNearest}

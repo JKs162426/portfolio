@@ -5,6 +5,8 @@ import { useDocumentTitle } from "../../../hooks/useDocumentTitle";
 import { FootballProvider } from "./FootballProvider";
 import { useFootball } from "./footballContext";
 import { STATUS_FILTERS } from "./utils";
+import { DEFAULT_LEAGUE, isLeagueCode } from "./leagues";
+import LeagueSelect from "./LeagueSelect";
 import SearchBar from "./SearchBar";
 import LeagueTable from "./LeagueTable";
 import MatchesByTeam from "./MatchesByTeam";
@@ -15,11 +17,11 @@ import "../../../styles/football.css";
 const VIEWS = ["table", "team", "day"];
 
 // Valores por defecto que no se escriben en la URL
-const DEFAULTS = { status: "all", page: 1, view: "table" };
+const DEFAULTS = { status: "all", page: 1, view: "table", league: DEFAULT_LEAGUE };
 
 function FootballView() {
-  const { t } = useFootball();
-  useDocumentTitle(t.docTitle);
+  const { t, league } = useFootball();
+  useDocumentTitle(t.docTitle(league.name));
 
   // Vista, filtros, página y partido abierto viven en la URL: se pueden
   // compartir, y "Atrás" vuelve a la vista anterior sin perder nada
@@ -61,6 +63,12 @@ function FootballView() {
 
   const selectTeam = useCallback((id) => update({ view: "team", team: id }), [update]);
 
+  // Los ids de equipo y partido son de la liga anterior: se descartan
+  const selectLeague = useCallback(
+    (code) => update({ league: code, team: null, dayTeam: null, match: null, date: null }),
+    [update]
+  );
+
   const openMatch = useCallback(
     (id) => update({ match: id }, { keepPage: true, state: { modal: true } }),
     [update]
@@ -99,6 +107,8 @@ function FootballView() {
           {t.sub} <span className="fb-source">{t.source}</span>
         </p>
       </header>
+
+      <LeagueSelect value={league.code} onChange={selectLeague} />
 
       <SearchBar
         query={query}
@@ -145,8 +155,12 @@ function FootballView() {
 }
 
 export default function FootballApp() {
+  const [params] = useSearchParams();
+  const league = isLeagueCode(params.get("league")) ? params.get("league") : DEFAULT_LEAGUE;
+
+  // key: al cambiar de liga se reinicia el estado (datos, búsqueda, sondeo en vivo)
   return (
-    <FootballProvider>
+    <FootballProvider key={league} league={league}>
       <FootballView />
     </FootballProvider>
   );

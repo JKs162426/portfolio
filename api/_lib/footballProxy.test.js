@@ -50,7 +50,17 @@ describe("handleFootballRequest", () => {
     expect(res.headers["cache-control"]).toContain("s-maxage");
   });
 
-  it.each(["competitions/SA/matches", "teams/57", "matches/abc", "../secret", ""])(
+  it.each(["PD/standings", "SA/matches", "BL1/standings", "FL1/matches"])(
+    "acepta las cinco ligas: %s",
+    async (path) => {
+      fetchMock.mockResolvedValue(new Response("{}", { status: 200 }));
+      const res = mockResponse();
+      await handleFootballRequest(request(`/?path=competitions/${path}`), res, "secret");
+      expect(res.statusCode).toBe(200);
+    }
+  );
+
+  it.each(["competitions/CL/matches", "competitions/PL/scorers", "teams/57", "matches/abc", "../secret", ""])(
     "rechaza rutas fuera de la lista blanca: %s",
     async (path) => {
       const res = mockResponse();
