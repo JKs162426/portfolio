@@ -12,7 +12,7 @@ const projects = [
     title: "Glossia",
     tags: ["React", "Node.js", "Express", "PostgreSQL"],
     github: "https://github.com/JKs162426/glossia",
-    live: null,
+    live: "https://glossia-v2.onrender.com",
   },
   {
     id: "02",
