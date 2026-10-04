@@ -50,8 +50,8 @@ describe("handleFootballRequest", () => {
     expect(res.headers["cache-control"]).toContain("s-maxage");
   });
 
-  it.each(["PD/standings", "SA/matches", "BL1/standings", "FL1/matches"])(
-    "acepta las cinco ligas: %s",
+  it.each(["PD/standings", "SA/matches", "BL1/standings", "FL1/matches", "CL/standings", "CLI/matches"])(
+    "acepta las competiciones disponibles: %s",
     async (path) => {
       fetchMock.mockResolvedValue(new Response("{}", { status: 200 }));
       const res = mockResponse();
@@ -60,7 +60,7 @@ describe("handleFootballRequest", () => {
     }
   );
 
-  it.each(["competitions/CL/matches", "competitions/PL/scorers", "teams/57", "matches/abc", "../secret", ""])(
+  it.each(["competitions/CSA/matches", "competitions/PL/scorers", "teams/57", "matches/abc", "../secret", ""])(
     "rechaza rutas fuera de la lista blanca: %s",
     async (path) => {
       const res = mockResponse();

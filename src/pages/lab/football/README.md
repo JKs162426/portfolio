@@ -1,27 +1,46 @@
-# Matchday — las 5 grandes ligas europeas (lab)
+# Matchday — ligas y copas (lab)
 
-Mini app del portafolio para consultar la **Premier League, LaLiga, Serie A,
-Bundesliga y Ligue 1**: clasificación, partidos por equipo y mes, partidos por
-día y detalle de cada partido.
+Mini app del portafolio para consultar las **cinco grandes ligas europeas, la
+Champions League y la Copa Libertadores**: clasificación, partidos por equipo
+y mes, partidos por día y detalle de cada partido.
 Ruta: **`/lab/football`** (`?league=PD` para LaLiga, etc.). Bilingüe ES/EN.
 
-## Ligas
+## Competiciones
 
-| Código | Liga | Zonas marcadas en la tabla |
-|---|---|---|
-| `PL` | Premier League | Champions 1–4 · descenso 18–20 |
-| `PD` | LaLiga | Champions 1–4 · descenso 18–20 |
-| `SA` | Serie A | Champions 1–4 · descenso 18–20 |
-| `BL1` | Bundesliga (18) | Champions 1–4 · promoción 16 · descenso 17–18 |
-| `FL1` | Ligue 1 (18) | Champions 1–3 · promoción 16 · descenso 17–18 |
+| Código | Competición | Tabla | Zonas marcadas |
+|---|---|---|---|
+| `PL` | Premier League | API | Champions 1–4 · descenso 18–20 |
+| `PD` | LaLiga | API | Champions 1–4 · descenso 18–20 |
+| `SA` | Serie A | API | Champions 1–4 · descenso 18–20 |
+| `BL1` | Bundesliga (18) | API | Champions 1–4 · promoción 16 · descenso 17–18 |
+| `FL1` | Ligue 1 (18) | API | Champions 1–3 · promoción 16 · descenso 17–18 |
+| `CL` | Champions League | API (fase liga, 36) | Octavos 1–8 · play-offs 9–24 · eliminados 25–36 |
+| `CLI` | Copa Libertadores | **Calculada** (por grupo) | Octavos 1–2 · a la Sudamericana 3.º |
+
+En las copas, la vista de tabla muestra además la **fase eliminatoria** (ronda
+más reciente primero) y cada partido indica su fase ("Group C · Matchday 3",
+"Semi-finals"…).
 
 Las zonas son orientativas (los cupos cambian según la temporada) y están en
-`leagues.js`. **Para añadir una liga:** agrégala en `leagues.js` y su código en
-`LEAGUE_CODES` de `api/_lib/footballProxy.js`.
+`leagues.js`. **Para añadir una competición:** agrégala en `leagues.js` y su
+código en `LEAGUE_CODES` de `api/_lib/footballProxy.js`.
 
-**Liga FUTVE (Venezuela): no disponible.** football-data.org no la ofrece en
-ningún plan; de Sudamérica solo tiene el Brasileirão (`BSA`) y la Copa
-Libertadores. Requeriría otro proveedor (p. ej. API-Football).
+**No disponibles en football-data.org:** Liga FUTVE (Venezuela), Copa
+Sudamericana y amistosos internacionales FIFA. Requerirían otro proveedor
+(p. ej. API-Football).
+
+### Particularidades de los datos de copas
+
+- **Penales:** en partidos decididos por penales, `score.fullTime` de la API
+  **suma los goles de la tanda** (un 1–0 con 5–3 en penales llega como 6–3).
+  `normalizeScore` los separa y la app muestra "1–0 · 5–3 pen.". El resultado
+  (G/E/P) usa `score.winner`, que tiene en cuenta prórroga y penales.
+- **Libertadores sin clasificación:** `competitions/CLI/standings` devuelve 404.
+  Las tablas de grupo se calculan con los partidos terminados
+  (`computeGroupTables`); el desempate es aproximado (puntos, diferencia de
+  goles, goles a favor) y la app lo indica.
+- **Alias de fases:** en la Libertadores, `PLAY_OFFS` son los octavos de final
+  (`stageAliases` en `leagues.js`).
 
 ## Puesta en marcha
 
@@ -52,9 +71,10 @@ blanca de rutas para no convertirse en un proxy abierto.
 
 ### Estrategia de datos (límite: 10 peticiones/min en el plan gratuito)
 
-- Al entrar en una liga se hacen **2 peticiones**: clasificación y todos los
-  partidos de la temporada. Recorrer las cinco ligas cuesta 10 (justo el límite
-  por minuto); volver a una liga ya vista sale de la caché. Las vistas (por equipo, por día, filtros, búsqueda) filtran
+- Al entrar en una competición se hacen **2 peticiones**: clasificación y todos
+  los partidos de la temporada (1 en la Libertadores, que no tiene
+  clasificación). Volver a una competición ya vista sale de la caché; recorrer
+  todas seguidas puede tocar el límite de 10 por minuto. Las vistas (por equipo, por día, filtros, búsqueda) filtran
   en el cliente, sin más peticiones.
 - El detalle de un partido hace 1 petición al abrirlo.
 - **Caché en `localStorage`** con marca de tiempo (`football:v1:*`):
@@ -89,8 +109,8 @@ src/hooks/
 src/pages/lab/football/
   FootballApp.jsx             componente principal: URL ↔ estado, pestañas, modal
   FootballProvider.jsx        contexto con clasificación + partidos de la liga activa
-  leagues.js                  ligas disponibles, escudos, ejemplos de búsqueda y zonas
-  LeagueSelect.jsx            selector de liga
+  leagues.js                  competiciones, escudos, ejemplos de búsqueda, zonas y alias de fases
+  LeagueSelect.jsx            selector de competición
   footballContext.js          createContext + useFootball()
   api.js                      cliente: recursos, caché, errores tipados
   normalize.js                respuestas de la API → forma estable
@@ -130,10 +150,13 @@ npm test
 - `api.test.js`: caché, caducidad, peticiones compartidas, datos viejos ante fallo, errores.
 - `FootballApp.test.jsx`: flujos en jsdom — tabla por defecto, buscar → elegir equipo →
   abrir/cerrar partido, cambio de mes y filtro, vista por día, error + reintento.
+- `cups.test.js`: penales, tablas de grupo calculadas, rondas eliminatorias, fases.
+- `leagues.test.js`: zonas por competición.
 - `api/_lib/footballProxy.test.js`: lista blanca, key ausente, 429, caída de la API.
 
 ## Ideas para v2 (fuera del alcance actual)
 
-Más ligas (Eredivisie, Primeira Liga, Brasileirão ya están en el plan gratuito),
-Liga FUTVE con otro proveedor, temporadas anteriores, goleadores
+Más competiciones (Eredivisie, Primeira Liga, Brasileirão, Championship ya
+están en el plan gratuito), Liga FUTVE / Sudamericana con otro proveedor,
+global de eliminatorias a doble partido, temporadas anteriores, goleadores
 (`/competitions/{code}/scorers`), pronósticos.

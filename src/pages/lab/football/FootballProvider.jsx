@@ -25,8 +25,10 @@ function teamsFromMatches(matches) {
 // Se monta con key={league}: cambiar de liga reinicia todo su estado.
 export function FootballProvider({ league: code, children }) {
   const { lang } = useLang();
+  const league = getLeague(code);
   const resources = getLeagueResources(code);
-  const standings = useFootballData(resources.standings);
+  // Sin clasificación en la API (Libertadores): no se pide; se calcula con los partidos
+  const standings = useFootballData(league.standings === false ? null : resources.standings);
   const matches = useFootballData(resources.matches);
 
   // Con partidos en vivo, los marcadores se refrescan solos cada minuto
@@ -44,16 +46,16 @@ export function FootballProvider({ league: code, children }) {
 
   const value = useMemo(() => {
     const matchList = matches.data ?? [];
-    const teams = standings.data?.table.length
-      ? standings.data.table
-          .map((row) => row.team)
-          .sort((a, b) => a.name.localeCompare(b.name))
+    // En copas con grupos, los equipos están repartidos en varias tablas
+    const standingTeams = (standings.data?.groups ?? []).flatMap((g) => g.table.map((row) => row.team));
+    const teams = standingTeams.length
+      ? standingTeams.sort((a, b) => a.name.localeCompare(b.name))
       : teamsFromMatches(matchList);
 
     return {
       t: content[lang].football,
       lang,
-      league: getLeague(code),
+      league,
       locale: lang === "es" ? "es-ES" : "en-GB",
       standings,
       matches,
@@ -62,7 +64,7 @@ export function FootballProvider({ league: code, children }) {
       teamsById: new Map(teams.map((team) => [team.id, team])),
       matchesById: new Map(matchList.map((m) => [m.id, m])),
     };
-  }, [lang, code, standings, matches]);
+  }, [lang, league, standings, matches]);
 
   return <FootballContext.Provider value={value}>{children}</FootballContext.Provider>;
 }

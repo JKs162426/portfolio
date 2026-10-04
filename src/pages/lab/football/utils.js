@@ -183,3 +183,98 @@ export function sortTable(rows, key, direction) {
     return factor * diff || a.position - b.position;
   });
 }
+
+// ---------- Copas: fases, grupos y eliminatorias ----------
+
+const TABLE_STAGES = new Set(["REGULAR_SEASON", "LEAGUE_STAGE", "GROUP_STAGE"]);
+const QUALIFYING_STAGE = /^(ROUND_\d+|QUALIFICATION|PRELIMINARY)/;
+
+export function isKnockoutStage(stage) {
+  return Boolean(stage) && !TABLE_STAGES.has(stage) && !QUALIFYING_STAGE.test(stage);
+}
+
+// Rondas eliminatorias en orden cronológico: [{ stage, matches }]
+export function knockoutRounds(matches) {
+  const rounds = new Map();
+  for (const m of matches) {
+    if (!isKnockoutStage(m.stage)) continue;
+    if (!rounds.has(m.stage)) rounds.set(m.stage, []);
+    rounds.get(m.stage).push(m);
+  }
+  return [...rounds.entries()]
+    .map(([stage, list]) => ({
+      stage,
+      matches: list.sort((a, b) => new Date(a.utcDate) - new Date(b.utcDate)),
+    }))
+    .sort((a, b) => new Date(a.matches[0].utcDate) - new Date(b.matches[0].utcDate));
+}
+
+// Clasificación de cada grupo calculada con los partidos terminados.
+// Se usa cuando la API no da standings (Copa Libertadores). Desempate
+// aproximado: puntos, diferencia de goles, goles a favor.
+export function computeGroupTables(matches, stage = "GROUP_STAGE") {
+  const groups = new Map();
+
+  const rowFor = (group, team) => {
+    if (!groups.has(group)) groups.set(group, new Map());
+    const rows = groups.get(group);
+    if (!rows.has(team.id)) {
+      rows.set(team.id, { team, points: 0, played: 0, won: 0, draw: 0, lost: 0, goalsFor: 0, goalsAgainst: 0 });
+    }
+    return rows.get(team.id);
+  };
+
+  const tally = (row, scored, conceded) => {
+    row.played += 1;
+    row.goalsFor += scored;
+    row.goalsAgainst += conceded;
+    if (scored > conceded) {
+      row.won += 1;
+      row.points += 3;
+    } else if (scored === conceded) {
+      row.draw += 1;
+      row.points += 1;
+    } else {
+      row.lost += 1;
+    }
+  };
+
+  for (const m of matches) {
+    if (m.stage !== stage || !m.group || !m.homeTeam || !m.awayTeam) continue;
+    const home = rowFor(m.group, m.homeTeam);
+    const away = rowFor(m.group, m.awayTeam);
+    if (statusGroup(m.status) !== "finished" || m.score.home == null) continue;
+    tally(home, m.score.home, m.score.away);
+    tally(away, m.score.away, m.score.home);
+  }
+
+  return [...groups.entries()]
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([name, rows]) => ({
+      name,
+      table: [...rows.values()]
+        .sort(
+          (a, b) =>
+            b.points - a.points ||
+            b.goalsFor - b.goalsAgainst - (a.goalsFor - a.goalsAgainst) ||
+            b.goalsFor - a.goalsFor ||
+            a.team.name.localeCompare(b.team.name)
+        )
+        .map((row, i) => ({ ...row, position: i + 1 })),
+    }));
+}
+
+// Resultado desde el punto de vista de un equipo: "won" | "draw" | "lost".
+// Usa el ganador de la API, que tiene en cuenta prórroga y penales.
+export function resultFor(match, teamId) {
+  if (!teamId || statusGroup(match.status) !== "finished") return null;
+  const { winner, home, away } = match.score;
+  if (winner === "DRAW") return "draw";
+  if (winner === "HOME_TEAM" || winner === "AWAY_TEAM") {
+    const isHome = match.homeTeam?.id === teamId;
+    return (winner === "HOME_TEAM") === isHome ? "won" : "lost";
+  }
+  if (home == null) return null;
+  if (home === away) return "draw";
+  return (home > away) === (match.homeTeam?.id === teamId) ? "won" : "lost";
+}

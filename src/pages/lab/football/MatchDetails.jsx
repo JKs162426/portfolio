@@ -2,7 +2,7 @@ import { useEffect, useId, useMemo, useRef } from "react";
 import { useFootball } from "./footballContext";
 import { useFootballData } from "../../../hooks/useFootballData";
 import { matchResource } from "./api";
-import { formatLongDate, formatTime } from "./format";
+import { formatLongDate, formatTime, matchContext, scoreNote } from "./format";
 import { statusGroup } from "./utils";
 import { StatusBadge } from "./MatchCard";
 import { ErrorState, SkeletonList } from "./States";
@@ -147,7 +147,7 @@ function Statistics({ match, t }) {
 }
 
 export default function MatchDetails({ matchId, onClose }) {
-  const { t, locale, matchesById } = useFootball();
+  const { t, locale, matchesById, league } = useFootball();
   const dialogRef = useRef(null);
   const titleId = useId();
   useModalBehaviour(dialogRef, onClose);
@@ -197,7 +197,7 @@ export default function MatchDetails({ matchId, onClose }) {
               <StatusBadge match={match} />
               <p className="fb-detail-muted">
                 {formatLongDate(match.utcDate, locale)} · {formatTime(match.utcDate, locale)}
-                {match.matchday && ` · ${t.match.matchday(match.matchday)}`}
+                {matchContext(match, t, league) && ` · ${matchContext(match, t, league)}`}
               </p>
             </div>
 
@@ -216,6 +216,9 @@ export default function MatchDetails({ matchId, onClose }) {
                   </span>
                 ) : (
                   <span className="fb-score-vs">{formatTime(match.utcDate, locale)}</span>
+                )}
+                {scoreNote(match.score, t) && (
+                  <span className="fb-halftime fb-score-extra">{scoreNote(match.score, t)}</span>
                 )}
                 {match.score.halfHome != null && (
                   <span className="fb-halftime">

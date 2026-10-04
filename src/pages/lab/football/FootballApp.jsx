@@ -140,7 +140,7 @@ function FootballView() {
       </div>
 
       <div id={`${tabsId}-panel`} role="tabpanel" aria-labelledby={`${tabsId}-${view}`}>
-        {view === "table" && <LeagueTable query={debouncedQuery} onSelectTeam={selectTeam} />}
+        {view === "table" && <LeagueTable query={debouncedQuery} onSelectTeam={selectTeam} onOpen={openMatch} />}
         {view === "team" && (
           <MatchesByTeam teamId={teamId} month={params.get("month")} {...viewProps} />
         )}

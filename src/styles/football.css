@@ -709,6 +709,76 @@
   background: var(--fb-live);
 }
 
+/* ---------- Copas: grupos y eliminatorias ---------- */
+
+.fb-tables,
+.fb-knockout {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.fb-section-title {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--accent);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.fb-section-title::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, var(--border), transparent);
+}
+
+.fb-knockout + .fb-tables {
+  margin-top: 1.5rem;
+}
+
+.fb-round {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.fb-group-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--heading);
+}
+
+.fb-group-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
+  gap: 1.25rem;
+}
+
+.fb-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.fb-score-note {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.6rem;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.fb-score-extra {
+  color: var(--accent);
+}
+
 /* ---------- Selector de equipo ---------- */
 
 .fb-team-title {

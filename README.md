@@ -10,8 +10,8 @@ Bachelor's in Software Development at BYU-Idaho.
 - **Portfolio** — about, skills, projects and contact. Bilingual (EN/ES), with
   the chosen language remembered between visits.
 - **Lab** (`/lab`) — small, self-contained apps:
-  - **Matchday** (`/lab/football`) — standings, fixtures and results from the
-    Premier League, LaLiga, Serie A, Bundesliga and Ligue 1 via
+  - **Matchday** (`/lab/football`) — standings, fixtures and results from
+    Europe's top five leagues, the Champions League and the Copa Libertadores via
     [football-data.org](https://www.football-data.org). The API key stays on the
     server behind a Vercel Function. See its
     [README](src/pages/lab/football/README.md).

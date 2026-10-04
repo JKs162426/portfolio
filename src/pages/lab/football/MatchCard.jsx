@@ -1,17 +1,8 @@
 import { memo } from "react";
 import { useFootball } from "./footballContext";
-import { formatShortDate, formatTime } from "./format";
-import { statusGroup } from "./utils";
+import { formatShortDate, formatTime, matchContext, scoreNote } from "./format";
+import { resultFor, statusGroup } from "./utils";
 import TeamCrest from "./TeamCrest";
-
-// Resultado desde el punto de vista de un equipo: "won" | "draw" | "lost"
-function resultFor(match, teamId) {
-  const { home, away } = match.score;
-  if (!teamId || statusGroup(match.status) !== "finished" || home == null) return null;
-  if (home === away) return "draw";
-  const isHome = match.homeTeam?.id === teamId;
-  return (home > away) === isHome ? "won" : "lost";
-}
 
 export function StatusBadge({ match }) {
   const { t, locale } = useFootball();
@@ -30,7 +21,9 @@ export function StatusBadge({ match }) {
 }
 
 function MatchCard({ match, onOpen, teamId, showDate = true }) {
-  const { t, locale } = useFootball();
+  const { t, locale, league } = useFootball();
+  const context = matchContext(match, t, league);
+  const note = scoreNote(match.score, t);
   const { homeTeam, awayTeam, score } = match;
   const hasScore = score.home != null && score.away != null;
   const result = resultFor(match, teamId);
@@ -49,10 +42,10 @@ function MatchCard({ match, onOpen, teamId, showDate = true }) {
           <StatusBadge match={match} />
           <span className="fb-match-date">
             {showDate && formatShortDate(match.utcDate, locale)}
-            {match.matchday && (
+            {context && (
               <>
                 {showDate && " · "}
-                {t.match.matchday(match.matchday)}
+                {context}
               </>
             )}
           </span>
@@ -72,6 +65,7 @@ function MatchCard({ match, onOpen, teamId, showDate = true }) {
                 {score.home}
                 <span className="fb-score-sep">–</span>
                 {score.away}
+                {note && <span className="fb-score-note">{note}</span>}
               </>
             ) : (
               <span className="fb-score-vs">vs</span>
