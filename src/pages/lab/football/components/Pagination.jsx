@@ -1,4 +1,4 @@
-import { useFootball } from "./footballContext";
+import { useFootball } from "../context/footballContext";
 
 export default function Pagination({ page, pageCount, onChange }) {
   const { t } = useFootball();

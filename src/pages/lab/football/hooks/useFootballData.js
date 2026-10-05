@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { fetchResource } from "../pages/lab/football/api";
+import { fetchResource } from "../lib/api";
 
 /**
  * Carga un recurso de la API de fútbol (ver getLeagueResources / matchResource en api.js).

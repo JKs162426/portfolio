@@ -1,11 +1,11 @@
 import { memo, useMemo, useState } from "react";
-import { useFootball } from "./footballContext";
-import { computeGroupTables, knockoutRounds, searchTeams, sortTable } from "./utils";
-import { zoneFor } from "./leagues";
-import { groupName, stageName } from "./format";
-import { DataNotice, ErrorState, Loading, EmptyState } from "./States";
-import MatchCard from "./MatchCard";
-import TeamCrest from "./TeamCrest";
+import { useFootball } from "../context/footballContext";
+import { computeGroupTables, knockoutRounds, searchTeams, sortTable } from "../lib/utils";
+import { zoneFor } from "../lib/leagues";
+import { groupName, stageName } from "../lib/format";
+import { DataNotice, ErrorState, Loading, EmptyState } from "../components/States";
+import MatchCard from "../components/MatchCard";
+import TeamCrest from "../components/TeamCrest";
 
 // Orden de columnas pedido: posición, equipo, puntos, PJ, G, E, P, GF, GC
 const COLUMNS = ["position", "team", "points", "played", "won", "draw", "lost", "goalsFor", "goalsAgainst"];

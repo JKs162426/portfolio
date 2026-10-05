@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { normalizeMatchDetail, normalizeMatches, normalizeStandings } from "./normalize";
-import { ARS, MCI, rawMatches, rawStandings } from "./fixtures.test-data";
+import { normalizeMatchDetail, normalizeMatches, normalizeStandings } from "../lib/normalize";
+import { ARS, MCI, rawMatches, rawStandings } from "./fixtures.test-data.js";
 
 describe("normalizeStandings", () => {
   it("usa la tabla TOTAL y renombra los campos", () => {

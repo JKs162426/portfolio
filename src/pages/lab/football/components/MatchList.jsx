@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import MatchCard from "./MatchCard";
 import Pagination from "./Pagination";
-import { paginate } from "./utils";
+import { paginate } from "../lib/utils";
 
 const PAGE_SIZE = 10;
 

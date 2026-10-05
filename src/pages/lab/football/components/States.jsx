@@ -1,5 +1,5 @@
-import { useFootball } from "./footballContext";
-import { errorMessage, formatTime } from "./format";
+import { useFootball } from "../context/footballContext";
+import { errorMessage, formatTime } from "../lib/format";
 
 export function SkeletonList({ rows = 5, variant = "card" }) {
   return (

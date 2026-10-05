@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { getLeague, isLeagueCode, zoneFor } from "./leagues";
-import { normalizeTeam } from "./normalize";
+import { getLeague, isLeagueCode, zoneFor } from "../lib/leagues";
+import { normalizeTeam } from "../lib/normalize";
 
 const kinds = (code, positions, size, key = "zones") =>
   positions.map((p) => zoneFor(getLeague(code)[key], p, size)?.kind ?? null);

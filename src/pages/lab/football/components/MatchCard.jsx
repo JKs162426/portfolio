@@ -1,7 +1,7 @@
 import { memo } from "react";
-import { useFootball } from "./footballContext";
-import { formatShortDate, formatTime, matchContext, scoreNote } from "./format";
-import { resultFor, statusGroup } from "./utils";
+import { useFootball } from "../context/footballContext";
+import { formatShortDate, formatTime, matchContext, scoreNote } from "../lib/format";
+import { resultFor, statusGroup } from "../lib/utils";
 import TeamCrest from "./TeamCrest";
 
 export function StatusBadge({ match }) {

@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useRef } from "react";
-import { useLang } from "../../../context/useLang";
-import content from "../../../data/content";
-import { useFootballData } from "../../../hooks/useFootballData";
-import { useLivePolling } from "../../../hooks/useLivePolling";
-import { getLeagueResources } from "./api";
-import { getLeague } from "./leagues";
-import { statusGroup } from "./utils";
+import { useLang } from "../../../../context/useLang";
+import content from "../../../../data/content";
+import { useFootballData } from "../hooks/useFootballData";
+import { useLivePolling } from "../../../../hooks/useLivePolling";
+import { getLeagueResources } from "../lib/api";
+import { getLeague } from "../lib/leagues";
+import { statusGroup } from "../lib/utils";
 import { FootballContext } from "./footballContext";
 
 // Si la clasificación falla, los equipos se sacan de los partidos

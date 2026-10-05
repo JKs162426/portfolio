@@ -1,6 +1,6 @@
 import { useMemo } from "react";
-import { useFootball } from "./footballContext";
-import { formatMonthKey } from "./format";
+import { useFootball } from "../context/footballContext";
+import { formatMonthKey } from "../lib/format";
 import {
   clampMonth,
   filterMatches,
@@ -8,11 +8,11 @@ import {
   seasonMonthRange,
   shiftMonth,
   toMonthKey,
-} from "./utils";
-import { DataNotice, EmptyState, ErrorState, Loading } from "./States";
-import MatchList from "./MatchList";
-import StatusFilter from "./StatusFilter";
-import TeamCrest from "./TeamCrest";
+} from "../lib/utils";
+import { DataNotice, EmptyState, ErrorState, Loading } from "../components/States";
+import MatchList from "../components/MatchList";
+import StatusFilter from "../components/StatusFilter";
+import TeamCrest from "../components/TeamCrest";
 
 function TeamPicker({ onPick }) {
   const { t, teams, standings } = useFootball();

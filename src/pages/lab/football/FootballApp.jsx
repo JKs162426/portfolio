@@ -2,17 +2,17 @@ import { useCallback, useId, useRef, useState } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useDebounce } from "../../../hooks/useDebounce";
 import { useDocumentTitle } from "../../../hooks/useDocumentTitle";
-import { FootballProvider } from "./FootballProvider";
-import { useFootball } from "./footballContext";
-import { STATUS_FILTERS } from "./utils";
-import { DEFAULT_LEAGUE, isLeagueCode } from "./leagues";
-import LeagueSelect from "./LeagueSelect";
-import SearchBar from "./SearchBar";
-import LeagueTable from "./LeagueTable";
-import MatchesByTeam from "./MatchesByTeam";
-import MatchesByDay from "./MatchesByDay";
-import MatchDetails from "./MatchDetails";
-import "../../../styles/football.css";
+import { FootballProvider } from "./context/FootballProvider";
+import { useFootball } from "./context/footballContext";
+import { STATUS_FILTERS } from "./lib/utils";
+import { DEFAULT_LEAGUE, isLeagueCode } from "./lib/leagues";
+import LeagueSelect from "./components/LeagueSelect";
+import SearchBar from "./components/SearchBar";
+import LeagueTable from "./views/LeagueTable";
+import MatchesByTeam from "./views/MatchesByTeam";
+import MatchesByDay from "./views/MatchesByDay";
+import MatchDetails from "./views/MatchDetails";
+import "./styles/football.css";
 
 const VIEWS = ["table", "team", "day"];
 

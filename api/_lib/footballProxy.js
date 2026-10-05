@@ -6,7 +6,7 @@
 const API_BASE = "https://api.football-data.org/v4";
 
 // Lista blanca: el proxy no debe servir para consultar cualquier endpoint.
-// Ligas: mantener en sincronía con src/pages/lab/football/leagues.js
+// Ligas: mantener en sincronía con src/pages/lab/football/lib/leagues.js
 const LEAGUE_CODES = ["PL", "PD", "SA", "BL1", "FL1", "CL", "CLI"];
 const ALLOWED_PATHS = [
   new RegExp(`^competitions/(${LEAGUE_CODES.join("|")})/(standings|matches)$`),

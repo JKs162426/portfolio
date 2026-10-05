@@ -22,7 +22,7 @@ más reciente primero) y cada partido indica su fase ("Group C · Matchday 3",
 "Semi-finals"…).
 
 Las zonas son orientativas (los cupos cambian según la temporada) y están en
-`leagues.js`. **Para añadir una competición:** agrégala en `leagues.js` y su
+`lib/leagues.js`. **Para añadir una competición:** agrégala en `lib/leagues.js` y su
 código en `LEAGUE_CODES` de `api/_lib/footballProxy.js`.
 
 **No disponibles en football-data.org:** Liga FUTVE (Venezuela), Copa
@@ -40,7 +40,7 @@ Sudamericana y amistosos internacionales FIFA. Requerirían otro proveedor
   (`computeGroupTables`); el desempate es aproximado (puntos, diferencia de
   goles, goles a favor) y la app lo indica.
 - **Alias de fases:** en la Libertadores, `PLAY_OFFS` son los octavos de final
-  (`stageAliases` en `leagues.js`).
+  (`stageAliases` en `lib/leagues.js`).
 
 ## Puesta en marcha
 
@@ -100,31 +100,49 @@ La búsqueda es estado local (con debounce de 300 ms) y no ensucia el historial.
 
 ```
 api/
-  football.js                 función serverless de Vercel
-  _lib/footballProxy.js       proxy compartido (Vercel + Vite)
-src/hooks/
-  useFootballData.js          carga un recurso: status, data, error, stale, retry
-  useDebounce.js
-  useDocumentTitle.js
+  football.js                   función serverless de Vercel
+  _lib/footballProxy.js         proxy compartido (Vercel + Vite)
+
 src/pages/lab/football/
-  FootballApp.jsx             componente principal: URL ↔ estado, pestañas, modal
-  FootballProvider.jsx        contexto con clasificación + partidos de la liga activa
-  leagues.js                  competiciones, escudos, ejemplos de búsqueda, zonas y alias de fases
-  LeagueSelect.jsx            selector de competición
-  footballContext.js          createContext + useFootball()
-  api.js                      cliente: recursos, caché, errores tipados
-  normalize.js                respuestas de la API → forma estable
-  utils.js                    búsqueda, filtros, fechas, paginación, orden (funciones puras)
-  format.js                   fechas y mensajes de error traducidos
-  SearchBar.jsx               combobox accesible con sugerencias
-  LeagueTable.jsx             clasificación ordenable, filtrable por la búsqueda
-  MatchesByTeam.jsx           partidos de un equipo por mes (o temporada completa)
-  MatchesByDay.jsx            partidos de un día + filtro de equipo y estado
-  MatchDetails.jsx            modal de detalle (marcador, goles, alineaciones, stats)
-  MatchList.jsx / MatchCard.jsx / Pagination.jsx / StatusFilter.jsx / TeamCrest.jsx
-  States.jsx                  skeletons, error con reintento, vacío, aviso de datos
-src/styles/football.css       estilos (variables globales del portafolio, prefijo fb-)
+  FootballApp.jsx               punto de entrada: URL ↔ estado, pestañas, modal
+  README.md
+
+  views/                        lo que muestra cada pestaña
+    LeagueTable.jsx             clasificación, grupos y fase eliminatoria
+    MatchesByTeam.jsx           partidos de un equipo por mes o temporada
+    MatchesByDay.jsx            partidos de un día + filtros
+    MatchDetails.jsx            modal de detalle (marcador, goles, alineaciones, stats)
+
+  components/                   piezas de interfaz reutilizables
+    SearchBar.jsx               combobox accesible con sugerencias
+    LeagueSelect.jsx            selector de competición
+    MatchList.jsx · MatchCard.jsx · Pagination.jsx
+    StatusFilter.jsx · TeamCrest.jsx
+    States.jsx                  skeletons, error con reintento, vacío, aviso de datos
+
+  context/                      datos compartidos (evita prop drilling)
+    FootballProvider.jsx        clasificación + partidos de la competición activa
+    footballContext.js          createContext + useFootball()
+
+  hooks/
+    useFootballData.js          carga un recurso: status, data, error, stale, retry
+
+  lib/                          lógica sin React (funciones puras y cliente HTTP)
+    api.js                      recursos, TTL, caché, errores tipados
+    normalize.js                respuestas de la API → forma estable
+    utils.js                    búsqueda, filtros, fechas, paginación, grupos, eliminatorias
+    format.js                   fechas, fases y mensajes traducidos
+    leagues.js                  competiciones, escudos, zonas y alias de fases
+
+  styles/
+    football.css                estilos (variables globales del portafolio, prefijo fb-)
+
+  __tests__/                    pruebas (Vitest) y datos de ejemplo de la API
 ```
+
+Regla de dependencias: `views` → `components` → `context`/`hooks` → `lib`;
+ninguna carpeta importa de las que están por encima. `lib/` no usa React (solo
+los helpers `readStorage`/`writeStorage`), por eso se prueba sin navegador.
 
 Los textos están en `src/data/content.js` → `football` (ES y EN).
 
@@ -145,13 +163,13 @@ Los textos están en `src/data/content.js` → `football` (ES y EN).
 npm test
 ```
 
-- `utils.test.js`: búsqueda, filtros combinados, navegación por fechas, paginación, orden.
-- `normalize.test.js`: respuestas completas, vacías e incompletas.
-- `api.test.js`: caché, caducidad, peticiones compartidas, datos viejos ante fallo, errores.
-- `FootballApp.test.jsx`: flujos en jsdom — tabla por defecto, buscar → elegir equipo →
+- `__tests__/utils.test.js`: búsqueda, filtros combinados, navegación por fechas, paginación, orden.
+- `__tests__/normalize.test.js`: respuestas completas, vacías e incompletas.
+- `__tests__/api.test.js`: caché, caducidad, peticiones compartidas, datos viejos ante fallo, errores.
+- `__tests__/FootballApp.test.jsx`: flujos en jsdom — tabla por defecto, buscar → elegir equipo →
   abrir/cerrar partido, cambio de mes y filtro, vista por día, error + reintento.
-- `cups.test.js`: penales, tablas de grupo calculadas, rondas eliminatorias, fases.
-- `leagues.test.js`: zonas por competición.
+- `__tests__/cups.test.js`: penales, tablas de grupo calculadas, rondas eliminatorias, fases.
+- `__tests__/leagues.test.js`: zonas por competición.
 - `api/_lib/footballProxy.test.js`: lista blanca, key ausente, 429, caída de la API.
 
 ## Ideas para v2 (fuera del alcance actual)

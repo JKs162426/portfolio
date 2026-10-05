@@ -1,12 +1,12 @@
 import { useEffect, useId, useMemo, useRef } from "react";
-import { useFootball } from "./footballContext";
-import { useFootballData } from "../../../hooks/useFootballData";
-import { matchResource } from "./api";
-import { formatLongDate, formatTime, matchContext, scoreNote } from "./format";
-import { statusGroup } from "./utils";
-import { StatusBadge } from "./MatchCard";
-import { ErrorState, SkeletonList } from "./States";
-import TeamCrest from "./TeamCrest";
+import { useFootball } from "../context/footballContext";
+import { useFootballData } from "../hooks/useFootballData";
+import { matchResource } from "../lib/api";
+import { formatLongDate, formatTime, matchContext, scoreNote } from "../lib/format";
+import { statusGroup } from "../lib/utils";
+import { StatusBadge } from "../components/MatchCard";
+import { ErrorState, SkeletonList } from "../components/States";
+import TeamCrest from "../components/TeamCrest";
 
 const FOCUSABLE = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
 

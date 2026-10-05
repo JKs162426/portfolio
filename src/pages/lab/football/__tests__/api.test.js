@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { FootballApiError, fetchResource, getLeagueResources } from "./api";
-import { rawStandings } from "./fixtures.test-data";
+import { FootballApiError, fetchResource, getLeagueResources } from "../lib/api";
+import { rawStandings } from "./fixtures.test-data.js";
 
 function jsonResponse(body, status = 200, headers = {}) {
   return {

@@ -11,9 +11,9 @@ import {
   shiftMonth,
   sortTable,
   statusGroup,
-} from "./utils";
-import { normalizeMatches, normalizeStandings } from "./normalize";
-import { rawMatches, rawStandings } from "./fixtures.test-data";
+} from "../lib/utils";
+import { normalizeMatches, normalizeStandings } from "../lib/normalize";
+import { rawMatches, rawStandings } from "./fixtures.test-data.js";
 
 const matches = normalizeMatches(rawMatches);
 const { table } = normalizeStandings(rawStandings);

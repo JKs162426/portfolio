@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { normalizeMatch, normalizeScore, normalizeStandings } from "./normalize";
-import { computeGroupTables, isKnockoutStage, knockoutRounds, resultFor } from "./utils";
-import { matchContext, scoreNote } from "./format";
-import { getLeague } from "./leagues";
-import content from "../../../data/content";
+import { normalizeMatch, normalizeScore, normalizeStandings } from "../lib/normalize";
+import { computeGroupTables, isKnockoutStage, knockoutRounds, resultFor } from "../lib/utils";
+import { matchContext, scoreNote } from "../lib/format";
+import { getLeague } from "../lib/leagues";
+import content from "../../../../data/content";
 
 const t = content.en.football;
 const A = { id: 1, name: "Flamengo", shortName: "Flamengo", tla: "FLA" };

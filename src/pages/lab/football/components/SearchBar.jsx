@@ -1,6 +1,6 @@
 import { useId, useMemo, useState } from "react";
-import { useFootball } from "./footballContext";
-import { searchTeams } from "./utils";
+import { useFootball } from "../context/footballContext";
+import { searchTeams } from "../lib/utils";
 import TeamCrest from "./TeamCrest";
 
 /**

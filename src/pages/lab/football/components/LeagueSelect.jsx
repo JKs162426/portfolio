@@ -1,5 +1,5 @@
-import { useFootball } from "./footballContext";
-import { LEAGUES } from "./leagues";
+import { useFootball } from "../context/footballContext";
+import { LEAGUES } from "../lib/leagues";
 
 export default function LeagueSelect({ value, onChange }) {
   const { t, lang } = useFootball();

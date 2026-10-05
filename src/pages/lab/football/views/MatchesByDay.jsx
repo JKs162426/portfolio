@@ -1,10 +1,10 @@
 import { useId, useMemo } from "react";
-import { useFootball } from "./footballContext";
-import { formatDayKey } from "./format";
-import { filterMatches, isDateKey, matchDates, nearestMatchDate, toDateKey } from "./utils";
-import { DataNotice, EmptyState, ErrorState, Loading } from "./States";
-import MatchList from "./MatchList";
-import StatusFilter from "./StatusFilter";
+import { useFootball } from "../context/footballContext";
+import { formatDayKey } from "../lib/format";
+import { filterMatches, isDateKey, matchDates, nearestMatchDate, toDateKey } from "../lib/utils";
+import { DataNotice, EmptyState, ErrorState, Loading } from "../components/States";
+import MatchList from "../components/MatchList";
+import StatusFilter from "../components/StatusFilter";
 
 export default function MatchesByDay({ date, teamId, status, page, onChange, onOpen }) {
   const { t, locale, matches, matchList, teams, league } = useFootball();

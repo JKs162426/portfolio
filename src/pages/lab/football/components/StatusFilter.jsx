@@ -1,5 +1,5 @@
-import { useFootball } from "./footballContext";
-import { STATUS_FILTERS } from "./utils";
+import { useFootball } from "../context/footballContext";
+import { STATUS_FILTERS } from "../lib/utils";
 
 export default function StatusFilter({ value, onChange }) {
   const { t } = useFootball();
