@@ -49,6 +49,8 @@ const content = {
           "E-commerce site for a handmade accessories store. Features a public catalog with category filters, direct WhatsApp ordering, and a JWT-protected admin panel. Real client, live in production.",
         matchday:
           "Standings, fixtures and results from Europe's top five leagues, the Champions League and the Copa Libertadores via a live API. Server-side proxy for the API key, local caching within the free plan's rate limit, debounced search, live auto-refresh and an accessible, bilingual UI.",
+        accanto:
+          "Bilingual (Italian/English) reservation system for an Italian restaurant in Turin. Real-time table availability, self-service bookings and an admin panel with live table status, reports and CSV export. Transactional emails with reminders, double-booking protection and hardened security (CSRF, rate limiting, CSP).",
       },
     },
     contact: {
@@ -323,6 +325,8 @@ const content = {
           "Tienda online para una marca de accesorios artesanales. Catálogo público con filtros por categoría, pedidos directos por WhatsApp y panel de administración protegido con JWT. Cliente real, en producción.",
         matchday:
           "Clasificación, calendario y resultados de las cinco grandes ligas europeas, la Champions League y la Copa Libertadores desde una API en vivo. Proxy en el servidor para la API key, caché local dentro del límite del plan gratuito, búsqueda con debounce, refresco automático en vivo e interfaz accesible y bilingüe.",
+        accanto:
+          "Sistema de reservas bilingüe (italiano/inglés) para un restaurante italiano en Turín. Disponibilidad de mesas en tiempo real, reservas autogestionadas y panel de administración con estado de las mesas en vivo, reportes y exportación a CSV. Emails transaccionales con recordatorios, protección contra reservas duplicadas y seguridad reforzada (CSRF, límites de intentos, CSP).",
       },
     },
     contact: {

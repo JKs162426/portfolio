@@ -31,6 +31,14 @@ const projects = [
     // Ruta interna: se navega con el router, sin recargar la página
     live: "/lab/football",
   },
+  {
+    id: "04",
+    key: "accanto",
+    title: "Accanto",
+    tags: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Zod", "Tailwind CSS"],
+    github: "https://github.com/JKs162426/accanto",
+    // Sin `live` hasta desplegarlo en Vercel: la tarjeta muestra solo GitHub
+  },
 ];
 
 function Projects() {
