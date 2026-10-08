@@ -37,7 +37,7 @@ const projects = [
     title: "Accanto",
     tags: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Zod", "Tailwind CSS"],
     github: "https://github.com/JKs162426/accanto",
-    // Sin `live` hasta desplegarlo en Vercel: la tarjeta muestra solo GitHub
+    live: "https://accanto-psi.vercel.app",
   },
 ];
 
