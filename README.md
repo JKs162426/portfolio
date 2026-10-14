@@ -5,6 +5,8 @@ Bachelor's in Software Development at BYU-Idaho.
 
 **Live:** <https://jfigueroa.dev>
 
+[![jfigueroa.dev — home page](docs/screenshot.jpg)](https://jfigueroa.dev)
+
 ## What's inside
 
 - **Portfolio** — about, skills, projects and contact. Bilingual (EN/ES), with
@@ -49,6 +51,7 @@ Environment Variables*. `vercel.json` rewrites client-side routes to
 
 ```
 api/                    Vercel Functions (football-data.org proxy)
+docs/                   README screenshot
 public/                 Static assets (CV, favicon, social preview image)
 src/
   components/           Navbar, footer, 404 and error pages

@@ -44,7 +44,7 @@ const content = {
       live: "↗ Live",
       items: {
         glossia:
-          "A language learning app with React frontend, Node.js backend, and PostgreSQL database. Features include user auth, flashcards, and progress tracking.",
+          "A language learning app with React frontend, Node.js backend, and MySQL database. Features include user auth, flashcards, and progress tracking.",
         dankar:
           "E-commerce site for a handmade accessories store. Features a public catalog with category filters, direct WhatsApp ordering, and a JWT-protected admin panel. Real client, live in production.",
         matchday:
@@ -320,7 +320,7 @@ const content = {
       live: "↗ Ver en vivo",
       items: {
         glossia:
-          "App para aprender idiomas con frontend en React, backend en Node.js y base de datos PostgreSQL. Incluye autenticación, flashcards y seguimiento del progreso.",
+          "App para aprender idiomas con frontend en React, backend en Node.js y base de datos MySQL. Incluye autenticación, flashcards y seguimiento del progreso.",
         dankar:
           "Tienda online para una marca de accesorios artesanales. Catálogo público con filtros por categoría, pedidos directos por WhatsApp y panel de administración protegido con JWT. Cliente real, en producción.",
         matchday:
