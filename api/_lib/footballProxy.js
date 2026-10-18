@@ -10,15 +10,25 @@ const API_BASE = "https://api.football-data.org/v4";
 const LEAGUE_CODES = ["PL", "PD", "SA", "BL1", "FL1", "CL", "CLI"];
 const ALLOWED_PATHS = [
   new RegExp(`^competitions/(${LEAGUE_CODES.join("|")})/(standings|matches)$`),
-  /^matches\/\d+$/,
+  // Sin ceros a la izquierda: matches/0007 sería otra entrada de caché para el mismo partido
+  /^matches\/[1-9]\d{0,9}$/,
 ];
-const ALLOWED_QUERY = ["season", "matchday", "status", "dateFrom", "dateTo"];
+
+// Si la API no responde en este tiempo se corta, en vez de dejar la función
+// colgada hasta el límite de Vercel
+const UPSTREAM_TIMEOUT_MS = 8000;
 
 // Cabeceras de rate limit que el cliente usa para avisar al usuario
 const FORWARDED_HEADERS = [
   "x-requests-available-minute",
   "x-requestcounter-reset",
 ];
+
+// Caché de la CDN de Vercel, compartida entre visitantes: menos peticiones
+// contra el límite de 10/min del plan gratuito
+const CACHE_OK = "public, s-maxage=60, stale-while-revalidate=300";
+// Los 404 (partido inexistente) también se cachean para que repetirlos no gaste cuota
+const CACHE_NOT_FOUND = "public, s-maxage=3600";
 
 function sendJson(res, status, body) {
   res.statusCode = status;
@@ -32,8 +42,16 @@ export async function handleFootballRequest(req, res, apiKey) {
   }
 
   const url = new URL(req.url, "http://localhost");
-  const path = url.searchParams.get("path") ?? "";
 
+  // Exactamente un parámetro, "path". La CDN usa la URL completa como clave de
+  // caché: cualquier extra (?x=1, un segundo path…) crearía una entrada nueva y
+  // permitiría agotar la cuota de la API con un simple bucle.
+  const params = [...url.searchParams];
+  if (params.length !== 1 || params[0][0] !== "path") {
+    return sendJson(res, 400, { error: "invalid_query" });
+  }
+
+  const path = params[0][1];
   if (!ALLOWED_PATHS.some((pattern) => pattern.test(path))) {
     return sendJson(res, 400, { error: "invalid_path" });
   }
@@ -41,16 +59,16 @@ export async function handleFootballRequest(req, res, apiKey) {
     return sendJson(res, 500, { error: "missing_key" });
   }
 
-  const upstream = new URL(`${API_BASE}/${path}`);
-  for (const name of ALLOWED_QUERY) {
-    const value = url.searchParams.get(name);
-    if (value) upstream.searchParams.set(name, value);
-  }
-
   let response;
   try {
-    response = await fetch(upstream, { headers: { "X-Auth-Token": apiKey } });
-  } catch {
+    response = await fetch(`${API_BASE}/${path}`, {
+      headers: { "X-Auth-Token": apiKey },
+      signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
+    });
+  } catch (error) {
+    if (error?.name === "TimeoutError") {
+      return sendJson(res, 504, { error: "upstream_timeout" });
+    }
     return sendJson(res, 502, { error: "upstream_unreachable" });
   }
 
@@ -61,10 +79,7 @@ export async function handleFootballRequest(req, res, apiKey) {
     const value = response.headers.get(name);
     if (value) res.setHeader(name, value);
   }
-  if (response.ok) {
-    // La CDN de Vercel comparte la respuesta entre visitantes: menos peticiones
-    // contra el límite de 10/min del plan gratuito
-    res.setHeader("Cache-Control", "public, s-maxage=60, stale-while-revalidate=300");
-  }
+  if (response.ok) res.setHeader("Cache-Control", CACHE_OK);
+  else if (response.status === 404) res.setHeader("Cache-Control", CACHE_NOT_FOUND);
   res.end(body);
 }

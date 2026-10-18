@@ -29,25 +29,38 @@ describe("handleFootballRequest", () => {
 
   afterEach(() => vi.unstubAllGlobals());
 
-  it("reenvía rutas permitidas con la API key y los filtros válidos", async () => {
+  it("reenvía rutas permitidas con la API key", async () => {
     fetchMock.mockResolvedValue(
       new Response('{"ok":true}', { status: 200, headers: { "X-Requests-Available-Minute": "9" } })
     );
     const res = mockResponse();
 
-    await handleFootballRequest(
-      request("/?path=competitions/PL/matches&dateFrom=2026-10-01&evil=1"),
-      res,
-      "secret"
-    );
+    // El cliente real codifica el path: competitions%2FPL%2Fmatches
+    await handleFootballRequest(request("/?path=competitions%2FPL%2Fmatches"), res, "secret");
 
     const [url, options] = fetchMock.mock.calls[0];
-    expect(String(url)).toBe("https://api.football-data.org/v4/competitions/PL/matches?dateFrom=2026-10-01");
+    expect(String(url)).toBe("https://api.football-data.org/v4/competitions/PL/matches");
     expect(options.headers["X-Auth-Token"]).toBe("secret");
+    expect(options.signal).toBeInstanceOf(AbortSignal);
     expect(res.statusCode).toBe(200);
     expect(res.body).toBe('{"ok":true}');
     expect(res.headers["x-requests-available-minute"]).toBe("9");
-    expect(res.headers["cache-control"]).toContain("s-maxage");
+    expect(res.headers["cache-control"]).toContain("s-maxage=60");
+  });
+
+  // Cada variante sería una URL distinta para la CDN: un MISS que gasta cuota
+  it.each([
+    ["parámetro desconocido", "/?path=competitions/PL/standings&x=123"],
+    ["filtros que la app no usa", "/?path=competitions/PL/matches&dateFrom=2026-10-01"],
+    ["path repetido", "/?path=competitions/PL/standings&path=1"],
+    ["parámetro vacío", "/?path=competitions/PL/standings&="],
+    ["sin path", "/?x=1"],
+    ["sin parámetros", "/"],
+  ])("rechaza consultas que romperían la caché: %s", async (_, url) => {
+    const res = mockResponse();
+    await handleFootballRequest(request(url), res, "secret");
+    expect(res.statusCode).toBe(400);
+    expect(fetchMock).not.toHaveBeenCalled();
   });
 
   it.each(["PD/standings", "SA/matches", "BL1/standings", "FL1/matches", "CL/standings", "CLI/matches"])(
@@ -60,7 +73,7 @@ describe("handleFootballRequest", () => {
     }
   );
 
-  it.each(["competitions/CSA/matches", "competitions/PL/scorers", "teams/57", "matches/abc", "../secret", ""])(
+  it.each(["competitions/CSA/matches", "competitions/PL/scorers", "teams/57", "matches/abc", "matches/0007", "matches/0", "matches/12345678901", "../secret", ""])(
     "rechaza rutas fuera de la lista blanca: %s",
     async (path) => {
       const res = mockResponse();
@@ -88,6 +101,22 @@ describe("handleFootballRequest", () => {
     const res = mockResponse();
     await handleFootballRequest(request("/?path=matches/1"), res, "secret");
     expect(res.statusCode).toBe(502);
+  });
+
+  it("devuelve 504 si la API tarda demasiado", async () => {
+    fetchMock.mockRejectedValue(Object.assign(new Error("timeout"), { name: "TimeoutError" }));
+    const res = mockResponse();
+    await handleFootballRequest(request("/?path=matches/1"), res, "secret");
+    expect(res.statusCode).toBe(504);
+    expect(JSON.parse(res.body).error).toBe("upstream_timeout");
+  });
+
+  it("cachea los 404 para que repetirlos no gaste cuota", async () => {
+    fetchMock.mockResolvedValue(new Response('{"message":"not found"}', { status: 404 }));
+    const res = mockResponse();
+    await handleFootballRequest(request("/?path=matches/999999999"), res, "secret");
+    expect(res.statusCode).toBe(404);
+    expect(res.headers["cache-control"]).toBe("public, s-maxage=3600");
   });
 
   it("propaga el 429 sin cachearlo", async () => {
