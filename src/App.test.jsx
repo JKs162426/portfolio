@@ -3,6 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
+import fs from "node:fs";
 import { LanguageProvider } from "./context/LanguageContext";
 import RouteErrorBoundary from "./components/RouteErrorBoundary";
 import App from "./App";
@@ -112,5 +113,18 @@ describe("RouteErrorBoundary", () => {
   it("muestra un error genérico para otros fallos", () => {
     renderBroken("boom");
     expect(screen.getByRole("heading", { name: "Something broke" })).toBeTruthy();
+  });
+});
+
+describe("vercel.json", () => {
+  // Las rutas sin rewrite reciben 404.html (estado 404): una página nueva sin
+  // su rewrite funcionaría en local pero daría 404 en producción
+  it("tiene un rewrite para cada ruta de App.jsx", () => {
+    const app = fs.readFileSync("src/App.jsx", "utf8");
+    const routes = [...app.matchAll(/<Route path="([^"*]+)"/g)].map((m) => m[1]).filter((r) => r !== "/");
+    const config = JSON.parse(fs.readFileSync("vercel.json", "utf8"));
+    const rewritten = config.rewrites.map((r) => r.source);
+    expect(routes.length).toBeGreaterThan(0);
+    expect(routes.filter((r) => !rewritten.includes(r))).toEqual([]);
   });
 });

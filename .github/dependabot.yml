@@ -1,0 +1,25 @@
+# Dependabot: PRs automáticos para mantener las dependencias al día.
+# Las alertas de seguridad llegan aparte y en cuanto se publican; esto cubre
+# las actualizaciones normales, agrupadas para no generar un PR por paquete.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:00"
+      timezone: America/Denver
+    open-pull-requests-limit: 5
+    groups:
+      # Herramientas de desarrollo (Vite, Vitest, ESLint…): no llegan al navegador
+      dev-tools:
+        dependency-type: development
+        update-types: [minor, patch]
+      # React y React Router sí llegan al navegador: PR aparte para revisar
+      # el efecto en el tamaño del bundle antes de aceptar
+      runtime:
+        dependency-type: production
+        update-types: [minor, patch]
+    commit-message:
+      prefix: "chore(deps)"

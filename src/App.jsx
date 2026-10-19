@@ -29,6 +29,7 @@ function App() {
             </div>
           }
         >
+          {/* Cada ruta nueva necesita su rewrite en vercel.json (lo comprueba App.test.jsx) */}
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/lab" element={<LabIndex />} />
