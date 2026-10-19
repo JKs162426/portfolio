@@ -10,7 +10,15 @@ function ScrollToHash() {
     previousPath.current = pathname;
 
     if (hash) {
-      const el = document.querySelector(hash);
+      // El hash viene de la URL: con querySelector, "#123" o "#a[b" lanzan
+      // SyntaxError y, como este componente está fuera del error boundary,
+      // tumbarían la app. getElementById acepta cualquier texto.
+      let el = null;
+      try {
+        el = document.getElementById(decodeURIComponent(hash.slice(1)));
+      } catch {
+        // Hash con escapes inválidos (#%E0%A4%A): se ignora
+      }
       if (el) el.scrollIntoView({ behavior: "smooth" });
       return;
     }

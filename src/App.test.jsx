@@ -51,6 +51,38 @@ describe("App", () => {
   });
 });
 
+describe("ScrollToHash", () => {
+  beforeEach(() => {
+    localStorage.clear();
+    // La home usa IntersectionObserver (animaciones) y jsdom no lo trae
+    vi.stubGlobal("IntersectionObserver", class {
+      observe() {}
+      unobserve() {}
+      disconnect() {}
+    });
+    Element.prototype.scrollIntoView = vi.fn();
+  });
+  afterEach(() => {
+    cleanup();
+    vi.unstubAllGlobals();
+  });
+
+  // Antes, querySelector("#123") lanzaba SyntaxError y tumbaba toda la app
+  it.each(["#123", "#a[b", "#%E0%A4%A", "#no-existe"])("no rompe la app con el hash %s", async (hash) => {
+    const { container } = renderAt(`/${hash}`);
+    expect(await screen.findByRole("heading", { name: "Who I am" })).toBeTruthy();
+    expect(container.querySelector("#about")).toBeTruthy();
+    expect(Element.prototype.scrollIntoView).not.toHaveBeenCalled();
+  });
+
+  it("sigue haciendo scroll a las secciones válidas", async () => {
+    renderAt("/#about");
+    await screen.findByRole("heading", { name: "Who I am" });
+    expect(Element.prototype.scrollIntoView).toHaveBeenCalledTimes(1);
+    expect(Element.prototype.scrollIntoView.mock.contexts[0].id).toBe("about");
+  });
+});
+
 describe("RouteErrorBoundary", () => {
   afterEach(cleanup);
 
