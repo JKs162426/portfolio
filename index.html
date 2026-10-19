@@ -61,12 +61,10 @@
     </script>
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;700;800&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Fuentes propias (src/styles/fonts.css): se precargan las dos que se ven
+         primero para evitar el salto de texto. Vite reescribe la ruta al build. -->
+    <link rel="preload" href="/src/assets/fonts/syne-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/src/assets/fonts/share-tech-mono-latin.woff2" as="font" type="font/woff2" crossorigin />
   </head>
   <body>
     <noscript>This site needs JavaScript enabled. · Este sitio necesita JavaScript activado.</noscript>

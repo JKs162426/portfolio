@@ -51,7 +51,7 @@ Environment Variables*. `vercel.json` rewrites client-side routes to
 
 ```
 api/                    Vercel Functions (football-data.org proxy)
-docs/                   README screenshot
+docs/                   README screenshot · cv/ (CV source + build script)
 public/                 Static assets (CV, favicon, social preview image)
 src/
   components/           Navbar, footer, 404 and error pages
