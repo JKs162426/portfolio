@@ -1,0 +1,34 @@
+# Mantiene despierta la demo de Glossia (Render, plan gratuito) en horario laboral
+# de EE. UU. Render duerme los servicios gratuitos tras 15 min sin tráfico y
+# tardan ~30 s en despertar: es lo primero que vería un reclutador.
+#
+# Solo en franja horaria, no 24/7: el plan gratuito da 750 h/mes para TODO el
+# workspace. Un servicio despierto todo el mes gasta ~744 h y dejaría sin horas
+# al resto (incluido danikar-backend), que Render suspendería hasta fin de mes.
+# Franja: 14:00–02:59 UTC ≈ 8:00–20:59 en Utah (MDT) · ~13 h/día ≈ 400 h/mes.
+#
+# Nota: GitHub desactiva los workflows programados tras 60 días sin actividad
+# en el repo; si pasa, se reactivan desde la pestaña Actions.
+
+name: Keep Glossia awake
+
+on:
+  schedule:
+    - cron: "*/10 14-23 * * *"
+    - cron: "*/10 0-2 * * *"
+  workflow_dispatch: # para probarlo a mano desde la pestaña Actions
+
+# Solo hace una petición HTTP: ningún permiso sobre el repo
+permissions: {}
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Ping /api/health
+        run: |
+          curl --fail --silent --show-error \
+            --max-time 90 --retry 2 --retry-delay 15 \
+            -o /dev/null -w "Glossia respondió %{http_code} en %{time_total}s\n" \
+            https://glossia-v2.onrender.com/api/health
