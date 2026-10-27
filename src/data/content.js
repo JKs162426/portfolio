@@ -42,15 +42,28 @@ const content = {
       title: "What I've built",
       github: "↗ GitHub",
       live: "↗ Live",
+      moreTitle: "More projects",
+      badges: {
+        client: "Real client",
+        concept: "Concept project",
+        team: "Team project",
+      },
+      notes: {
+        glossia: "Free hosting: outside US business hours the first load can take up to a minute.",
+      },
       items: {
-        glossia:
-          "A language learning app with React frontend, Node.js backend, and MySQL database. Features include user auth, flashcards, and progress tracking.",
         dankar:
-          "E-commerce site for a handmade accessories store. Features a public catalog with category filters, direct WhatsApp ordering, and a JWT-protected admin panel. Real client, live in production.",
-        matchday:
-          "Standings, fixtures and results from Europe's top five leagues, the Champions League and the Copa Libertadores via a live API. Server-side proxy for the API key, local caching within the free plan's rate limit, debounced search, live auto-refresh and an accessible, bilingual UI.",
+          "Online store for a handmade hair-accessories shop in Pariaguán, Venezuela. Customers build an order and send the whole cart in a single WhatsApp message, with prices in bolívares and dollars at the owner's daily exchange rate. From a JWT-protected admin panel the owner manages products, categories and photos — and a vision AI model writes each product description from its photo. Live in production.",
         accanto:
-          "Bilingual (Italian/English) reservation system for an Italian restaurant in Turin. Real-time table availability, self-service bookings and an admin panel with live table status, reports and CSV export. Transactional emails with reminders, double-booking protection and hardened security (CSRF, rate limiting, CSP).",
+          "A bilingual (Italian/English) reservation system for a fictional restaurant in Turin. Guests check real-time table availability, book in four steps and manage their bookings; the staff runs tables, opening hours, reservations and reports from an admin panel with CSV export. Reminder emails in the guest's language, double-booking protection and hardened security (CSRF, rate limiting, CSP).",
+        matchday:
+          "Standings, fixtures and results from Europe's top five leagues, the Champions League and the Copa Libertadores via a live API. A serverless proxy keeps the API key off the browser, caching keeps usage within the free plan's limit, and live scores refresh on their own — in an accessible, bilingual UI covered by automated tests.",
+        glossia:
+          "Language-learning app in 8 languages — English, Spanish, French, German, Italian, Portuguese, Russian and Chinese. A guided A1–A2 path with lessons that unlock in order, flashcards, a translator and saved favorites, with sign-in by email or Google. It started as my final project for WDD 330 at BYU-Idaho and kept growing into v2.",
+        gymlog:
+          "Workout tracker built by a two-person team for WDD 430 at BYU-Idaho: log sessions with exercises, sets and weights, review recent training on a dashboard and manage your profile. Next.js Server Components, MongoDB and NextAuth.",
+        sacrament:
+          "Plan, manage and share sacrament meeting programs — hymns, prayers, speakers and ward business. Members browse current and past programs; signed-in leaders create and edit them through Server Actions validated with Zod.",
       },
     },
     contact: {
@@ -318,15 +331,28 @@ const content = {
       title: "Lo que he construido",
       github: "↗ GitHub",
       live: "↗ Ver en vivo",
+      moreTitle: "Más proyectos",
+      badges: {
+        client: "Cliente real",
+        concept: "Proyecto de concepto",
+        team: "Proyecto en equipo",
+      },
+      notes: {
+        glossia: "Alojamiento gratuito: fuera del horario laboral de EE. UU. la primera carga puede tardar hasta un minuto.",
+      },
       items: {
-        glossia:
-          "App para aprender idiomas con frontend en React, backend en Node.js y base de datos MySQL. Incluye autenticación, flashcards y seguimiento del progreso.",
         dankar:
-          "Tienda online para una marca de accesorios artesanales. Catálogo público con filtros por categoría, pedidos directos por WhatsApp y panel de administración protegido con JWT. Cliente real, en producción.",
-        matchday:
-          "Clasificación, calendario y resultados de las cinco grandes ligas europeas, la Champions League y la Copa Libertadores desde una API en vivo. Proxy en el servidor para la API key, caché local dentro del límite del plan gratuito, búsqueda con debounce, refresco automático en vivo e interfaz accesible y bilingüe.",
+          "Tienda online para una marca de accesorios artesanales para el cabello en Pariaguán, Venezuela. Los clientes arman su pedido y envían el carrito completo en un solo mensaje de WhatsApp, con precios en bolívares y dólares según el tipo de cambio que se fija cada día. Desde un panel de administración protegido con JWT se gestionan productos, categorías y fotos, y un modelo de IA de visión escribe la descripción de cada producto a partir de su foto. En producción.",
         accanto:
-          "Sistema de reservas bilingüe (italiano/inglés) para un restaurante italiano en Turín. Disponibilidad de mesas en tiempo real, reservas autogestionadas y panel de administración con estado de las mesas en vivo, reportes y exportación a CSV. Emails transaccionales con recordatorios, protección contra reservas duplicadas y seguridad reforzada (CSRF, límites de intentos, CSP).",
+          "Sistema de reservas bilingüe (italiano/inglés) para un restaurante ficticio en Turín. Los clientes consultan la disponibilidad de mesas en tiempo real, reservan en cuatro pasos y gestionan sus reservas; el personal administra mesas, horarios, reservas y reportes desde un panel con exportación a CSV. Emails de recordatorio en el idioma del cliente, protección contra reservas duplicadas y seguridad reforzada (CSRF, límites de intentos, CSP).",
+        matchday:
+          "Clasificación, calendario y resultados de las cinco grandes ligas europeas, la Champions League y la Copa Libertadores desde una API en vivo. Un proxy serverless mantiene la API key fuera del navegador, la caché respeta el límite del plan gratuito y los marcadores en vivo se actualizan solos, en una interfaz accesible, bilingüe y cubierta por pruebas automáticas.",
+        glossia:
+          "App para aprender idiomas en 8 lenguas: inglés, español, francés, alemán, italiano, portugués, ruso y chino. Un camino guiado A1–A2 con lecciones que se desbloquean en orden, flashcards, un traductor y favoritos, con acceso por email o Google. Empezó como mi proyecto final de WDD 330 en BYU-Idaho y siguió creciendo hasta su v2.",
+        gymlog:
+          "Registro de entrenamientos hecho en equipo de dos personas para WDD 430 en BYU-Idaho: sesiones con ejercicios, series y pesos, un panel con el entrenamiento reciente y gestión del perfil. Next.js con Server Components, MongoDB y NextAuth.",
+        sacrament:
+          "Planifica, gestiona y comparte programas de reunión sacramental: himnos, oraciones, discursantes y asuntos del barrio. Los miembros consultan los programas actuales y anteriores; los líderes con sesión iniciada los crean y editan mediante Server Actions validadas con Zod.",
       },
     },
     contact: {

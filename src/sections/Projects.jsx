@@ -3,48 +3,56 @@ import "../styles/projects.css";
 import { useLang } from "../context/useLang";
 import content from "../data/content";
 import useIntersect from "../hooks/useIntersect";
+import { featured, more } from "../data/projects";
 
-// Las descripciones (traducidas) están en content[lang].projects.items[key]
-const projects = [
-  {
-    id: "01",
-    key: "glossia",
-    title: "Glossia",
-    tags: ["React", "Node.js", "Express", "MySQL"],
-    github: "https://github.com/JKs162426/glossia-v2",
-    live: "https://glossia-v2.onrender.com",
-  },
-  {
-    id: "02",
-    key: "dankar",
-    title: "Detalles DanKar",
-    tags: ["React", "Node.js", "Express", "MongoDB", "JWT", "Cloudinary"],
-    github: "https://github.com/JKs162426/danikar",
-    live: "https://dankar.vercel.app",
-  },
-  {
-    id: "03",
-    key: "matchday",
-    title: "Matchday",
-    tags: ["React", "React Router", "Vercel Functions", "REST API", "Vitest"],
-    github: "https://github.com/JKs162426/portfolio/tree/main/src/pages/lab/football",
-    // Ruta interna: se navega con el router, sin recargar la página
-    live: "/lab/football",
-  },
-  {
-    id: "04",
-    key: "accanto",
-    title: "Accanto",
-    tags: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Zod", "Tailwind CSS"],
-    github: "https://github.com/JKs162426/accanto",
-    live: "https://accanto-psi.vercel.app",
-  },
-];
+function ProjectCard({ project, number, t, compact = false }) {
+  const note = t.notes[project.key];
+
+  return (
+    <article className={`project-card ${compact ? "compact" : ""}`}>
+      <div className="project-meta">
+        <span className="project-num">project_{number}</span>
+        {project.badge && (
+          <span className={`project-badge project-badge-${project.badge}`}>
+            {t.badges[project.badge]}
+          </span>
+        )}
+      </div>
+      <h3 className="project-title">{project.title}</h3>
+      <p className="project-desc">{t.items[project.key]}</p>
+      <div className="project-tags">
+        {project.tags.map((tag) => (
+          <span className="project-tag" key={tag}>
+            {tag}
+          </span>
+        ))}
+      </div>
+      <div className="project-links">
+        <a href={project.github} target="_blank" rel="noreferrer" className="project-link">
+          {t.github}
+        </a>
+        {project.live?.startsWith("/") ? (
+          <Link to={project.live} className="project-link">
+            {t.live}
+          </Link>
+        ) : (
+          project.live && (
+            <a href={project.live} target="_blank" rel="noreferrer" className="project-link">
+              {t.live}
+            </a>
+          )
+        )}
+      </div>
+      {note && <p className="project-note">{note}</p>}
+    </article>
+  );
+}
 
 function Projects() {
   const { lang } = useLang();
   const t = content[lang].projects;
   const ref = useIntersect();
+  const pad = (n) => String(n).padStart(2, "0");
 
   return (
     <section className="projects" id="projects">
@@ -52,40 +60,21 @@ function Projects() {
         <div className="section-label">{t.label}</div>
         <h2 className="section-title">{t.title}</h2>
         <div className="projects-grid">
-          {projects.map((project) => (
-            <div className="project-card" key={project.id}>
-              <div className="project-num">project_{project.id}</div>
-              <h3 className="project-title">{project.title}</h3>
-              <p className="project-desc">{t.items[project.key]}</p>
-              <div className="project-tags">
-                {project.tags.map((tag) => (
-                  <span className="project-tag" key={tag}>
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <div className="project-links">
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="project-link"
-                >
-                  {t.github}
-                </a>
-                {project.live?.startsWith("/") ? (
-                  <Link to={project.live} className="project-link">
-                    {t.live}
-                  </Link>
-                ) : (
-                  project.live && (
-                    <a href={project.live} target="_blank" rel="noreferrer" className="project-link">
-                      {t.live}
-                    </a>
-                  )
-                )}
-              </div>
-            </div>
+          {featured.map((project, i) => (
+            <ProjectCard key={project.key} project={project} number={pad(i + 1)} t={t} />
+          ))}
+        </div>
+
+        <h3 className="projects-subtitle">{t.moreTitle}</h3>
+        <div className="projects-grid">
+          {more.map((project, i) => (
+            <ProjectCard
+              key={project.key}
+              project={project}
+              number={pad(featured.length + i + 1)}
+              t={t}
+              compact
+            />
           ))}
         </div>
       </div>

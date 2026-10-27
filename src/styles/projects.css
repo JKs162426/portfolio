@@ -11,6 +11,8 @@
   }
   
   .project-card {
+    display: flex;
+    flex-direction: column;
     background: var(--surface);
     border: 1px solid var(--border);
     padding: 2rem;
@@ -39,12 +41,47 @@
     opacity: 1;
   }
   
+  .project-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    /* Misma altura con o sin etiqueta: los títulos quedan alineados en la fila */
+    min-height: 1.4rem;
+    margin-bottom: 1rem;
+  }
+
   .project-num {
     font-family: var(--mono);
     font-size: 0.68rem;
     color: var(--muted);
     letter-spacing: 0.15em;
-    margin-bottom: 1rem;
+  }
+
+  /* Etiqueta del tipo de proyecto: cliente real, concepto o equipo */
+  .project-badge {
+    font-family: var(--mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.55rem;
+    border: 1px solid currentColor;
+    white-space: nowrap;
+  }
+
+  .project-badge-client {
+    color: var(--green);
+    background: rgba(57, 217, 138, 0.08);
+  }
+
+  .project-badge-concept {
+    color: var(--accent2);
+    background: rgba(123, 97, 255, 0.08);
+  }
+
+  .project-badge-team {
+    color: var(--accent);
+    background: rgba(0, 212, 255, 0.06);
   }
   
   .project-title {
@@ -101,5 +138,51 @@
   .project-link:hover {
     color: #fff;
   }
-  
-  
+
+  .project-note {
+    margin-top: 0.75rem;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    line-height: 1.5;
+    color: var(--muted);
+  }
+
+  .projects-subtitle {
+    margin: 3.5rem 0 1.5rem;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    font-weight: 400;
+    color: var(--muted);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .projects-subtitle::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--border), transparent);
+  }
+
+  /* Proyectos secundarios: misma tarjeta, más compacta */
+  .project-card.compact {
+    padding: 1.5rem;
+  }
+
+  .project-card.compact .project-title {
+    font-size: 1.05rem;
+  }
+
+  .project-card.compact .project-desc {
+    font-size: 0.85rem;
+    margin-bottom: 1.1rem;
+  }
+
+  @media (max-width: 768px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+  }
