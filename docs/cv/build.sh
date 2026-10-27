@@ -18,6 +18,13 @@ render() { # $1 = html, $2 = pdf
   local pages
   pages=$(python3 -c 'import re,sys; print(len(re.findall(rb"/Type\s*/Page[^s]", open(sys.argv[1], "rb").read())))' "$2")
   [ "$pages" = "1" ] || { echo "⚠ $2 tiene $pages páginas (debería ser 1)"; exit 1; }
+  # Una página no basta: html/body tienen overflow:hidden, así que lo que no
+  # cabe se corta en silencio. Se mide si alguna columna se desborda.
+  local overflow
+  overflow=$("$CHROME" --headless=new --disable-gpu --virtual-time-budget=6000 --window-size=816,1056 \
+    --run-all-compositor-stages-before-draw --dump-dom "file://$1" 2>/dev/null \
+    | grep -o 'data-overflow="[^"]*"' | head -1)
+  [ "$overflow" = 'data-overflow="none"' ] || { echo "⚠ $2: hay contenido cortado ($overflow)"; exit 1; }
   echo "✓ $2"
 }
 

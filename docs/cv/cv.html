@@ -241,5 +241,19 @@
       </div>
     </main>
   </div>
+  <script>
+    // Lo usa docs/cv/build.sh para detectar texto cortado al final de una columna
+    addEventListener("load", () => document.fonts.ready.then(() => {
+      // Las columnas crecen con su contenido: lo que se corta es lo que pasa
+      // del borde de la página (11 in), no de la columna
+      const pageBottom = 11 * 96; // 11 in en px CSS (la ventana headless es más baja que la página)
+      const cut = ["aside", "main"].flatMap((sel) => {
+        const bottoms = [...document.querySelectorAll(`${sel} *`)].map((el) => el.getBoundingClientRect().bottom);
+        const extra = Math.ceil(Math.max(...bottoms) - pageBottom);
+        return extra > 0 ? [`${sel} +${extra}px`] : [];
+      });
+      document.body.dataset.overflow = cut.length ? cut.join(", ") : "none";
+    }));
+  </script>
 </body>
 </html>
