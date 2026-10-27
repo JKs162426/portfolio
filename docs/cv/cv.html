@@ -28,7 +28,7 @@
   }
   a { color: inherit; text-decoration: none; }
 
-  header { padding: 0.4in 0.5in 0.18in; border-bottom: 3px solid var(--accent); }
+  header { padding: 0.38in 0.5in 0.14in; border-bottom: 3px solid var(--accent); }
   h1 { font-size: 23pt; font-weight: 700; color: var(--ink); letter-spacing: 0.06em; line-height: 1; }
   .headline { margin-top: 6px; font-size: 10.5pt; font-weight: 600; color: var(--accent); letter-spacing: 0.02em; }
   .contact { margin-top: 9px; display: flex; flex-wrap: wrap; gap: 3px 13px; font-size: 8pt; }
@@ -42,11 +42,11 @@
   main { padding: 0.18in 0.5in 0.2in 0.28in; }
   h2 {
     font-size: 8.6pt; font-weight: 700; color: var(--ink); text-transform: uppercase;
-    letter-spacing: 0.16em; padding-bottom: 4px; border-bottom: 1px solid var(--line); margin: 9px 0 5px;
+    letter-spacing: 0.16em; padding-bottom: 4px; border-bottom: 1px solid var(--line); margin: 8px 0 5px;
   }
   aside h2:first-child, main h2:first-child { margin-top: 0; }
 
-  .entry { margin-bottom: 5px; break-inside: avoid; }
+  .entry { margin-bottom: 4px; break-inside: avoid; }
   .entry-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
   .entry-title { font-size: 9.2pt; font-weight: 600; color: var(--ink); }
   .entry-title .tag {
@@ -108,7 +108,7 @@
       </div>
       <div class="side-block">
         <h3>Backend</h3>
-        <p>Node.js, Express, REST APIs, Prisma, Zod, JWT authentication, serverless functions</p>
+        <p>Node.js, Express, REST APIs, Prisma, Zod, JWT, Auth.js / NextAuth, Google OAuth, serverless functions</p>
       </div>
       <div class="side-block">
         <h3>Databases</h3>
@@ -120,7 +120,7 @@
       </div>
       <div class="side-block">
         <h3>Also</h3>
-        <p>C#</p>
+        <p>C# · AI integration (vision models)</p>
       </div>
 
       <h2>Strengths</h2>
@@ -151,21 +151,21 @@
           <span class="entry-title">Detalles DanKar<span class="tag">CLIENT · LIVE</span></span>
           <span class="date"><a href="https://dankar.vercel.app">dankar.vercel.app</a></span>
         </div>
-        <div class="entry-sub"><b>React · Node.js · Express · MongoDB · JWT · Cloudinary</b></div>
+        <div class="entry-sub"><b>React · Node.js · Express · MongoDB · Zod · Cloudinary · Vision AI</b></div>
         <ul>
-          <li>Built and shipped an e-commerce site for a handmade accessories store, in use by a real business.</li>
-          <li>Public catalog with category filters, WhatsApp ordering and a JWT-protected admin panel with Cloudinary image hosting.</li>
+          <li>Built and shipped an online store for a handmade accessories shop in Pariaguán, Venezuela: the whole cart goes out in one WhatsApp message, priced in bolívares and dollars.</li>
+          <li>JWT-protected admin panel where vision AI writes product descriptions from photos.</li>
         </ul>
       </div>
 
       <div class="entry">
         <div class="entry-head">
-          <span class="entry-title">Accanto<span class="tag">LIVE</span></span>
+          <span class="entry-title">Accanto<span class="tag">CONCEPT · LIVE</span></span>
           <span class="date"><a href="https://accanto-psi.vercel.app">accanto-psi.vercel.app</a></span>
         </div>
         <div class="entry-sub"><b>Next.js · TypeScript · PostgreSQL · Prisma · Zod · Tailwind CSS</b></div>
         <ul>
-          <li>Bilingual (Italian/English) reservation system for a restaurant in Turin, with real-time table availability and self-service bookings.</li>
+          <li>Bilingual (Italian/English) reservation system for a fictional restaurant in Turin, with real-time table availability and self-service bookings.</li>
           <li>Admin panel with live table status, reports and CSV export; reminder emails, double-booking protection, CSRF, rate limiting and CSP.</li>
         </ul>
       </div>
@@ -177,7 +177,7 @@
         </div>
         <div class="entry-sub"><b>React · React Router · Vercel Functions · REST API · Vitest</b></div>
         <ul>
-          <li>Standings, fixtures and live results for Europe's top leagues, the Champions League and the Copa Libertadores.</li>
+          <li>Live standings and results: Europe's top leagues, Champions League, Libertadores.</li>
           <li>Serverless proxy keeps the API key off the client; caching keeps usage within a 10 requests/min limit; covered by automated tests.</li>
         </ul>
       </div>
@@ -187,9 +187,9 @@
           <span class="entry-title">Glossia<span class="tag">LIVE</span></span>
           <span class="date"><a href="https://glossia-v2.onrender.com">glossia-v2.onrender.com</a></span>
         </div>
-        <div class="entry-sub"><b>React · Node.js · Express · MySQL</b></div>
+        <div class="entry-sub"><b>React · Node.js · Express · MySQL · Google OAuth</b></div>
         <ul>
-          <li>Language-learning app with user authentication, flashcards and progress tracking on a relational database.</li>
+          <li>Language-learning app in 8 languages with a guided A1–A2 path, flashcards and a translator; grew from my WDD 330 final project into v2.</li>
         </ul>
       </div>
 
@@ -209,7 +209,7 @@
           <span class="date">May 2025 – Aug 2025</span>
         </div>
         <div class="entry-sub">Old Castle</div>
-        <ul><li>Inspected products against quality standards and specifications; flagged defects to improve production quality.</li></ul>
+        <ul><li>Inspected products against quality standards and flagged defects to improve production.</li></ul>
       </div>
 
       <div class="entry">
@@ -218,7 +218,7 @@
           <span class="date">2024 – 2025</span>
         </div>
         <div class="entry-sub">Nutricost</div>
-        <ul><li>Operated production machinery, troubleshooting minor technical issues while following safety and GMP procedures.</li></ul>
+        <ul><li>Ran production machinery and fixed minor technical issues under safety and GMP rules.</li></ul>
       </div>
 
       <div class="entry">
@@ -227,7 +227,16 @@
           <span class="date">2023 – 2024</span>
         </div>
         <div class="entry-sub">Integral del Ascensor · Chile</div>
-        <ul><li>Diagnosed and repaired mechanical and electrical systems from technical diagrams, working with engineers to ensure safety.</li></ul>
+        <ul><li>Diagnosed and repaired mechanical and electrical systems from technical diagrams.</li></ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-head">
+          <span class="entry-title">English Teacher</span>
+          <span class="date">2015 – 2017</span>
+        </div>
+        <div class="entry-sub">Anaco · Venezuela</div>
+        <ul><li>Planned and taught English classes, breaking complex topics into clear, structured steps.</li></ul>
       </div>
 
       <h2>Volunteer Experience</h2>
@@ -237,7 +246,7 @@
           <span class="date">2012 – 2014</span>
         </div>
         <div class="entry-sub">The Church of Jesus Christ of Latter-day Saints</div>
-        <ul><li>Served individuals and families full-time; developed communication, leadership and cross-cultural adaptability.</li></ul>
+        <ul><li>Full-time service; developed communication, leadership and cross-cultural adaptability.</li></ul>
       </div>
     </main>
   </div>
