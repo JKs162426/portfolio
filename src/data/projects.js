@@ -1,6 +1,7 @@
 // Los textos (traducidos) están en content[lang].projects: items[key] para la
 // descripción, badges[badge] para la etiqueta y notes[key] para avisos.
 // badge: "client" (cliente real) · "concept" (proyecto de concepto) · "team"
+// · "hackathon" (NASA Space Apps)
 export const featured = [
   {
     key: "dankar",
@@ -36,6 +37,14 @@ export const featured = [
 ];
 
 export const more = [
+  {
+    key: "lunar",
+    title: "Lunar Landing Site Navigator",
+    badge: "hackathon",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Recharts", "astronomy-engine", "Vitest"],
+    github: "https://github.com/JKs162426/lunar-landing-site-navigator",
+    live: "https://lunar-landing-site-navigator-indol.vercel.app",
+  },
   {
     key: "gymlog",
     title: "GymLog",

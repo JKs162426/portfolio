@@ -29,8 +29,6 @@ const content = {
       title: "Who I am",
       p1: "I'm a full-stack JavaScript developer based in Utah, pursuing a Bachelor's in Software Development at BYU-Idaho. Before diving into software, I was an English teacher in Venezuela — which gave me a methodical, structured way of thinking about problems that carries directly into how I write code.",
       p2: "I've been building for over a year, working with the full JS stack: React on the frontend, Node/Express on the backend, and PostgreSQL for data. Every project so far has been built with real-world patterns in mind — authentication, REST APIs, relational databases.",
-      p3: "Currently working on",
-      p3b: "— a platform for people to share their interests and connect with others.",
       stats: ["Years building", "Primary stack", "Software Development", "Learning mode"],
     },
     skills: {
@@ -47,11 +45,14 @@ const content = {
         client: "Real client",
         concept: "Concept project",
         team: "Team project",
+        hackathon: "NASA Space Apps",
       },
       notes: {
         glossia: "Free hosting: outside US business hours the first load can take up to a minute.",
       },
       items: {
+        lunar:
+          "Built for the NASA Space Apps Challenge 2026: compares candidate landing sites near the lunar south pole by how long the Sun and Earth stay above the horizon — the windows a lander needs for solar power and direct-to-Earth radio. It ranks up to four sites over 7 days to a year, charts the Sun and Earth altitude for each one and finds the longest night a battery has to survive. The math runs on the server and is checked against NASA/JPL SPICE data to within 0.005°.",
         dankar:
           "Online store for a handmade hair-accessories shop in Pariaguán, Venezuela. Customers build an order and send the whole cart in a single WhatsApp message, with prices in bolívares and dollars at the owner's daily exchange rate. From a JWT-protected admin panel the owner manages products, categories and photos — and a vision AI model writes each product description from its photo. Live in production.",
         accanto:
@@ -313,8 +314,6 @@ const content = {
       title: "Quién soy",
       p1: "Soy desarrollador JavaScript full-stack en Utah y curso un Bachelor en Desarrollo de Software en BYU-Idaho. Antes de entrar al mundo del software, fui profesor de inglés en Venezuela — lo que me dio una forma metódica y estructurada de pensar en los problemas que aplico directamente cuando escribo código.",
       p2: "Llevo más de un año construyendo con el stack completo de JS: React en el frontend, Node/Express en el backend y PostgreSQL para datos. Cada proyecto ha sido construido con patrones del mundo real — autenticación, REST APIs, bases de datos relacionales.",
-      p3: "Actualmente trabajando en",
-      p3b: "— una plataforma para que las personas compartan sus intereses y conecten con otros.",
       stats: [
         "Años construyendo",
         "Stack principal",
@@ -336,11 +335,14 @@ const content = {
         client: "Cliente real",
         concept: "Proyecto de concepto",
         team: "Proyecto en equipo",
+        hackathon: "NASA Space Apps",
       },
       notes: {
         glossia: "Alojamiento gratuito: fuera del horario laboral de EE. UU. la primera carga puede tardar hasta un minuto.",
       },
       items: {
+        lunar:
+          "Hecho para el NASA Space Apps Challenge 2026: compara sitios de alunizaje candidatos cerca del polo sur lunar según cuánto tiempo pasan el Sol y la Tierra sobre el horizonte, las ventanas que un módulo necesita para tener energía solar y comunicarse directo con la Tierra. Ordena hasta cuatro sitios en rangos de 7 días a un año, grafica la altura del Sol y de la Tierra en cada uno y calcula la noche más larga que tendría que aguantar la batería. Los cálculos corren en el servidor y se validan contra datos SPICE de la NASA/JPL con una tolerancia de 0,005°.",
         dankar:
           "Tienda online para una marca de accesorios artesanales para el cabello en Pariaguán, Venezuela. Los clientes arman su pedido y envían el carrito completo en un solo mensaje de WhatsApp, con precios en bolívares y dólares según el tipo de cambio que se fija cada día. Desde un panel de administración protegido con JWT se gestionan productos, categorías y fotos, y un modelo de IA de visión escribe la descripción de cada producto a partir de su foto. En producción.",
         accanto:

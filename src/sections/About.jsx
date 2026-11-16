@@ -17,11 +17,6 @@ function About() {
           <div className="about-text">
             <p>{t.p1}</p>
             <p>{t.p2}</p>
-            <p>
-              {t.p3}{' '}
-              <strong className="accent-text">HobbyHub</strong>{' '}
-              {t.p3b}
-            </p>
           </div>
           <div className="about-stats">
             <div className="stat-card">

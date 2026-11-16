@@ -58,7 +58,7 @@
     letter-spacing: 0.15em;
   }
 
-  /* Etiqueta del tipo de proyecto: cliente real, concepto o equipo */
+  /* Etiqueta del tipo de proyecto: cliente real, concepto, equipo o hackathon */
   .project-badge {
     font-family: var(--mono);
     font-size: 0.64rem;
@@ -82,6 +82,11 @@
   .project-badge-team {
     color: var(--accent);
     background: rgba(0, 212, 255, 0.06);
+  }
+
+  .project-badge-hackathon {
+    color: #f5b942;
+    background: rgba(245, 185, 66, 0.08);
   }
   
   .project-title {

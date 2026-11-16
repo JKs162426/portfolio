@@ -55,7 +55,7 @@ describe("<Projects />", () => {
     expect(titles).toEqual([
       "Detalles DanKar", "Accanto", "Matchday", "Glossia",
       "More projects",
-      "GymLog", "Sacrament Meeting Program",
+      "Lunar Landing Site Navigator", "GymLog", "Sacrament Meeting Program",
     ]);
   });
 
@@ -65,6 +65,7 @@ describe("<Projects />", () => {
     expect(within(card("Detalles DanKar")).getByText("Real client")).toBeTruthy();
     expect(within(card("Accanto")).getByText("Concept project")).toBeTruthy();
     expect(within(card("GymLog")).getByText("Team project")).toBeTruthy();
+    expect(within(card("Lunar Landing Site Navigator")).getByText("NASA Space Apps")).toBeTruthy();
     expect(within(card("Matchday")).queryByText(/client|concept|team/i)).toBeNull();
   });
 
