@@ -23,52 +23,94 @@ función serverless.
 
 ```
 navegador ──► /api/f1?path=2026/driverstandings ──► api.jolpi.ca/ergast/f1/…json?limit=100
-              (proxy con lista blanca + caché CDN)
+              (proxy: validación + caché CDN)
 ```
 
-Aunque la API es pública, las peticiones pasan por un proxy propio
-(`api/f1.ts`, también montado en `vite dev`/`vite preview` desde
-`vite.config.js`):
+### ¿Por qué un proxy, si la API es pública?
 
-- **Lista blanca:** solo acepta estas rutas, y solo temporadas de 1950 a la
-  actual:
+Jolpica no necesita key y admite CORS (`access-control-allow-origin: *`): el
+navegador **podría llamarla directo**. El proxy (`api/f1.ts`, también montado en
+`vite dev`/`vite preview` desde `vite.config.js`) **no es por seguridad**. Es por
+estas razones:
 
-  | Ruta | Para qué |
-  |---|---|
-  | `{año}/races` | calendario y horarios de cada sesión |
-  | `{año}/results/1` | ganador de cada carrera (una sola petición) |
-  | `{año}/driverstandings` · `{año}/constructorstandings` | campeonatos |
-  | `{año}/{ronda}/results` · `/sprint` · `/qualifying` | resultados de un GP |
-  | `{año}/drivers/{id}/results` | temporada de un piloto |
+1. **Caché compartida.** Sin proxy, cada visitante descarga lo mismo por su
+   cuenta. Con proxy, la CDN de Vercel guarda la respuesta para todos: una
+   temporada terminada llega a Jolpica, como mucho, una vez al día por región.
+   Jolpica la mantienen voluntarios (≈4 peticiones/s, 500/hora): la idea es
+   usarla lo menos posible.
+2. **Independencia del proveedor.** Ergast cerró en 2024 y hubo que migrar. Si
+   cambia la API, se toca `api/f1.ts`; el navegador sigue llamando a `/api/f1`.
+3. **Control y CSP.** Solo se sirven las consultas que usa la app, y el
+   navegador solo habla con el propio dominio (`connect-src 'self'`).
 
-  Y exactamente un parámetro (`path`): cualquier extra crearía otra entrada de
-  caché que llegaría a la API.
-- **Caché en la CDN de Vercel**, compartida entre todos los visitantes:
-  10 min para la temporada actual y 1 día para las terminadas (no cambian).
-- **CSP intacta:** el navegador solo habla con el propio dominio
-  (`connect-src 'self'`).
+**Costes asumidos:** un salto más de red, una pieza más que puede fallar (si
+Vercel cae, la app cae aunque Jolpica funcione) y que todos los visitantes
+comparten el cupo por IP de Vercel en vez de tener cada uno el suyo. Ese último
+punto solo importa si alguien consigue esquivar la caché; las capas de abajo
+existen para que no pueda.
+
+**Alternativa descartada:** llamar directo a Jolpica desde el navegador, con la
+caché local y el límite del cliente. Es más simple, pero cada visitante gasta
+sus propias peticiones y no hay caché compartida.
+
+### Capas de validación del proxy
+
+Una caché compartida solo protege si las URLs posibles son pocas: si se puede
+inventar una URL nueva en cada petición, cada una llega a la API. Por eso:
+
+| Capa | Qué rechaza | Coste |
+|---|---|---|
+| 1. Un solo parámetro (`path`) | `?path=…&x=1`: otra clave de caché para lo mismo | nada (400) |
+| 2. Forma de la ruta | rutas fuera de la lista, temporadas fuera de 1950–actual, rondas > 30, ceros a la izquierda | nada (400) |
+| 3. Índice de la temporada | rondas y pilotos que no existen en esa temporada | nada tras la 1.ª petición de la temporada (404, cacheado 1 h en la CDN) |
+| 4. Respeto al 429 | tras un 429, no se llama a Jolpica hasta que pase su `Retry-After` | nada (429) |
+
+Rutas permitidas:
+
+| Ruta | Para qué |
+|---|---|
+| `{año}/races` | calendario y horarios de cada sesión |
+| `{año}/results/1` | ganador de cada carrera (una sola petición) |
+| `{año}/driverstandings` · `{año}/constructorstandings` | campeonatos |
+| `{año}/{ronda}/results` · `/sprint` · `/qualifying` | resultados de un GP |
+| `{año}/drivers/{id}/results` | temporada de un piloto |
+
+**El índice** (capa 3) son las rondas y los pilotos de cada temporada
+(`{año}/races` y `{año}/drivers`, paginado: 1952 y 1953 tienen más de 100
+pilotos por la Indy 500). Se guarda en la memoria de la función: 10 min la
+temporada actual (puede debutar un piloto) y 1 día las terminadas. Si falla no
+se guarda, y la siguiente petición lo reintenta.
+
+**Resultado:** en toda la historia hay unas **7.000 URLs válidas**
+(77 × 4 de temporada + 1.172 carreras × 3 sesiones + unas 3.000 parejas
+piloto-temporada), y casi todas salen de la CDN. Quien las recorriera todas de
+golpe sí chocaría con el límite por hora de Jolpica (500): ahí la capa 4 deja
+de insistir y la CDN sigue sirviendo lo que ya tiene.
+
+**Lo que no cubre:** no hay límite por IP en el proxy. Con varias instancias
+de la función, un contador en memoria no sería fiable; la herramienta correcta
+es una regla de rate limiting del Firewall de Vercel (se configura en el
+panel, no en el código).
 
 `api/f1.ts` es autocontenido a propósito: Vercel compila cada función por
 separado y un import relativo sin extensión fallaría en ESM. Por eso
 `MIN_SEASON` está también en `lib/seasons.ts` (un test comprueba que coinciden).
 
-### Límite de peticiones
-
-Jolpica permite unas 4 peticiones por segundo y 500 por hora. Para no
-acercarse:
+### Límite de peticiones en el cliente
 
 1. **Caché local** (`localStorage`, prefijo `f1:v1:`): calendario 6 h,
    campeonatos y resultados 10 min; temporadas terminadas, 1 día.
-2. **Límite en el cliente** (`lib/rateLimit.ts`): ventana deslizante de
-   **20 peticiones reales por minuto** por pestaña (las que salen de la caché no
-   cuentan). Al pasarlo, la app no llama a la red: muestra "inténtalo en N s",
-   o los datos guardados con un aviso si los hay.
+2. **Límite** (`lib/rateLimit.ts`): ventana deslizante de **20 peticiones
+   reales por minuto** por pestaña (las que salen de la caché no cuentan). Al
+   pasarlo, la app no llama a la red: muestra "inténtalo en N s", o los datos
+   guardados con un aviso si los hay.
 3. **Peticiones compartidas:** dos componentes que piden lo mismo a la vez
    comparten una sola petición.
 4. **Todo bajo demanda:** entrar gasta 2 peticiones (calendario + ganadores);
    cada pestaña, carrera o piloto abierto, 1 más. La pestaña de clasificación o
    sprint de un GP solo se pide al abrirla.
-5. Un **429** de la API se reenvía con su `Retry-After` y no se cachea.
+5. Un **404** del proxy (ronda o piloto que no existen) se muestra como "sin
+   resultados", no como error, y no se tapa con datos viejos.
 
 ## Estado y navegación
 
@@ -121,10 +163,11 @@ Regla de dependencias: `views` → `components` → `context`/`hooks` → `lib`.
 
 ## Tests
 
-- `api/_lib/f1.test.ts`: lista blanca, temporadas, parámetros, cabeceras de caché, 429, timeout.
+- `api/_lib/f1.test.ts`: lista blanca, temporadas, parámetros, índice de rondas y pilotos (con paginación,
+  reutilización y renovación), cabeceras de caché, 404, 429 y espera tras 429, timeout.
 - `__tests__/normalize.test.ts`: respuestas completas, antiguas, vacías y rotas.
-- `__tests__/api.test.ts`: caché y caducidad, peticiones compartidas, datos viejos ante fallo, límite de 20/min.
+- `__tests__/api.test.ts`: caché y caducidad, peticiones compartidas, datos viejos ante fallo, 404, límite de 20/min.
 - `__tests__/utils.test.ts`: estado de carreras, resumen de piloto, temporadas, rate limiter.
 - `__tests__/F1App.test.tsx`: flujos en jsdom — calendario, abrir carrera y cambiar de sesión,
   carrera futura sin peticiones, piloto → carrera → cerrar, constructores, cambio de temporada,
-  URL inválida, error + reintento, español.
+  URL inválida, piloto que no corrió esa temporada, error + reintento, español.

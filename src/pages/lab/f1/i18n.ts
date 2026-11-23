@@ -103,6 +103,7 @@ const en = {
     title: "Something went wrong",
     network: "Can't reach the server. Check your connection and try again.",
     rate_limit: (s: number) => `Too many requests in a short time. Try again in ${s}s.`,
+    not_found: "Not found in this season.",
     server: "The F1 data API isn't responding right now.",
   },
 };
@@ -208,6 +209,7 @@ const es: Messages = {
     title: "Algo salió mal",
     network: "No se puede conectar con el servidor. Revisa tu conexión e inténtalo de nuevo.",
     rate_limit: (s) => `Demasiadas peticiones en poco tiempo. Inténtalo en ${s} s.`,
+    not_found: "No existe en esta temporada.",
     server: "La API de datos de F1 no responde en este momento.",
   },
 };

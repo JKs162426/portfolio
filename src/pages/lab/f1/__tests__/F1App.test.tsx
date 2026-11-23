@@ -25,6 +25,8 @@ function apiMock(url: string) {
   if (rest === "2/qualifying") return json(f.qualifyingResponse);
   if (rest === "2/sprint") return json(f.emptyRaces);
   if (rest === "drivers/norris/results") return json(f.driverSeasonResponse);
+  // El proxy responde 404 a pilotos que no corrieron esa temporada
+  if (rest.startsWith("drivers/")) return json({ error: "unknown_driver" }, 404);
   return json(f.emptyRaces);
 }
 
@@ -183,6 +185,13 @@ describe("F1App", () => {
     expect(screen.queryByRole("dialog")).toBeNull();
     await screen.findByText("NOR");
     expect(requestedPaths(fetchMock).every((p) => p?.startsWith("2026/"))).toBe(true);
+  });
+
+  it("un piloto que no corrió esa temporada se muestra como vacío, no como error", async () => {
+    renderApp("/lab/f1?season=2008&driver=antonelli");
+    const dialog = await screen.findByRole("dialog");
+    expect(await within(dialog).findByText("No race results for this driver in this season.")).toBeTruthy();
+    expect(within(dialog).queryByRole("alert")).toBeNull();
   });
 
   it("muestra el error y se recupera al reintentar", async () => {

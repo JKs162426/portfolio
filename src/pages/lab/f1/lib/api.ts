@@ -39,7 +39,7 @@ export interface Resource<T> {
   normalize: (raw: unknown) => T;
 }
 
-export type ErrorKind = "network" | "rate_limit" | "server";
+export type ErrorKind = "network" | "rate_limit" | "not_found" | "server";
 
 export class F1ApiError extends Error {
   readonly kind: ErrorKind;
@@ -118,6 +118,8 @@ async function request(path: string): Promise<unknown> {
     const retryAfter = Number(response.headers.get("retry-after"));
     throw new F1ApiError("rate_limit", retryAfter > 0 ? retryAfter : 60);
   }
+  // El proxy responde 404 si la ronda o el piloto no existen en esa temporada
+  if (response.status === 404) throw new F1ApiError("not_found");
   if (!response.ok) throw new F1ApiError("server");
 
   try {
@@ -179,7 +181,8 @@ export function fetchResource<T>(
     })
     .catch((error: unknown): Loaded<T> => {
       const apiError = error instanceof F1ApiError ? error : new F1ApiError("server");
-      if (cached) return { ...cached, stale: true, error: apiError };
+      // Un "no existe" no se tapa con datos viejos
+      if (cached && apiError.kind !== "not_found") return { ...cached, stale: true, error: apiError };
       throw apiError;
     })
     .finally(() => inflight.delete(key));

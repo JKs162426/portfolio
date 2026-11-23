@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { useF1 } from "../context/f1Context";
+import { F1ApiError } from "../lib/api";
 import { errorMessage, formatTime } from "../lib/format";
 import type { ResourceState } from "../hooks/useF1Resource";
 
@@ -78,7 +79,13 @@ export function ResourceView<T>({
   children: (data: T) => ReactNode;
 }) {
   if (resource.data === null) {
-    if (resource.status === "error") return <ErrorState error={resource.error} onRetry={resource.retry} />;
+    if (resource.status === "error") {
+      // Ronda o piloto que no existen en la temporada: es un vacío, no un fallo
+      if (resource.error instanceof F1ApiError && resource.error.kind === "not_found") {
+        return <EmptyState title={emptyText} />;
+      }
+      return <ErrorState error={resource.error} onRetry={resource.retry} />;
+    }
     return <Loading rows={rows} />;
   }
   if (isEmpty(resource.data)) return <EmptyState title={emptyText} />;

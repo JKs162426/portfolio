@@ -102,6 +102,15 @@ describe("fetchResource", () => {
     });
   });
 
+  it("un 404 del proxy es not_found y no se tapa con datos viejos", async () => {
+    const res = resources.driverSeason(2026, "norris");
+    fetchMock.mockResolvedValueOnce(ok(f.driverSeasonResponse));
+    await fetchResource(res);
+
+    fetchMock.mockResolvedValueOnce(new Response('{"error":"unknown_driver"}', { status: 404 }));
+    await expect(fetchResource(res, { force: true })).rejects.toMatchObject({ kind: "not_found" });
+  });
+
   it("corta en el cliente al pasar el límite, sin llamar a la red", async () => {
     fetchMock.mockImplementation(async () => ok(f.emptyRaces));
 
