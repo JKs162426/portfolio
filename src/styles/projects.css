@@ -11,11 +11,12 @@
   }
   
   .project-card {
+    --card-pad: 2rem;
     display: flex;
     flex-direction: column;
     background: var(--surface);
     border: 1px solid var(--border);
-    padding: 2rem;
+    padding: var(--card-pad);
     position: relative;
     overflow: hidden;
     transition: all 0.3s;
@@ -41,6 +42,20 @@
     opacity: 1;
   }
   
+  /* Captura a sangre: ocupa todo el ancho de la tarjeta, por encima del padding */
+  .project-shot {
+    display: block;
+    width: calc(100% + 2 * var(--card-pad));
+    max-width: none;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    object-position: top;
+    margin: calc(-1 * var(--card-pad)) calc(-1 * var(--card-pad)) var(--card-pad);
+    border-bottom: 1px solid var(--border);
+    background: var(--bg2);
+  }
+
   .project-meta {
     display: flex;
     align-items: center;
@@ -97,11 +112,23 @@
     letter-spacing: -0.01em;
   }
   
-  .project-desc {
-    font-size: 0.9rem;
-    color: var(--muted);
-    line-height: 1.7;
+  .project-impact {
+    display: grid;
+    gap: 0.75rem;
     margin-bottom: 1.5rem;
+  }
+
+  .project-impact-item {
+    color: var(--text);
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+
+  .project-impact-item span {
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
   }
   
   .project-tags {
@@ -144,6 +171,10 @@
     color: #fff;
   }
 
+  .project-link-case {
+    color: var(--green);
+  }
+
   .project-note {
     margin-top: 0.75rem;
     font-family: var(--mono);
@@ -174,16 +205,15 @@
 
   /* Proyectos secundarios: misma tarjeta, más compacta */
   .project-card.compact {
-    padding: 1.5rem;
+    --card-pad: 1.5rem;
   }
 
   .project-card.compact .project-title {
     font-size: 1.05rem;
   }
 
-  .project-card.compact .project-desc {
-    font-size: 0.85rem;
-    margin-bottom: 1.1rem;
+  .project-card.compact .project-impact-item {
+    font-size: 0.82rem;
   }
 
   @media (max-width: 768px) {

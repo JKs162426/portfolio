@@ -10,6 +10,15 @@ function ProjectCard({ project, number, t, compact = false }) {
 
   return (
     <article className={`project-card ${compact ? "compact" : ""}`}>
+      <img
+        className="project-shot"
+        src={`/projects/${project.key}.webp`}
+        alt={t.shotAlt(project.title)}
+        width="960"
+        height="600"
+        loading="lazy"
+        decoding="async"
+      />
       <div className="project-meta">
         <span className="project-num">project_{number}</span>
         {project.badge && (
@@ -19,7 +28,17 @@ function ProjectCard({ project, number, t, compact = false }) {
         )}
       </div>
       <h3 className="project-title">{project.title}</h3>
-      <p className="project-desc">{t.items[project.key]}</p>
+      <div className="project-impact">
+        {t.impact[project.key].map(({ label, text }) => (
+          <p className="project-impact-item" key={label}>
+            <span>
+              {label}
+              <span aria-hidden="true"> · </span>
+            </span>
+            {text}
+          </p>
+        ))}
+      </div>
       <div className="project-tags">
         {project.tags.map((tag) => (
           <span className="project-tag" key={tag}>
@@ -28,6 +47,11 @@ function ProjectCard({ project, number, t, compact = false }) {
         ))}
       </div>
       <div className="project-links">
+        {project.caseStudy && (
+          <Link to={project.caseStudy} className="project-link project-link-case">
+            {t.caseStudy}
+          </Link>
+        )}
         <a href={project.github} target="_blank" rel="noreferrer" className="project-link">
           {t.github}
         </a>

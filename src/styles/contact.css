@@ -32,10 +32,18 @@
   }
   
   .contact-sub {
-    color: var(--muted);
+    max-width: 52ch;
+    margin: 0 auto 0.75rem;
+    color: var(--text);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .contact-location {
+    color: var(--subtle);
     font-family: var(--mono);
-    font-size: 0.85rem;
-    letter-spacing: 0.05em;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
     margin-bottom: 2.5rem;
   }
   
@@ -69,8 +77,9 @@
       padding: 2.5rem 1.5rem;
     }
   
+    /* "Construyamos" en una sola línea cabe hasta ~360 px de pantalla */
     .contact-title {
-      font-size: 1.8rem;
+      font-size: clamp(1.3rem, 6.5vw, 1.8rem);
     }
   
     .contact-links {

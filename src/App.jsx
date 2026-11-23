@@ -14,6 +14,7 @@ const LabIndex = lazy(() => import("./pages/lab/LabIndex"));
 const TodoApp = lazy(() => import("./pages/lab/todo/TodoApp"));
 const FootballApp = lazy(() => import("./pages/lab/football/FootballApp"));
 const F1App = lazy(() => import("./pages/lab/f1/F1App"));
+const CaseStudy = lazy(() => import("./pages/projects/CaseStudy"));
 
 function App() {
   const { lang } = useLang();
@@ -37,6 +38,7 @@ function App() {
             <Route path="/lab/todo" element={<TodoApp />} />
             <Route path="/lab/football" element={<FootballApp />} />
             <Route path="/lab/f1" element={<F1App />} />
+            <Route path="/projects/dankar" element={<CaseStudy projectKey="dankar" />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

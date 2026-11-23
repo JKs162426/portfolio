@@ -1,0 +1,230 @@
+.case {
+  max-width: 820px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 7rem 1.5rem 5rem;
+}
+
+.case-back {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.case-back:hover,
+.case-back:focus-visible {
+  color: var(--accent);
+}
+
+.case-header {
+  margin: 2rem 0 2.5rem;
+}
+
+.case-label {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--accent);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.case-label::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, var(--border), transparent);
+}
+
+.case-badge {
+  order: 2;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--green);
+  border: 1px solid rgba(57, 217, 138, 0.35);
+  padding: 0.15rem 0.5rem;
+}
+
+.case-title {
+  font-size: clamp(2.4rem, 7vw, 3.5rem);
+  font-weight: 800;
+  color: var(--heading);
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+.case-accent {
+  color: var(--accent);
+}
+
+.case-intro {
+  margin-top: 1.25rem;
+  max-width: 62ch;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--text);
+}
+
+.case-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.case-shot {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+}
+
+.case-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr));
+  gap: 1px;
+  margin-top: 2rem;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+.case-facts > div {
+  background: var(--surface);
+  padding: 1rem 1.25rem;
+}
+
+.case-facts dt {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--subtle);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.case-facts dd {
+  margin-top: 0.35rem;
+  font-size: 0.9rem;
+  color: var(--heading);
+  line-height: 1.45;
+}
+
+.case-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  list-style: none;
+}
+
+.case-tags li {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--accent);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  padding: 0.2rem 0.55rem;
+}
+
+.case-section {
+  margin-top: 4rem;
+}
+
+.case-section h2 {
+  font-size: clamp(1.5rem, 4vw, 1.9rem);
+  font-weight: 800;
+  color: var(--heading);
+  letter-spacing: -0.02em;
+  margin-bottom: 1.25rem;
+}
+
+.case-section > p {
+  max-width: 68ch;
+  color: var(--text);
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.case-items {
+  list-style: none;
+  counter-reset: item;
+  display: grid;
+  gap: 1rem;
+}
+
+.case-items li {
+  counter-increment: item;
+  position: relative;
+  padding: 1.5rem 1.5rem 1.5rem 4rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.case-items li::before {
+  content: counter(item, decimal-leading-zero);
+  position: absolute;
+  left: 1.5rem;
+  top: 1.55rem;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--accent);
+}
+
+.case-items h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--heading);
+  margin-bottom: 0.5rem;
+}
+
+.case-items p {
+  color: var(--text);
+  font-size: 0.92rem;
+  line-height: 1.75;
+}
+
+.case-quote {
+  margin-top: 4rem;
+  padding: 2rem;
+  border-left: 2px solid var(--accent);
+  background: var(--surface);
+}
+
+.case-quote blockquote p {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--heading);
+}
+
+.case-quote figcaption {
+  margin-top: 1rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--subtle);
+}
+
+.case-footer {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 640px) {
+  .case {
+    padding-top: 6rem;
+  }
+
+  .case-items li {
+    padding: 1.25rem 1.25rem 1.25rem 3.25rem;
+  }
+
+  .case-items li::before {
+    left: 1.25rem;
+    top: 1.3rem;
+  }
+}
