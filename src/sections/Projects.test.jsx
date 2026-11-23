@@ -1,4 +1,5 @@
 // @vitest-environment jsdom
+import fs from "node:fs";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { cleanup, render, screen, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
@@ -39,6 +40,13 @@ describe("datos de proyectos", () => {
     const keys = all.map((p) => p.key).sort();
     expect(Object.keys(content.en.projects.impact).sort()).toEqual(keys);
     expect(Object.keys(content.es.projects.impact).sort()).toEqual(keys);
+  });
+
+  // Una captura que falta se ve como un hueco roto en la tarjeta
+  it("cada proyecto tiene su captura en public/projects", () => {
+    for (const project of all) {
+      expect(fs.existsSync(`public/projects/${project.key}.webp`), project.key).toBe(true);
+    }
   });
 
   it("no repite claves ni títulos", () => {
@@ -100,6 +108,14 @@ describe("<Projects />", () => {
     expect(items).toHaveLength(3);
     expect(items[0].textContent).toMatch(/^Need · Help a handmade/);
     expect(items[0].querySelector('[aria-hidden="true"]').textContent).toBe(" · ");
+  });
+
+  it("cada tarjeta muestra su captura, con carga diferida y texto alternativo", () => {
+    renderProjects();
+    const card = screen.getByRole("heading", { name: "Lunar Landing Site Navigator" }).closest("article");
+    const img = within(card).getByRole("img", { name: "Screenshot of Lunar Landing Site Navigator" });
+    expect(img.getAttribute("src")).toBe("/projects/lunar.webp");
+    expect(img.getAttribute("loading")).toBe("lazy");
   });
 
   it("Matchday enlaza dentro del sitio y el resto abre en otra pestaña", () => {

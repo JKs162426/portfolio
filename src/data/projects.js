@@ -1,6 +1,7 @@
 // Los textos (traducidos) están en content[lang].projects: impact[key] para los
 // puntos de la tarjeta ({ label, text }, los mismos en los dos idiomas),
 // badges[badge] para la etiqueta y notes[key] para avisos.
+// La captura de cada tarjeta es public/projects/{key}.webp (960×600).
 // badge: "client" (cliente real) · "concept" (proyecto de concepto) · "team"
 // · "hackathon" (NASA Space Apps)
 export const featured = [

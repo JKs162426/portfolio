@@ -10,6 +10,15 @@ function ProjectCard({ project, number, t, compact = false }) {
 
   return (
     <article className={`project-card ${compact ? "compact" : ""}`}>
+      <img
+        className="project-shot"
+        src={`/projects/${project.key}.webp`}
+        alt={t.shotAlt(project.title)}
+        width="960"
+        height="600"
+        loading="lazy"
+        decoding="async"
+      />
       <div className="project-meta">
         <span className="project-num">project_{number}</span>
         {project.badge && (
