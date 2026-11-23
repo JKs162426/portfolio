@@ -102,6 +102,16 @@ describe("fetchResource", () => {
     });
   });
 
+  it("el 429 del Firewall de Vercel (texto, sin Retry-After) espera 60 s", async () => {
+    fetchMock.mockResolvedValueOnce(
+      new Response("Too Many Requests", { status: 429, headers: { "Content-Type": "text/plain" } })
+    );
+    await expect(fetchResource(resources.schedule(2021))).rejects.toMatchObject({
+      kind: "rate_limit",
+      retryAfter: 60,
+    });
+  });
+
   it("un 404 del proxy es not_found y no se tapa con datos viejos", async () => {
     const res = resources.driverSeason(2026, "norris");
     fetchMock.mockResolvedValueOnce(ok(f.driverSeasonResponse));

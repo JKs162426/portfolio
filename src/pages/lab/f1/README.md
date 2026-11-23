@@ -64,6 +64,7 @@ inventar una URL nueva en cada petición, cada una llega a la API. Por eso:
 | 2. Forma de la ruta | rutas fuera de la lista, temporadas fuera de 1950–actual, rondas > 30, ceros a la izquierda | nada (400) |
 | 3. Índice de la temporada | rondas y pilotos que no existen en esa temporada | nada tras la 1.ª petición de la temporada (404, cacheado 1 h en la CDN) |
 | 4. Respeto al 429 | tras un 429, no se llama a Jolpica hasta que pase su `Retry-After` | nada (429) |
+| 5. Límite por IP (Firewall de Vercel) | más de **60 peticiones por minuto desde una misma IP** a `/api/f1` | nada: se corta antes de la CDN y de la función (429) |
 
 Rutas permitidas:
 
@@ -84,13 +85,26 @@ se guarda, y la siguiente petición lo reintenta.
 **Resultado:** en toda la historia hay unas **7.000 URLs válidas**
 (77 × 4 de temporada + 1.172 carreras × 3 sesiones + unas 3.000 parejas
 piloto-temporada), y casi todas salen de la CDN. Quien las recorriera todas de
-golpe sí chocaría con el límite por hora de Jolpica (500): ahí la capa 4 deja
-de insistir y la CDN sigue sirviendo lo que ya tiene.
+golpe tendría que hacerlo desde muchas IPs (capa 5); y si aun así llegara al
+límite por hora de Jolpica (500), la capa 4 deja de insistir y la CDN sigue
+sirviendo lo que ya tiene.
 
-**Lo que no cubre:** no hay límite por IP en el proxy. Con varias instancias
-de la función, un contador en memoria no sería fiable; la herramienta correcta
-es una regla de rate limiting del Firewall de Vercel (se configura en el
-panel, no en el código).
+**Límite por IP (capa 5).** No está en el código: un contador en memoria no
+sería fiable con varias instancias de la función. Es una regla del Firewall de
+Vercel (`Rate limit /api/f1`: ruta que empieza por `/api/f1`, ventana fija de
+60 s, clave = IP, 60 peticiones). 60 es el triple del límite del cliente
+(20/min por pestaña): deja margen para varias pestañas o varias personas tras
+la misma IP (una oficina, una universidad) y frena a un bot. Al pasarse, Vercel
+responde `429 Too Many Requests` en texto y sin `Retry-After`; el cliente lo
+trata como "inténtalo en 60 s". El plan Hobby incluye 3 reglas y 1 millón de
+peticiones evaluadas al mes.
+
+Para verla o cambiarla:
+
+```
+vercel firewall rules list --project portfolio
+vercel firewall rules inspect "Rate limit /api/f1" --project portfolio
+```
 
 `api/f1.ts` es autocontenido a propósito: Vercel compila cada función por
 separado y un import relativo sin extensión fallaría en ESM. Por eso
@@ -166,7 +180,8 @@ Regla de dependencias: `views` → `components` → `context`/`hooks` → `lib`.
 - `api/_lib/f1.test.ts`: lista blanca, temporadas, parámetros, índice de rondas y pilotos (con paginación,
   reutilización y renovación), cabeceras de caché, 404, 429 y espera tras 429, timeout.
 - `__tests__/normalize.test.ts`: respuestas completas, antiguas, vacías y rotas.
-- `__tests__/api.test.ts`: caché y caducidad, peticiones compartidas, datos viejos ante fallo, 404, límite de 20/min.
+- `__tests__/api.test.ts`: caché y caducidad, peticiones compartidas, datos viejos ante fallo, 404, 429 del
+  Firewall (texto, sin `Retry-After`), límite de 20/min.
 - `__tests__/utils.test.ts`: estado de carreras, resumen de piloto, temporadas, rate limiter.
 - `__tests__/F1App.test.tsx`: flujos en jsdom — calendario, abrir carrera y cambiar de sesión,
   carrera futura sin peticiones, piloto → carrera → cerrar, constructores, cambio de temporada,
