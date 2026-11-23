@@ -29,7 +29,12 @@ const content = {
       title: "Who I am",
       p1: "I'm a full-stack developer in Utah and a Software Development student at BYU-Idaho. I build web applications from the database to the interface, with a focus on clear APIs, thoughtful data models, and practical user experiences.",
       p2: "I've always been fascinated by languages. Learning them on my own taught me to look for patterns and put new knowledge into practice. I bring that same curiosity to software, where I enjoy learning new tools and using them to solve real problems. I also taught English in Venezuela, an experience that shaped how I explain ideas and break down complex topics.",
-      stats: ["Years building", "Primary stack", "Software Development", "Learning mode"],
+      stats: {
+        projects: { label: "Projects with demos", detail: "Each one with code and a demo" },
+        clients: { label: "Real client in production", detail: "Detalles DanKar · Venezuela" },
+        hackathon: { label: "NASA Space Apps", detail: "Lunar Landing Site Navigator" },
+        languages: { label: "Bilingual", detail: "Apps in Spanish and English", spoken: "Spanish and English" },
+      },
     },
     approach: {
       label: "02 // how I work",
@@ -357,12 +362,12 @@ const content = {
       title: "Quién soy",
       p1: "Soy desarrollador full-stack en Utah y estudiante de Desarrollo de Software en BYU-Idaho. Construyo aplicaciones web desde la base de datos hasta la interfaz, con atención a APIs claras, modelos de datos bien pensados y experiencias útiles para las personas.",
       p2: "Siempre me han fascinado los idiomas. Aprenderlos por mi cuenta me enseñó a buscar patrones y poner en práctica lo que aprendo. Llevo esa misma curiosidad al software: disfruto aprendiendo nuevas herramientas y usándolas para resolver problemas reales. También enseñé inglés en Venezuela, una experiencia que influyó en cómo explico ideas y desgloso temas complejos.",
-      stats: [
-        "Años construyendo",
-        "Stack principal",
-        "Desarrollo de Software",
-        "Modo aprendizaje",
-      ],
+      stats: {
+        projects: { label: "Proyectos con demo", detail: "Cada uno con código y demo" },
+        clients: { label: "Cliente real en producción", detail: "Detalles DanKar · Venezuela" },
+        hackathon: { label: "NASA Space Apps", detail: "Lunar Landing Site Navigator" },
+        languages: { label: "Bilingüe", detail: "Apps en español e inglés", spoken: "Español e inglés" },
+      },
     },
     approach: {
       label: "02 // cómo trabajo",
