@@ -1,0 +1,55 @@
+.approach {
+  padding: 2rem 3rem 6rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.approach-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  list-style: none;
+}
+
+.approach-step {
+  min-height: 210px;
+  padding: 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--accent);
+}
+
+.approach-number {
+  display: block;
+  margin-bottom: 1.25rem;
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+}
+
+.approach-step h3 {
+  margin-bottom: 0.75rem;
+  color: var(--heading);
+  font-size: 1rem;
+}
+
+.approach-step p {
+  color: var(--text);
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+
+@media (max-width: 768px) {
+  .approach {
+    padding: 1rem 1.5rem 4rem;
+  }
+
+  .approach-steps {
+    grid-template-columns: 1fr;
+  }
+
+  .approach-step {
+    min-height: 0;
+  }
+}

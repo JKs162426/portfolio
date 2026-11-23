@@ -27,16 +27,34 @@ const content = {
     about: {
       label: "01 // about",
       title: "Who I am",
-      p1: "I'm a full-stack JavaScript developer based in Utah, pursuing a Bachelor's in Software Development at BYU-Idaho. Before diving into software, I was an English teacher in Venezuela — which gave me a methodical, structured way of thinking about problems that carries directly into how I write code.",
-      p2: "I've been building for over a year, working with the full JS stack: React on the frontend, Node/Express on the backend, and PostgreSQL for data. Every project so far has been built with real-world patterns in mind — authentication, REST APIs, relational databases.",
+      p1: "I'm a full-stack developer in Utah and a Software Development student at BYU-Idaho. I build web applications from the database to the interface, with a focus on clear APIs, thoughtful data models, and practical user experiences.",
+      p2: "I've always been fascinated by languages. Learning them on my own taught me to look for patterns and put new knowledge into practice. I bring that same curiosity to software, where I enjoy learning new tools and using them to solve real problems. I also taught English in Venezuela, an experience that shaped how I explain ideas and break down complex topics.",
       stats: ["Years building", "Primary stack", "Software Development", "Learning mode"],
     },
+    approach: {
+      label: "02 // how I work",
+      title: "From problem to a working product",
+      steps: [
+        {
+          title: "Understand the problem",
+          description: "Clarify who the product is for, what they need, and which constraints matter.",
+        },
+        {
+          title: "Build the right pieces",
+          description: "Shape the data, API, and interface around that need, choosing tools that fit the project.",
+        },
+        {
+          title: "Check and refine",
+          description: "Test the important flows, handle edge cases, and improve the experience based on what I find.",
+        },
+      ],
+    },
     skills: {
-      label: "02 // skills",
+      label: "03 // skills",
       title: "Tech I work with",
     },
     projects: {
-      label: "03 // projects",
+      label: "04 // projects",
       title: "What I've built",
       github: "↗ GitHub",
       live: "↗ Live",
@@ -68,7 +86,7 @@ const content = {
       },
     },
     contact: {
-      label: "04 // contact",
+      label: "05 // contact",
       title: "Let's build something.",
       sub: "Open to opportunities, collaborations, and interesting problems.",
       email: "↗ Email me",
@@ -316,8 +334,8 @@ const content = {
     about: {
       label: "01 // sobre mí",
       title: "Quién soy",
-      p1: "Soy desarrollador JavaScript full-stack en Utah y curso un Bachelor en Desarrollo de Software en BYU-Idaho. Antes de entrar al mundo del software, fui profesor de inglés en Venezuela — lo que me dio una forma metódica y estructurada de pensar en los problemas que aplico directamente cuando escribo código.",
-      p2: "Llevo más de un año construyendo con el stack completo de JS: React en el frontend, Node/Express en el backend y PostgreSQL para datos. Cada proyecto ha sido construido con patrones del mundo real — autenticación, REST APIs, bases de datos relacionales.",
+      p1: "Soy desarrollador full-stack en Utah y estudiante de Desarrollo de Software en BYU-Idaho. Construyo aplicaciones web desde la base de datos hasta la interfaz, con atención a APIs claras, modelos de datos bien pensados y experiencias útiles para las personas.",
+      p2: "Siempre me han fascinado los idiomas. Aprenderlos por mi cuenta me enseñó a buscar patrones y poner en práctica lo que aprendo. Llevo esa misma curiosidad al software: disfruto aprendiendo nuevas herramientas y usándolas para resolver problemas reales. También enseñé inglés en Venezuela, una experiencia que influyó en cómo explico ideas y desgloso temas complejos.",
       stats: [
         "Años construyendo",
         "Stack principal",
@@ -325,12 +343,30 @@ const content = {
         "Modo aprendizaje",
       ],
     },
+    approach: {
+      label: "02 // cómo trabajo",
+      title: "Del problema a una solución funcional",
+      steps: [
+        {
+          title: "Entender el problema",
+          description: "Aclaro para quién es el producto, qué necesita y qué límites hay que tener en cuenta.",
+        },
+        {
+          title: "Construir lo necesario",
+          description: "Diseño los datos, la API y la interfaz alrededor de esa necesidad, con herramientas adecuadas al proyecto.",
+        },
+        {
+          title: "Probar y mejorar",
+          description: "Pruebo los flujos importantes, cubro casos límite y mejoro la experiencia según lo que encuentro.",
+        },
+      ],
+    },
     skills: {
-      label: "02 // habilidades",
+      label: "03 // habilidades",
       title: "Tecnologías que uso",
     },
     projects: {
-      label: "03 // proyectos",
+      label: "04 // proyectos",
       title: "Lo que he construido",
       github: "↗ GitHub",
       live: "↗ Ver en vivo",
@@ -362,7 +398,7 @@ const content = {
       },
     },
     contact: {
-      label: "04 // contacto",
+      label: "05 // contacto",
       title: "Construyamos algo.",
       sub: "Abierto a oportunidades, colaboraciones y problemas interesantes.",
       email: "↗ Escríbeme",
