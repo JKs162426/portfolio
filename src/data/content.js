@@ -68,21 +68,42 @@ const content = {
       notes: {
         glossia: "Free hosting: outside US business hours the first load can take up to a minute.",
       },
-      items: {
-        lunar:
-          "Built for the NASA Space Apps Challenge 2026: compares candidate landing sites near the lunar south pole by how long the Sun and Earth stay above the horizon — the windows a lander needs for solar power and direct-to-Earth radio. It ranks up to four sites over 7 days to a year, charts the Sun and Earth altitude for each one and finds the longest night a battery has to survive. The math runs on the server and is checked against NASA/JPL SPICE data to within 0.005°.",
-        dankar:
-          "Online store for a handmade hair-accessories shop in Pariaguán, Venezuela. Customers build an order and send the whole cart in a single WhatsApp message, with prices in bolívares and dollars at the owner's daily exchange rate. From a JWT-protected admin panel the owner manages products, categories and photos — and a vision AI model writes each product description from its photo. Live in production.",
-        accanto:
-          "A bilingual (Italian/English) reservation system for a fictional restaurant in Turin. Guests check real-time table availability, book in four steps and manage their bookings; the staff runs tables, opening hours, reservations and reports from an admin panel with CSV export. Reminder emails in the guest's language, double-booking protection and hardened security (CSRF, rate limiting, CSP).",
-        matchday:
-          "Standings, fixtures and results from Europe's top five leagues, the Champions League and the Copa Libertadores via a live API. A serverless proxy keeps the API key off the browser, caching keeps usage within the free plan's limit, and live scores refresh on their own — in an accessible, bilingual UI covered by automated tests.",
-        glossia:
-          "Language-learning app in 8 languages — English, Spanish, French, German, Italian, Portuguese, Russian and Chinese. A guided A1–A2 path with lessons that unlock in order, flashcards, a translator and saved favorites, with sign-in by email or Google. It started as my final project for WDD 330 at BYU-Idaho and kept growing into v2.",
-        gymlog:
-          "Workout tracker built by a two-person team for WDD 430 at BYU-Idaho: log sessions with exercises, sets and weights, review recent training on a dashboard and manage your profile. Next.js Server Components, MongoDB and NextAuth.",
-        sacrament:
-          "Plan, manage and share sacrament meeting programs — hymns, prayers, speakers and ward business. Members browse current and past programs; signed-in leaders create and edit them through Server Actions validated with Zod.",
+      impact: {
+        dankar: [
+          { label: "Need", text: "Help a handmade accessories shop sell online and manage its catalog." },
+          { label: "Built", text: "A React storefront, WhatsApp cart checkout, and JWT-protected admin with image-based AI descriptions." },
+          { label: "In use", text: "Live in production in Pariaguán, Venezuela: customers send a complete order in one WhatsApp message, and the owner manages products and daily prices in bolívares and dollars." },
+        ],
+        accanto: [
+          { label: "Scenario", text: "A fictional Turin restaurant needs bilingual reservations and staff tools." },
+          { label: "Built", text: "An Italian/English booking flow, availability checks, admin reports, CSV export, and reminder emails." },
+          { label: "Key detail", text: "Double-booking protection and security controls including CSRF protection, rate limits, and CSP." },
+        ],
+        matchday: [
+          { label: "Need", text: "Follow standings, fixtures, and results from Europe's top five leagues, the Champions League, and the Copa Libertadores." },
+          { label: "Built", text: "An accessible, bilingual interface with live scores that refresh on their own, backed by a serverless API proxy, caching, and automated tests." },
+          { label: "Key detail", text: "The API key stays server-side and caching keeps requests within the free-plan limit." },
+        ],
+        glossia: [
+          { label: "Need", text: "Give language learners a guided way to practice and keep useful material close." },
+          { label: "Built", text: "An A1–A2 lesson path, flashcards, translator, saved favorites, and email or Google sign-in." },
+          { label: "Scope", text: "Eight languages; it started as my final project for WDD 330 at BYU-Idaho and grew into a second version." },
+        ],
+        lunar: [
+          { label: "Need", text: "Compare lunar south-pole sites for sunlight and direct-to-Earth communication windows." },
+          { label: "Built", text: "A tool that ranks and charts up to four sites over 7 days to a year, and finds the longest night a battery has to survive." },
+          { label: "Validation", text: "Server-side calculations checked against NASA/JPL SPICE data to within 0.005°." },
+        ],
+        gymlog: [
+          { label: "Need", text: "Record workouts and review recent training." },
+          { label: "Team project", text: "Built with a two-person team for WDD 430 at BYU-Idaho: exercise, set, and weight logging, a recent-training dashboard, and profile management." },
+          { label: "Stack", text: "Next.js Server Components, MongoDB, and NextAuth." },
+        ],
+        sacrament: [
+          { label: "Need", text: "Plan and share meeting programs with members and leaders." },
+          { label: "Built", text: "A program manager for hymns, prayers, speakers, and ward business, with current and past programs." },
+          { label: "Key detail", text: "Signed-in leaders create and edit programs using Server Actions validated with Zod." },
+        ],
       },
     },
     contact: {
@@ -380,21 +401,42 @@ const content = {
       notes: {
         glossia: "Alojamiento gratuito: fuera del horario laboral de EE. UU. la primera carga puede tardar hasta un minuto.",
       },
-      items: {
-        lunar:
-          "Hecho para el NASA Space Apps Challenge 2026: compara sitios de alunizaje candidatos cerca del polo sur lunar según cuánto tiempo pasan el Sol y la Tierra sobre el horizonte, las ventanas que un módulo necesita para tener energía solar y comunicarse directo con la Tierra. Ordena hasta cuatro sitios en rangos de 7 días a un año, grafica la altura del Sol y de la Tierra en cada uno y calcula la noche más larga que tendría que aguantar la batería. Los cálculos corren en el servidor y se validan contra datos SPICE de la NASA/JPL con una tolerancia de 0,005°.",
-        dankar:
-          "Tienda online para una marca de accesorios artesanales para el cabello en Pariaguán, Venezuela. Los clientes arman su pedido y envían el carrito completo en un solo mensaje de WhatsApp, con precios en bolívares y dólares según el tipo de cambio que se fija cada día. Desde un panel de administración protegido con JWT se gestionan productos, categorías y fotos, y un modelo de IA de visión escribe la descripción de cada producto a partir de su foto. En producción.",
-        accanto:
-          "Sistema de reservas bilingüe (italiano/inglés) para un restaurante ficticio en Turín. Los clientes consultan la disponibilidad de mesas en tiempo real, reservan en cuatro pasos y gestionan sus reservas; el personal administra mesas, horarios, reservas y reportes desde un panel con exportación a CSV. Emails de recordatorio en el idioma del cliente, protección contra reservas duplicadas y seguridad reforzada (CSRF, límites de intentos, CSP).",
-        matchday:
-          "Clasificación, calendario y resultados de las cinco grandes ligas europeas, la Champions League y la Copa Libertadores desde una API en vivo. Un proxy serverless mantiene la API key fuera del navegador, la caché respeta el límite del plan gratuito y los marcadores en vivo se actualizan solos, en una interfaz accesible, bilingüe y cubierta por pruebas automáticas.",
-        glossia:
-          "App para aprender idiomas en 8 lenguas: inglés, español, francés, alemán, italiano, portugués, ruso y chino. Un camino guiado A1–A2 con lecciones que se desbloquean en orden, flashcards, un traductor y favoritos, con acceso por email o Google. Empezó como mi proyecto final de WDD 330 en BYU-Idaho y siguió creciendo hasta su v2.",
-        gymlog:
-          "Registro de entrenamientos hecho en equipo de dos personas para WDD 430 en BYU-Idaho: sesiones con ejercicios, series y pesos, un panel con el entrenamiento reciente y gestión del perfil. Next.js con Server Components, MongoDB y NextAuth.",
-        sacrament:
-          "Planifica, gestiona y comparte programas de reunión sacramental: himnos, oraciones, discursantes y asuntos del barrio. Los miembros consultan los programas actuales y anteriores; los líderes con sesión iniciada los crean y editan mediante Server Actions validadas con Zod.",
+      impact: {
+        dankar: [
+          { label: "Necesidad", text: "Ayudar a una tienda artesanal a vender en línea y gestionar su catálogo." },
+          { label: "Construí", text: "Una tienda en React, carrito que prepara el pedido para WhatsApp y panel protegido con JWT e IA para describir productos desde sus fotos." },
+          { label: "En uso", text: "En producción en Pariaguán, Venezuela: los clientes envían el pedido completo en un solo mensaje de WhatsApp, y la dueña gestiona productos y precios diarios en bolívares y dólares." },
+        ],
+        accanto: [
+          { label: "Escenario", text: "Un restaurante ficticio de Turín necesita reservas bilingües y herramientas para el personal." },
+          { label: "Construí", text: "Reservas en italiano e inglés, consulta de disponibilidad, panel administrativo, reportes, exportación CSV y recordatorios por email." },
+          { label: "Detalle clave", text: "Protección contra reservas duplicadas y controles de seguridad como CSRF, límites de intentos y CSP." },
+        ],
+        matchday: [
+          { label: "Necesidad", text: "Consultar clasificación, calendario y resultados de las cinco grandes ligas europeas, la Champions League y la Copa Libertadores." },
+          { label: "Construí", text: "Una interfaz accesible y bilingüe con marcadores en vivo que se actualizan solos, sobre un proxy serverless, caché y pruebas automáticas." },
+          { label: "Detalle clave", text: "La API key permanece en el servidor y la caché mantiene las consultas dentro del límite del plan gratuito." },
+        ],
+        glossia: [
+          { label: "Necesidad", text: "Ofrecer a quienes estudian idiomas un camino guiado y herramientas de práctica." },
+          { label: "Construí", text: "Lecciones A1–A2, flashcards, traductor, favoritos e inicio de sesión por email o Google." },
+          { label: "Alcance", text: "Ocho idiomas; empezó como mi proyecto final de WDD 330 en BYU-Idaho y creció hasta una segunda versión." },
+        ],
+        lunar: [
+          { label: "Necesidad", text: "Comparar sitios del polo sur lunar según ventanas de luz solar y comunicación directa con la Tierra." },
+          { label: "Construí", text: "Una herramienta que ordena y grafica hasta cuatro sitios en periodos de 7 días a un año, y calcula la noche más larga que tendría que aguantar la batería." },
+          { label: "Validación", text: "Cálculos en el servidor contrastados con datos SPICE de NASA/JPL con tolerancia de 0,005°." },
+        ],
+        gymlog: [
+          { label: "Necesidad", text: "Registrar entrenamientos y revisar la actividad reciente." },
+          { label: "Proyecto en equipo", text: "Desarrollado con un equipo de dos personas para WDD 430 en BYU-Idaho: registro de ejercicios, series y pesos, panel con el entrenamiento reciente y gestión del perfil." },
+          { label: "Stack", text: "Next.js Server Components, MongoDB y NextAuth." },
+        ],
+        sacrament: [
+          { label: "Necesidad", text: "Planificar y compartir programas de reunión con miembros y líderes." },
+          { label: "Construí", text: "Un gestor de himnos, oraciones, discursantes y asuntos del barrio, con programas actuales y anteriores." },
+          { label: "Detalle clave", text: "Los líderes crean y editan programas con Server Actions validadas con Zod." },
+        ],
       },
     },
     contact: {

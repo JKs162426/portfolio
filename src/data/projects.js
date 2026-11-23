@@ -1,5 +1,6 @@
-// Los textos (traducidos) están en content[lang].projects: items[key] para la
-// descripción, badges[badge] para la etiqueta y notes[key] para avisos.
+// Los textos (traducidos) están en content[lang].projects: impact[key] para los
+// puntos de la tarjeta ({ label, text }, los mismos en los dos idiomas),
+// badges[badge] para la etiqueta y notes[key] para avisos.
 // badge: "client" (cliente real) · "concept" (proyecto de concepto) · "team"
 // · "hackathon" (NASA Space Apps)
 export const featured = [

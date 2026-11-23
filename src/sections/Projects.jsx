@@ -19,7 +19,17 @@ function ProjectCard({ project, number, t, compact = false }) {
         )}
       </div>
       <h3 className="project-title">{project.title}</h3>
-      <p className="project-desc">{t.items[project.key]}</p>
+      <div className="project-impact">
+        {t.impact[project.key].map(({ label, text }) => (
+          <p className="project-impact-item" key={label}>
+            <span>
+              {label}
+              <span aria-hidden="true"> · </span>
+            </span>
+            {text}
+          </p>
+        ))}
+      </div>
       <div className="project-tags">
         {project.tags.map((tag) => (
           <span className="project-tag" key={tag}>
