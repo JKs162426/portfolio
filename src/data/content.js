@@ -116,9 +116,13 @@ const content = {
     contact: {
       label: "05 // contact",
       title: "Let's build something.",
-      sub: "Open to opportunities, collaborations, and interesting problems.",
+      // Misma frase que el perfil del CV (docs/cv/cv.html)
+      sub: "Looking for a full-stack developer role where I can ship real features and keep growing as an engineer.",
+      location: "Based in Orem, Utah",
       email: "↗ Email me",
+      linkedin: "↗ LinkedIn",
       github: "↗ GitHub",
+      cv: "Download CV ↓",
     },
     footer: {
       left: "© 2026",
@@ -451,9 +455,13 @@ const content = {
     contact: {
       label: "05 // contacto",
       title: "Construyamos algo.",
-      sub: "Abierto a oportunidades, colaboraciones y problemas interesantes.",
+      // Misma frase que el perfil del CV (docs/cv/cv.html)
+      sub: "Busco un puesto de desarrollador full-stack donde pueda lanzar funcionalidades reales y seguir creciendo como ingeniero.",
+      location: "En Orem, Utah",
       email: "↗ Escríbeme",
+      linkedin: "↗ LinkedIn",
       github: "↗ GitHub",
+      cv: "Descargar CV ↓",
     },
     footer: {
       left: "© 2026",
