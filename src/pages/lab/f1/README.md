@@ -64,7 +64,7 @@ inventar una URL nueva en cada petición, cada una llega a la API. Por eso:
 | 2. Forma de la ruta | rutas fuera de la lista, temporadas fuera de 1950–actual, rondas > 30, ceros a la izquierda | nada (400) |
 | 3. Índice de la temporada | rondas y pilotos que no existen en esa temporada | nada tras la 1.ª petición de la temporada (404, cacheado 1 h en la CDN) |
 | 4. Respeto al 429 | tras un 429, no se llama a Jolpica hasta que pase su `Retry-After` | nada (429) |
-| 5. Límite por IP (Firewall de Vercel) | más de **60 peticiones por minuto desde una misma IP** a `/api/f1` | nada: se corta antes de la CDN y de la función (429) |
+| 5. Límite por IP (Firewall de Vercel) | más de **60 peticiones por minuto desde una misma IP** a `/api/f1` y `/api/football` (contador compartido) | nada: se corta antes de la CDN y de la función (429) |
 
 Rutas permitidas:
 
@@ -91,19 +91,24 @@ sirviendo lo que ya tiene.
 
 **Límite por IP (capa 5).** No está en el código: un contador en memoria no
 sería fiable con varias instancias de la función. Es una regla del Firewall de
-Vercel (`Rate limit /api/f1`: ruta que empieza por `/api/f1`, ventana fija de
-60 s, clave = IP, 60 peticiones). 60 es el triple del límite del cliente
-(20/min por pestaña): deja margen para varias pestañas o varias personas tras
-la misma IP (una oficina, una universidad) y frena a un bot. Al pasarse, Vercel
-responde `429 Too Many Requests` en texto y sin `Retry-After`; el cliente lo
-trata como "inténtalo en 60 s". El plan Hobby incluye 3 reglas y 1 millón de
+Vercel, `Rate limit /api (f1 + football)`: ruta que empieza por `/api/f1` **o**
+por `/api/football`, ventana fija de 60 s, clave = IP, 60 peticiones. 60 es el
+triple del límite del cliente (20/min por pestaña): deja margen para varias
+pestañas o varias personas tras la misma IP (una oficina, una universidad) y
+frena a un bot. Al pasarse, Vercel responde `429 Too Many Requests` en texto y
+sin `Retry-After`; el cliente lo trata como "inténtalo en 60 s".
+
+Las dos apps comparten **una sola regla y un solo contador** por IP: el plan
+Hobby admite 3 reglas personalizadas, pero solo una de rate limit (una segunda
+devuelve `402 Rate limiting is not available for this plan`). Con dos reglas
+separadas (plan Pro) cada app tendría su propio cupo. Incluye 1 millón de
 peticiones evaluadas al mes.
 
 Para verla o cambiarla:
 
 ```
 vercel firewall rules list --project portfolio
-vercel firewall rules inspect "Rate limit /api/f1" --project portfolio
+vercel firewall rules inspect "Rate limit /api (f1 + football)" --project portfolio
 ```
 
 `api/f1.ts` es autocontenido a propósito: Vercel compila cada función por

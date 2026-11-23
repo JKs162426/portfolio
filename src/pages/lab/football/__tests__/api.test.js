@@ -93,4 +93,14 @@ describe("fetchResource", () => {
     expect(error.kind).toBe(kind);
     if (kind === "rate_limit") expect(error.retryAfter).toBe(42);
   });
+
+  // El Firewall de Vercel corta antes del proxy: texto plano y sin cabeceras de la API
+  it("el 429 del Firewall de Vercel espera 60 s", async () => {
+    fetchMock.mockResolvedValue(
+      new Response("Too Many Requests", { status: 429, headers: { "Content-Type": "text/plain" } })
+    );
+    const error = await fetchResource(RESOURCES.standings).catch((e) => e);
+    expect(error.kind).toBe("rate_limit");
+    expect(error.retryAfter).toBe(60);
+  });
 });
