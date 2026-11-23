@@ -2,6 +2,7 @@
 // puntos de la tarjeta ({ label, text }, los mismos en los dos idiomas),
 // badges[badge] para la etiqueta y notes[key] para avisos.
 // La captura de cada tarjeta es public/projects/{key}.webp (960×600).
+// caseStudy: ruta interna al caso de estudio (textos en data/caseStudies.js).
 // badge: "client" (cliente real) · "concept" (proyecto de concepto) · "team"
 // · "hackathon" (NASA Space Apps)
 export const featured = [
@@ -12,6 +13,7 @@ export const featured = [
     tags: ["React", "Node.js", "Express", "MongoDB", "Zod", "Cloudinary", "Vision AI"],
     github: "https://github.com/JKs162426/danikar",
     live: "https://dankar.vercel.app",
+    caseStudy: "/projects/dankar",
   },
   {
     key: "accanto",

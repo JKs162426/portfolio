@@ -63,6 +63,7 @@ const content = {
       title: "What I've built",
       github: "↗ GitHub",
       live: "↗ Live",
+      caseStudy: "→ Case study",
       shotAlt: (title) => `Screenshot of ${title}`,
       moreTitle: "More projects",
       badges: {
@@ -397,6 +398,7 @@ const content = {
       title: "Lo que he construido",
       github: "↗ GitHub",
       live: "↗ Ver en vivo",
+      caseStudy: "→ Caso de estudio",
       shotAlt: (title) => `Captura de ${title}`,
       moreTitle: "Más proyectos",
       badges: {

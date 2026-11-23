@@ -47,6 +47,11 @@ function ProjectCard({ project, number, t, compact = false }) {
         ))}
       </div>
       <div className="project-links">
+        {project.caseStudy && (
+          <Link to={project.caseStudy} className="project-link project-link-case">
+            {t.caseStudy}
+          </Link>
+        )}
         <a href={project.github} target="_blank" rel="noreferrer" className="project-link">
           {t.github}
         </a>

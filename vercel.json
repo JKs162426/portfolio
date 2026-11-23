@@ -16,6 +16,10 @@
     {
       "source": "/lab/f1",
       "destination": "/index.html"
+    },
+    {
+      "source": "/projects/dankar",
+      "destination": "/index.html"
     }
   ],
   "headers": [

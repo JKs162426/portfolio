@@ -118,6 +118,15 @@ describe("<Projects />", () => {
     expect(img.getAttribute("loading")).toBe("lazy");
   });
 
+  it("DanKar enlaza a su caso de estudio dentro del sitio; el resto no", () => {
+    renderProjects();
+    const card = (title) => screen.getByRole("heading", { name: title }).closest("article");
+    const link = within(card("Detalles DanKar")).getByRole("link", { name: "→ Case study" });
+    expect(link.getAttribute("href")).toBe("/projects/dankar");
+    expect(link.getAttribute("target")).toBeNull();
+    expect(within(card("Accanto")).queryByRole("link", { name: /Case study/ })).toBeNull();
+  });
+
   it("Matchday enlaza dentro del sitio y el resto abre en otra pestaña", () => {
     renderProjects();
     const live = (title) =>

@@ -171,6 +171,10 @@
     color: #fff;
   }
 
+  .project-link-case {
+    color: var(--green);
+  }
+
   .project-note {
     margin-top: 0.75rem;
     font-family: var(--mono);
