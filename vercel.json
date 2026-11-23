@@ -12,6 +12,10 @@
     {
       "source": "/lab/football",
       "destination": "/index.html"
+    },
+    {
+      "source": "/lab/f1",
+      "destination": "/index.html"
     }
   ],
   "headers": [

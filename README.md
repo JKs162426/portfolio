@@ -12,6 +12,11 @@ Bachelor's in Software Development at BYU-Idaho.
 - **Portfolio** — about, skills, projects and contact. Bilingual (EN/ES), with
   the chosen language remembered between visits.
 - **Lab** (`/lab`) — small, self-contained apps:
+  - **Pit Wall** (`/lab/f1`) — Formula 1 calendar, race, sprint and qualifying
+    results, and driver and constructor standings for every season since 1950,
+    via the public [Jolpica-F1](https://github.com/jolpica/jolpica-f1) API.
+    Written in TypeScript, with a client-side request limit and two cache layers.
+    See its [README](src/pages/lab/f1/README.md).
   - **Matchday** (`/lab/football`) — standings, fixtures and results from
     Europe's top five leagues, the Champions League and the Copa Libertadores via
     [football-data.org](https://www.football-data.org). The API key stays on the
@@ -22,8 +27,8 @@ Bachelor's in Software Development at BYU-Idaho.
 
 ## Stack
 
-React 19 · React Router 7 · Vite · plain CSS · Vercel Functions ·
-Vitest + Testing Library
+React 19 · React Router 7 · Vite · TypeScript (Pit Wall) · plain CSS ·
+Vercel Functions · Vitest + Testing Library
 
 ## Getting started
 
@@ -35,11 +40,12 @@ npm run dev
 
 | Script | Description |
 |---|---|
-| `npm run dev` | Dev server (includes the `/api/football` proxy) |
+| `npm run dev` | Dev server (includes the `/api/football` and `/api/f1` proxies) |
 | `npm run build` | Production build into `dist/` |
 | `npm run preview` | Serve the production build locally |
 | `npm test` | Run the test suite |
 | `npm run lint` | Lint with ESLint |
+| `npm run typecheck` | Type-check the TypeScript code with `tsc` |
 
 ## Deployment
 
@@ -50,7 +56,7 @@ Environment Variables*. `vercel.json` rewrites client-side routes to
 ## Project structure
 
 ```
-api/                    Vercel Functions (football-data.org proxy)
+api/                    Vercel Functions (football-data.org and Jolpica-F1 proxies)
 docs/                   README screenshot · cv/ (CV source + build script)
 public/                 Static assets (CV, favicon, social preview image)
 src/
@@ -58,7 +64,7 @@ src/
   context/              Language (EN/ES) provider
   data/content.js       All site copy, in English and Spanish
   hooks/                Reusable hooks
-  pages/lab/            Lab apps (football, todo)
+  pages/lab/            Lab apps (f1, football, todo)
   sections/             Home page sections
   styles/               One stylesheet per section/page
 ```

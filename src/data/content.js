@@ -103,6 +103,10 @@ const content = {
       sub: "Small, self-contained experiments — each one a full mini app.",
       open: "Open →",
       projects: {
+        f1: {
+          title: "Pit Wall",
+          desc: "Formula 1 calendar, race and qualifying results, and driver and constructor standings for every season since 1950. Written in TypeScript, with a request limit and caching to protect a public API.",
+        },
         todo: {
           title: "Loop",
           desc: "Task manager with editing, filters and persistence. useReducer + localStorage.",
@@ -393,6 +397,10 @@ const content = {
       sub: "Experimentos pequeños e independientes — cada uno, una mini app completa.",
       open: "Abrir →",
       projects: {
+        f1: {
+          title: "Pit Wall",
+          desc: "Calendario, resultados de carrera y clasificación, y campeonatos de pilotos y constructores de todas las temporadas desde 1950. Escrito en TypeScript, con límite de peticiones y caché para cuidar una API pública.",
+        },
         todo: {
           title: "Loop",
           desc: "Gestor de tareas con edición, filtros y persistencia. useReducer + localStorage.",
