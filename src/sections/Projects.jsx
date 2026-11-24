@@ -13,7 +13,7 @@ function ProjectCard({ project, number, t, compact = false }) {
       <img
         className="project-shot"
         src={`/projects/${project.key}.webp`}
-        alt={t.shotAlt(project.title)}
+        alt={t.shotAlt[project.key]}
         width="960"
         height="600"
         loading="lazy"

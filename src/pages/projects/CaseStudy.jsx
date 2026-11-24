@@ -46,7 +46,7 @@ export default function CaseStudy({ projectKey }) {
       <img
         className="case-shot"
         src={`/projects/${projectKey}-case.webp`}
-        alt={ui.shotAlt(project.title)}
+        alt={study.shotAlt}
         width="1280"
         height="800"
       />

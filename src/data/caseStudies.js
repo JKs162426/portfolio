@@ -1,6 +1,7 @@
 // Casos de estudio: /projects/{key}. Cada uno necesita su ruta en App.jsx,
 // su rewrite en vercel.json, su entrada en el sitemap y caseStudy en projects.js.
 //
+// shotAlt: descripción de la captura {key}-case.webp (lo que se ve en ella).
 // testimonial: { quote, author } o null. Solo se muestra si existe: no se
 // inventa una cita, se pide al cliente.
 const caseStudies = {
@@ -9,11 +10,11 @@ const caseStudies = {
       label: "case study",
       back: "← All projects",
       facts: "Project facts",
-      shotAlt: (title) => `${title} home page`,
       live: "↗ Visit the live site",
       github: "↗ Read the code",
     },
     dankar: {
+      shotAlt: "Detalles DanKar storefront showing the order steps, personalization options, and product catalog.",
       intro:
         "An online catalog for a handmade hair-accessories shop in Pariaguán, Venezuela. Customers build an order and send it to WhatsApp in one message; the owner runs the catalog herself from a private admin panel.",
       facts: [
@@ -64,7 +65,7 @@ const caseStudies = {
             },
             {
               title: "One photo per AI request",
-              body: "Each photo costs about 1,800 tokens at any size, so one 768 px photo is sent by default to stay on the free tier. Smaller images cost the same and were recognized worse.",
+              body: "To limit input usage, I send one 768 px main photo per request. Groq counts each image as 2,048 input tokens for this model, regardless of pixel dimensions; in my tests, smaller images used the same number of input tokens and were recognized less accurately.",
             },
           ],
         },
@@ -77,11 +78,11 @@ const caseStudies = {
       label: "caso de estudio",
       back: "← Todos los proyectos",
       facts: "Datos del proyecto",
-      shotAlt: (title) => `Página de inicio de ${title}`,
       live: "↗ Ver la tienda en vivo",
       github: "↗ Ver el código",
     },
     dankar: {
+      shotAlt: "Tienda Detalles DanKar con los pasos para hacer pedidos, opciones de personalización y catálogo de productos.",
       intro:
         "Catálogo en línea para una tienda de accesorios artesanales para el cabello en Pariaguán, Venezuela. Los clientes arman su pedido y lo envían a WhatsApp en un solo mensaje; la dueña gestiona el catálogo por su cuenta desde un panel privado.",
       facts: [
@@ -132,7 +133,7 @@ const caseStudies = {
             },
             {
               title: "Una foto por petición a la IA",
-              body: "Cada foto cuesta unos 1.800 tokens sin importar su tamaño, así que por defecto se envía una sola foto de 768 px para no salir del plan gratuito. Las imágenes más pequeñas cuestan lo mismo y se reconocían peor.",
+              body: "Para limitar el consumo de entrada, envío una foto principal de 768 px por petición. Groq cuenta cada imagen como 2.048 tokens de entrada para este modelo, sin importar sus dimensiones; en mis pruebas, las imágenes más pequeñas consumieron la misma cantidad de tokens de entrada y se reconocieron con menos precisión.",
             },
           ],
         },

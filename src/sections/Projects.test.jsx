@@ -17,6 +17,8 @@ describe("datos de proyectos", () => {
     for (const project of all) {
       const points = t.impact[project.key];
       expect(points?.length, `${lang}.impact.${project.key}`).toBeGreaterThan(0);
+      // Sin texto alternativo, el lector de pantalla lee el nombre del archivo
+      expect(t.shotAlt[project.key], `${lang}.shotAlt.${project.key}`).toBeTruthy();
       for (const { label, text } of points) {
         expect(label && text, `${lang}.impact.${project.key}: ${label}`).toBeTruthy();
         // El separador lo pone el componente
@@ -113,7 +115,9 @@ describe("<Projects />", () => {
   it("cada tarjeta muestra su captura, con carga diferida y texto alternativo", () => {
     renderProjects();
     const card = screen.getByRole("heading", { name: "Lunar Landing Site Navigator" }).closest("article");
-    const img = within(card).getByRole("img", { name: "Screenshot of Lunar Landing Site Navigator" });
+    const img = within(card).getByRole("img", {
+      name: "Lunar landing site comparison dashboard with candidate sites, rankings, and sunlight charts.",
+    });
     expect(img.getAttribute("src")).toBe("/projects/lunar.webp");
     expect(img.getAttribute("loading")).toBe("lazy");
   });
