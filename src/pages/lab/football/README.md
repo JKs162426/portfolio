@@ -84,6 +84,11 @@ blanca de rutas para no convertirse en un proxy abierto.
   (“datos guardados a las…”) en vez de un error.
 - Peticiones simultáneas al mismo recurso se comparten.
 - La CDN de Vercel cachea las respuestas 60 s (`s-maxage`) para todos los visitantes.
+- **Límite por IP en el Firewall de Vercel:** más de 60 peticiones por minuto desde
+  una misma IP reciben `429` antes de llegar al proxy. La regla es compartida con
+  `/api/f1` (el plan Hobby solo admite una de rate limit); detalles en el
+  [README de Pit Wall](../f1/README.md). El cliente trata ese 429 (texto, sin
+  `x-requestcounter-reset`) como "inténtalo en 60 s".
 
 ### Estado y navegación
 

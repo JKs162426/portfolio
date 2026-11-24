@@ -1,0 +1,25 @@
+{
+  // TypeScript solo cubre el código nuevo (lab F1 y su función de Vercel).
+  // El resto del sitio sigue en JS: allowJs deja importarlo con tipos
+  // inferidos, sin revisarlo (checkJs: false).
+  "compilerOptions": {
+    "target": "ES2023",
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "types": ["node", "vite/client"],
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    "allowJs": true,
+    "checkJs": false,
+    "noEmit": true
+  },
+  "include": ["src/vite-env.d.ts", "src/pages/lab/f1", "api/f1.ts", "api/_lib/f1.test.ts"]
+}

@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 import { copyFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { handleFootballRequest } from './api/_lib/footballProxy.js'
+import { handleF1Request } from './api/f1.ts'
 
 // En local no existen las funciones de Vercel: montamos el mismo proxy
 // como middleware de Vite (dev y preview)
@@ -18,6 +19,14 @@ function footballApi(apiKey) {
     configureServer: mount,
     configurePreviewServer: mount,
   }
+}
+
+// Mismo patrón para el lab de F1 (no necesita key)
+function f1Api() {
+  const mount = (server) => {
+    server.middlewares.use('/api/f1', (req, res) => handleF1Request(req, res))
+  }
+  return { name: 'f1-api', configureServer: mount, configurePreviewServer: mount }
 }
 
 // Vercel sirve dist/404.html con estado 404 para las rutas que no existen.
@@ -43,9 +52,9 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
 
   return {
-    plugins: [react(), footballApi(env.FOOTBALL_DATA_API_KEY), notFoundPage()],
+    plugins: [react(), footballApi(env.FOOTBALL_DATA_API_KEY), f1Api(), notFoundPage()],
     test: {
-      include: ['src/**/*.test.{js,jsx}', 'api/**/*.test.js'],
+      include: ['src/**/*.test.{js,jsx,ts,tsx}', 'api/**/*.test.{js,ts}'],
     },
   }
 })

@@ -58,49 +58,40 @@
   .stat-card {
     background: var(--surface);
     border: 1px solid var(--border);
+    border-top: 2px solid var(--accent);
     padding: 1.5rem;
-    position: relative;
-    overflow: hidden;
-    transition: border-color 0.2s;
+    display: flex;
+    flex-direction: column;
   }
-  
-  .stat-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(to right, var(--accent), var(--accent2));
-    opacity: 0;
-    transition: opacity 0.2s;
-  }
-  
-  .stat-card:hover {
-    border-color: var(--accent);
-  }
-  
-  .stat-card:hover::before {
-    opacity: 1;
-  }
-  
+
+  /* La cifra va primero a la vista; en el HTML va después de la etiqueta */
   .stat-num {
+    order: -1;
     font-family: var(--mono);
     font-size: 2rem;
     color: var(--accent);
     font-weight: 700;
-    display: block;
-    margin-bottom: 0.3rem;
+    line-height: 1.1;
+    margin-bottom: 0.6rem;
+    white-space: nowrap;
   }
-  
+
   .stat-label {
     font-family: var(--mono);
     font-size: 0.72rem;
-    color: var(--muted);
+    color: var(--heading);
     letter-spacing: 0.1em;
     text-transform: uppercase;
+    line-height: 1.5;
   }
-  
+
+  .stat-detail {
+    font-size: 0.82rem;
+    color: var(--subtle);
+    line-height: 1.5;
+    margin-top: 0.35rem;
+  }
+
   @media (max-width: 768px) {
     .about {
       padding: 4rem 1.5rem;
@@ -124,7 +115,11 @@
     }
   
     .stat-label {
-      font-size: 0.65rem;
+      font-size: 0.68rem;
+    }
+
+    .stat-detail {
+      font-size: 0.78rem;
     }
   }
   

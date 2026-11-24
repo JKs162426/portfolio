@@ -27,38 +27,110 @@ const content = {
     about: {
       label: "01 // about",
       title: "Who I am",
-      p1: "I'm a full-stack JavaScript developer based in Utah, pursuing a Bachelor's in Software Development at BYU-Idaho. Before diving into software, I was an English teacher in Venezuela — which gave me a methodical, structured way of thinking about problems that carries directly into how I write code.",
-      p2: "I've been building for over a year, working with the full JS stack: React on the frontend, Node/Express on the backend, and PostgreSQL for data. Every project so far has been built with real-world patterns in mind — authentication, REST APIs, relational databases.",
-      p3: "Currently working on",
-      p3b: "— a platform for people to share their interests and connect with others.",
-      stats: ["Years building", "Primary stack", "Software Development", "Learning mode"],
+      p1: "I'm a full-stack developer in Utah and a Software Development student at BYU-Idaho. I build web applications from the database to the interface, with a focus on clear APIs, thoughtful data models, and practical user experiences.",
+      p2: "I've always been fascinated by languages. Learning them on my own taught me to look for patterns and put new knowledge into practice. I bring that same curiosity to software, where I enjoy learning new tools and using them to solve real problems. I also taught English in Venezuela, an experience that shaped how I explain ideas and break down complex topics.",
+      stats: {
+        projects: { label: "Projects with demos", detail: "Each one with code and a demo" },
+        clients: { label: "Real client in production", detail: "Detalles DanKar · Venezuela" },
+        hackathon: { label: "NASA Space Apps", detail: "Lunar Landing Site Navigator" },
+        languages: { label: "Bilingual", detail: "Apps in Spanish and English", spoken: "Spanish and English" },
+      },
+    },
+    approach: {
+      label: "02 // how I work",
+      title: "From problem to a working product",
+      steps: [
+        {
+          title: "Understand the problem",
+          description: "Clarify who the product is for, what they need, and which constraints matter.",
+        },
+        {
+          title: "Build the right pieces",
+          description: "Shape the data, API, and interface around that need, choosing tools that fit the project.",
+        },
+        {
+          title: "Check and refine",
+          description: "Test the important flows, handle edge cases, and improve the experience based on what I find.",
+        },
+      ],
     },
     skills: {
-      label: "02 // skills",
+      label: "03 // skills",
       title: "Tech I work with",
     },
     projects: {
-      label: "03 // projects",
+      label: "04 // projects",
       title: "What I've built",
       github: "↗ GitHub",
       live: "↗ Live",
-      items: {
-        glossia:
-          "A language learning app with React frontend, Node.js backend, and MySQL database. Features include user auth, flashcards, and progress tracking.",
-        dankar:
-          "E-commerce site for a handmade accessories store. Features a public catalog with category filters, direct WhatsApp ordering, and a JWT-protected admin panel. Real client, live in production.",
-        matchday:
-          "Standings, fixtures and results from Europe's top five leagues, the Champions League and the Copa Libertadores via a live API. Server-side proxy for the API key, local caching within the free plan's rate limit, debounced search, live auto-refresh and an accessible, bilingual UI.",
-        accanto:
-          "Bilingual (Italian/English) reservation system for an Italian restaurant in Turin. Real-time table availability, self-service bookings and an admin panel with live table status, reports and CSV export. Transactional emails with reminders, double-booking protection and hardened security (CSRF, rate limiting, CSP).",
+      caseStudy: "→ Case study",
+      shotAlt: {
+        dankar: "Detalles DanKar storefront showing custom order steps and its accessory catalog.",
+        accanto: "Accanto restaurant landing page with reservation buttons and an illustrated Turin scene.",
+        matchday: "Matchday dashboard showing Premier League standings and competition navigation.",
+        glossia: "Glossia sign-in screen with email and Google options.",
+        lunar: "Lunar landing site comparison dashboard with candidate sites, rankings, and sunlight charts.",
+        gymlog: "GymLog landing page with workout metrics and a log-workout action.",
+        sacrament: "Sacrament Meeting Program page listing current and past meeting programs.",
+      },
+      moreTitle: "More projects",
+      badges: {
+        client: "Real client",
+        concept: "Concept project",
+        team: "Team project",
+        hackathon: "NASA Space Apps",
+      },
+      notes: {
+        glossia: "Free hosting: outside US business hours the first load can take up to a minute.",
+      },
+      impact: {
+        dankar: [
+          { label: "Need", text: "Help a handmade accessories shop sell online and manage its catalog." },
+          { label: "Built", text: "A React storefront, WhatsApp cart checkout, and JWT-protected admin with image-based AI descriptions." },
+          { label: "In use", text: "Live in production in Pariaguán, Venezuela: customers send a complete order in one WhatsApp message, and the owner manages products and daily prices in bolívares and dollars." },
+        ],
+        accanto: [
+          { label: "Scenario", text: "A fictional Turin restaurant needs bilingual reservations and staff tools." },
+          { label: "Built", text: "An Italian/English booking flow, availability checks, admin reports, CSV export, and reminder emails." },
+          { label: "Key detail", text: "Double-booking protection and security controls including CSRF protection, rate limits, and CSP." },
+        ],
+        matchday: [
+          { label: "Need", text: "Follow standings, fixtures, and results from Europe's top five leagues, the Champions League, and the Copa Libertadores." },
+          { label: "Built", text: "An accessible, bilingual interface with live scores that refresh on their own, backed by a serverless API proxy, caching, and automated tests." },
+          { label: "Key detail", text: "The API key stays server-side and caching keeps requests within the free-plan limit." },
+        ],
+        glossia: [
+          { label: "Need", text: "Give language learners a guided way to practice and keep useful material close." },
+          { label: "Built", text: "An A1–A2 lesson path, flashcards, translator, saved favorites, and email or Google sign-in." },
+          { label: "Scope", text: "Eight languages; it started as my final project for WDD 330 at BYU-Idaho and grew into a second version." },
+        ],
+        lunar: [
+          { label: "Need", text: "Compare lunar south-pole sites for sunlight and direct-to-Earth communication windows." },
+          { label: "Built", text: "A tool that ranks and charts up to four sites over 7 days to a year, and finds the longest night a battery has to survive." },
+          { label: "Validation", text: "Server-side calculations checked against NASA/JPL SPICE data to within 0.005°." },
+        ],
+        gymlog: [
+          { label: "Need", text: "Record workouts and review recent training." },
+          { label: "Team project", text: "Built with a two-person team for WDD 430 at BYU-Idaho: exercise, set, and weight logging, a recent-training dashboard, and profile management." },
+          { label: "Stack", text: "Next.js Server Components, MongoDB, and NextAuth." },
+        ],
+        sacrament: [
+          { label: "Need", text: "Plan and share meeting programs with members and leaders." },
+          { label: "Built", text: "A program manager for hymns, prayers, speakers, and ward business, with current and past programs." },
+          { label: "Key detail", text: "Signed-in leaders create and edit programs using Server Actions validated with Zod." },
+        ],
       },
     },
     contact: {
-      label: "04 // contact",
+      label: "05 // contact",
       title: "Let's build something.",
-      sub: "Open to opportunities, collaborations, and interesting problems.",
+      // Misma frase que el perfil del CV (docs/cv/cv.html)
+      sub: "Looking for a full-stack developer role where I can ship real features and keep growing as an engineer.",
+      location: "Based in Orem, Utah",
       email: "↗ Email me",
+      linkedin: "↗ LinkedIn",
       github: "↗ GitHub",
+      cv: "Download CV ↓",
     },
     footer: {
       left: "© 2026",
@@ -89,6 +161,10 @@ const content = {
       sub: "Small, self-contained experiments — each one a full mini app.",
       open: "Open →",
       projects: {
+        f1: {
+          title: "Pit Wall",
+          desc: "Formula 1 calendar, race and qualifying results, and driver and constructor standings for every season since 1950. Written in TypeScript, with a request limit and caching to protect a public API.",
+        },
         todo: {
           title: "Loop",
           desc: "Task manager with editing, filters and persistence. useReducer + localStorage.",
@@ -298,43 +374,110 @@ const content = {
     about: {
       label: "01 // sobre mí",
       title: "Quién soy",
-      p1: "Soy desarrollador JavaScript full-stack en Utah y curso un Bachelor en Desarrollo de Software en BYU-Idaho. Antes de entrar al mundo del software, fui profesor de inglés en Venezuela — lo que me dio una forma metódica y estructurada de pensar en los problemas que aplico directamente cuando escribo código.",
-      p2: "Llevo más de un año construyendo con el stack completo de JS: React en el frontend, Node/Express en el backend y PostgreSQL para datos. Cada proyecto ha sido construido con patrones del mundo real — autenticación, REST APIs, bases de datos relacionales.",
-      p3: "Actualmente trabajando en",
-      p3b: "— una plataforma para que las personas compartan sus intereses y conecten con otros.",
-      stats: [
-        "Años construyendo",
-        "Stack principal",
-        "Desarrollo de Software",
-        "Modo aprendizaje",
+      p1: "Soy desarrollador full-stack en Utah y estudiante de Desarrollo de Software en BYU-Idaho. Construyo aplicaciones web desde la base de datos hasta la interfaz, con atención a APIs claras, modelos de datos bien pensados y experiencias útiles para las personas.",
+      p2: "Siempre me han fascinado los idiomas. Aprenderlos por mi cuenta me enseñó a buscar patrones y poner en práctica lo que aprendo. Llevo esa misma curiosidad al software: disfruto aprendiendo nuevas herramientas y usándolas para resolver problemas reales. También enseñé inglés en Venezuela, una experiencia que influyó en cómo explico ideas y desgloso temas complejos.",
+      stats: {
+        projects: { label: "Proyectos con demo", detail: "Cada uno con código y demo" },
+        clients: { label: "Cliente real en producción", detail: "Detalles DanKar · Venezuela" },
+        hackathon: { label: "NASA Space Apps", detail: "Lunar Landing Site Navigator" },
+        languages: { label: "Bilingüe", detail: "Apps en español e inglés", spoken: "Español e inglés" },
+      },
+    },
+    approach: {
+      label: "02 // cómo trabajo",
+      title: "Del problema a una solución funcional",
+      steps: [
+        {
+          title: "Entender el problema",
+          description: "Aclaro para quién es el producto, qué necesita y qué límites hay que tener en cuenta.",
+        },
+        {
+          title: "Construir lo necesario",
+          description: "Diseño los datos, la API y la interfaz alrededor de esa necesidad, con herramientas adecuadas al proyecto.",
+        },
+        {
+          title: "Probar y mejorar",
+          description: "Pruebo los flujos importantes, cubro casos límite y mejoro la experiencia según lo que encuentro.",
+        },
       ],
     },
     skills: {
-      label: "02 // habilidades",
+      label: "03 // habilidades",
       title: "Tecnologías que uso",
     },
     projects: {
-      label: "03 // proyectos",
+      label: "04 // proyectos",
       title: "Lo que he construido",
       github: "↗ GitHub",
       live: "↗ Ver en vivo",
-      items: {
-        glossia:
-          "App para aprender idiomas con frontend en React, backend en Node.js y base de datos MySQL. Incluye autenticación, flashcards y seguimiento del progreso.",
-        dankar:
-          "Tienda online para una marca de accesorios artesanales. Catálogo público con filtros por categoría, pedidos directos por WhatsApp y panel de administración protegido con JWT. Cliente real, en producción.",
-        matchday:
-          "Clasificación, calendario y resultados de las cinco grandes ligas europeas, la Champions League y la Copa Libertadores desde una API en vivo. Proxy en el servidor para la API key, caché local dentro del límite del plan gratuito, búsqueda con debounce, refresco automático en vivo e interfaz accesible y bilingüe.",
-        accanto:
-          "Sistema de reservas bilingüe (italiano/inglés) para un restaurante italiano en Turín. Disponibilidad de mesas en tiempo real, reservas autogestionadas y panel de administración con estado de las mesas en vivo, reportes y exportación a CSV. Emails transaccionales con recordatorios, protección contra reservas duplicadas y seguridad reforzada (CSRF, límites de intentos, CSP).",
+      caseStudy: "→ Caso de estudio",
+      shotAlt: {
+        dankar: "Tienda Detalles DanKar con pasos para hacer pedidos y catálogo de accesorios.",
+        accanto: "Página de Accanto con botones para reservar y una ilustración de Turín.",
+        matchday: "Panel de Matchday con la clasificación de la Premier League y navegación de competiciones.",
+        glossia: "Pantalla de inicio de sesión de Glossia con opciones de email y Google.",
+        lunar: "Panel para comparar sitios de alunizaje con ubicaciones candidatas, clasificación y gráficos solares.",
+        gymlog: "Página de GymLog con métricas de entrenamiento y una opción para registrar una sesión.",
+        sacrament: "Página de programas de reunión sacramental con reuniones actuales y anteriores.",
+      },
+      moreTitle: "Más proyectos",
+      badges: {
+        client: "Cliente real",
+        concept: "Proyecto de concepto",
+        team: "Proyecto en equipo",
+        hackathon: "NASA Space Apps",
+      },
+      notes: {
+        glossia: "Alojamiento gratuito: fuera del horario laboral de EE. UU. la primera carga puede tardar hasta un minuto.",
+      },
+      impact: {
+        dankar: [
+          { label: "Necesidad", text: "Ayudar a una tienda artesanal a vender en línea y gestionar su catálogo." },
+          { label: "Construí", text: "Una tienda en React, carrito que prepara el pedido para WhatsApp y panel protegido con JWT e IA para describir productos desde sus fotos." },
+          { label: "En uso", text: "En producción en Pariaguán, Venezuela: los clientes envían el pedido completo en un solo mensaje de WhatsApp, y la dueña gestiona productos y precios diarios en bolívares y dólares." },
+        ],
+        accanto: [
+          { label: "Escenario", text: "Un restaurante ficticio de Turín necesita reservas bilingües y herramientas para el personal." },
+          { label: "Construí", text: "Reservas en italiano e inglés, consulta de disponibilidad, panel administrativo, reportes, exportación CSV y recordatorios por email." },
+          { label: "Detalle clave", text: "Protección contra reservas duplicadas y controles de seguridad como CSRF, límites de intentos y CSP." },
+        ],
+        matchday: [
+          { label: "Necesidad", text: "Consultar clasificación, calendario y resultados de las cinco grandes ligas europeas, la Champions League y la Copa Libertadores." },
+          { label: "Construí", text: "Una interfaz accesible y bilingüe con marcadores en vivo que se actualizan solos, sobre un proxy serverless, caché y pruebas automáticas." },
+          { label: "Detalle clave", text: "La API key permanece en el servidor y la caché mantiene las consultas dentro del límite del plan gratuito." },
+        ],
+        glossia: [
+          { label: "Necesidad", text: "Ofrecer a quienes estudian idiomas un camino guiado y herramientas de práctica." },
+          { label: "Construí", text: "Lecciones A1–A2, flashcards, traductor, favoritos e inicio de sesión por email o Google." },
+          { label: "Alcance", text: "Ocho idiomas; empezó como mi proyecto final de WDD 330 en BYU-Idaho y creció hasta una segunda versión." },
+        ],
+        lunar: [
+          { label: "Necesidad", text: "Comparar sitios del polo sur lunar según ventanas de luz solar y comunicación directa con la Tierra." },
+          { label: "Construí", text: "Una herramienta que ordena y grafica hasta cuatro sitios en periodos de 7 días a un año, y calcula la noche más larga que tendría que aguantar la batería." },
+          { label: "Validación", text: "Cálculos en el servidor contrastados con datos SPICE de NASA/JPL con tolerancia de 0,005°." },
+        ],
+        gymlog: [
+          { label: "Necesidad", text: "Registrar entrenamientos y revisar la actividad reciente." },
+          { label: "Proyecto en equipo", text: "Desarrollado con un equipo de dos personas para WDD 430 en BYU-Idaho: registro de ejercicios, series y pesos, panel con el entrenamiento reciente y gestión del perfil." },
+          { label: "Stack", text: "Next.js Server Components, MongoDB y NextAuth." },
+        ],
+        sacrament: [
+          { label: "Necesidad", text: "Planificar y compartir programas de reunión con miembros y líderes." },
+          { label: "Construí", text: "Un gestor de himnos, oraciones, discursantes y asuntos del barrio, con programas actuales y anteriores." },
+          { label: "Detalle clave", text: "Los líderes crean y editan programas con Server Actions validadas con Zod." },
+        ],
       },
     },
     contact: {
-      label: "04 // contacto",
+      label: "05 // contacto",
       title: "Construyamos algo.",
-      sub: "Abierto a oportunidades, colaboraciones y problemas interesantes.",
+      // Misma frase que el perfil del CV (docs/cv/cv.html)
+      sub: "Busco un puesto de desarrollador full-stack donde pueda lanzar funcionalidades reales y seguir creciendo como ingeniero.",
+      location: "En Orem, Utah",
       email: "↗ Escríbeme",
+      linkedin: "↗ LinkedIn",
       github: "↗ GitHub",
+      cv: "Descargar CV ↓",
     },
     footer: {
       left: "© 2026",
@@ -365,6 +508,10 @@ const content = {
       sub: "Experimentos pequeños e independientes — cada uno, una mini app completa.",
       open: "Abrir →",
       projects: {
+        f1: {
+          title: "Pit Wall",
+          desc: "Calendario, resultados de carrera y clasificación, y campeonatos de pilotos y constructores de todas las temporadas desde 1950. Escrito en TypeScript, con límite de peticiones y caché para cuidar una API pública.",
+        },
         todo: {
           title: "Loop",
           desc: "Gestor de tareas con edición, filtros y persistencia. useReducer + localStorage.",

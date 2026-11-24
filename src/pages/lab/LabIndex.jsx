@@ -6,6 +6,7 @@ import "../../styles/lab.css";
 
 // Añade aquí cada experimento nuevo (los textos van en content[lang].lab)
 const LAB_PROJECTS = [
+  { key: "f1", path: "/lab/f1", tags: ["TypeScript", "REST API", "Rate limit", "Cache"] },
   { key: "football", path: "/lab/football", tags: ["React Router", "REST API", "Cache", "a11y"] },
   { key: "todo", path: "/lab/todo", tags: ["useReducer", "localStorage"] },
 ];

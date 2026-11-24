@@ -1,0 +1,812 @@
+/* Pit Wall (F1) — usa las variables globales del portafolio (global.css) */
+
+.f1-app {
+  --f1-red: #ff3b47;
+  --f1-warn: #f5a524;
+  --f1-up: #39d98a;
+  --f1-down: #ff5c7a;
+  max-width: 960px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 8rem 1.5rem 5rem;
+}
+
+.f1-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.f1-app :focus-visible,
+.f1-modal :focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---------- Encabezado ---------- */
+
+.f1-label {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--accent);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.f1-label::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, var(--border), transparent);
+}
+
+.f1-title {
+  font-size: clamp(2.5rem, 7vw, 3.5rem);
+  font-weight: 800;
+  color: var(--heading);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.f1-accent {
+  color: var(--f1-red);
+}
+
+.f1-sub {
+  margin: 0.75rem 0 2rem;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+  line-height: 1.6;
+}
+
+.f1-source {
+  color: var(--border);
+  white-space: nowrap;
+}
+
+/* ---------- Pestañas y temporada ---------- */
+
+.f1-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1.5rem;
+}
+
+.f1-tabs {
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.f1-tab {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--muted);
+  padding: 0.85rem 1.25rem;
+  margin-bottom: -1px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.f1-tab:hover {
+  color: var(--text);
+}
+
+.f1-tab.active {
+  color: var(--heading);
+  border-bottom-color: var(--f1-red);
+}
+
+.f1-tabs-small {
+  border-bottom: 1px solid var(--border);
+}
+
+.f1-tabs-small .f1-tab {
+  padding: 0.6rem 1rem;
+  font-size: 0.72rem;
+}
+
+.f1-season {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding-bottom: 0.55rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.f1-season select {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--heading);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 0.4rem 0.6rem;
+  cursor: pointer;
+}
+
+.f1-season select:hover {
+  border-color: var(--muted);
+}
+
+/* ---------- Controles y estados ---------- */
+
+.f1-btn {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  padding: 0.7rem 1.4rem;
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.f1-btn:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.f1-link-btn {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  background: none;
+  border: none;
+  color: var(--accent);
+  cursor: pointer;
+  padding: 0.2rem 0;
+}
+
+.f1-link-btn:disabled {
+  color: var(--muted);
+  cursor: default;
+}
+
+.f1-notice {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+
+.f1-notice.stale {
+  justify-content: space-between;
+  color: var(--f1-warn);
+  border: 1px solid rgba(245, 165, 36, 0.35);
+  padding: 0.6rem 0.9rem;
+}
+
+.f1-spin {
+  display: inline-block;
+  animation: f1-spin 0.8s linear infinite;
+}
+
+@keyframes f1-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.f1-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  background: var(--surface);
+  border: 1px dashed var(--border);
+}
+
+.f1-state-title {
+  color: var(--heading);
+  font-weight: 700;
+}
+
+.f1-state-hint {
+  max-width: 46ch;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.f1-state .f1-btn {
+  margin-top: 0.5rem;
+}
+
+.f1-state-error {
+  border-style: solid;
+  border-color: rgba(255, 92, 122, 0.4);
+}
+
+.f1-skeleton-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.f1-skeleton {
+  height: 52px;
+  background: linear-gradient(90deg, var(--surface) 0%, #16202b 50%, var(--surface) 100%);
+  background-size: 200% 100%;
+  animation: f1-shimmer 1.3s ease-in-out infinite;
+}
+
+@keyframes f1-shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+.f1-caption,
+.f1-footnote,
+.f1-detail-muted {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.f1-caption {
+  margin-bottom: 0.6rem;
+}
+
+.f1-footnote {
+  margin-top: 0.9rem;
+}
+
+.f1-chip {
+  margin-left: 0.6rem;
+  padding: 0.1rem 0.4rem;
+  border: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  font-weight: 400;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+.f1-team-mark {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 4px;
+  height: 1.1em;
+  border-radius: 1px;
+}
+
+/* ---------- Próxima carrera ---------- */
+
+.f1-next {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  width: 100%;
+  margin-bottom: 1.25rem;
+  padding: 1.25rem 1.5rem;
+  text-align: left;
+  color: inherit;
+  font: inherit;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--f1-red);
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.f1-next:hover {
+  border-color: var(--muted);
+  border-left-color: var(--f1-red);
+}
+
+.f1-next-label {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--f1-red);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.f1-next-name {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--heading);
+  letter-spacing: -0.01em;
+}
+
+.f1-next-meta {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* ---------- Calendario ---------- */
+
+.f1-races {
+  list-style: none;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.f1-races li + li {
+  border-top: 1px solid var(--border);
+}
+
+.f1-race {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 0.85rem 1rem;
+  text-align: left;
+  color: inherit;
+  font: inherit;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.f1-race:hover {
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.f1-race-round {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.f1-race-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.f1-race-name {
+  color: var(--heading);
+  font-weight: 700;
+}
+
+.f1-race-meta {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.f1-race-next {
+  box-shadow: inset 3px 0 0 var(--f1-red);
+}
+
+.f1-race-upcoming .f1-race-name {
+  color: var(--text);
+}
+
+.f1-race-winner {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--heading);
+}
+
+.f1-status {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.f1-status-next {
+  color: var(--f1-red);
+}
+
+.f1-status-pending {
+  color: var(--f1-warn);
+}
+
+/* ---------- Tablas ---------- */
+
+.f1-table-scroll {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.f1-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+.f1-table th,
+.f1-table td {
+  padding: 0.7rem 0.85rem;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.f1-table tbody tr:last-child th,
+.f1-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.f1-table thead th {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  font-weight: 400;
+  color: var(--muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.f1-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.f1-table tbody th {
+  font-weight: 400;
+}
+
+.f1-table-compact th,
+.f1-table-compact td {
+  padding: 0.55rem 0.7rem;
+}
+
+.f1-col-pos {
+  width: 3rem;
+  font-family: var(--mono);
+  color: var(--muted);
+}
+
+.f1-col-team {
+  color: var(--muted);
+}
+
+.f1-col-time {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+}
+
+.f1-num {
+  text-align: right !important;
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.f1-points {
+  color: var(--heading);
+}
+
+.f1-podium {
+  color: var(--heading);
+  font-weight: 700;
+}
+
+.f1-row-out td,
+.f1-row-out th {
+  color: var(--muted);
+}
+
+.f1-name,
+.f1-name-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--heading);
+}
+
+.f1-name-btn {
+  padding: 0;
+  font: inherit;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.f1-name-btn:hover .f1-name-full,
+.f1-inline-btn:hover {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.f1-inline-btn {
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.f1-code {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+}
+
+.f1-sub-team {
+  display: block;
+  margin: 0.15rem 0 0 calc(4px + 0.6rem);
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.f1-gain {
+  margin-left: 0.4rem;
+  font-size: 0.68rem;
+}
+
+.f1-gain.up {
+  color: var(--f1-up);
+}
+
+.f1-gain.down {
+  color: var(--f1-down);
+}
+
+.f1-fastest {
+  color: #b18cff;
+}
+
+/* ---------- Modal ---------- */
+
+.f1-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background: rgba(4, 6, 9, 0.75);
+  backdrop-filter: blur(6px);
+  animation: f1-fade 0.2s ease;
+}
+
+.f1-modal {
+  position: relative;
+  width: min(720px, 100%);
+  max-height: calc(100vh - 3rem);
+  overflow-y: auto;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  animation: f1-rise 0.25s ease;
+}
+
+.f1-modal::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--f1-red), var(--accent2), transparent);
+}
+
+@keyframes f1-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes f1-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+.f1-modal-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.f1-modal-label {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--accent);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.f1-modal-close {
+  width: 2.25rem;
+  height: 2.25rem;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.f1-modal-close:hover {
+  color: var(--heading);
+  border-color: var(--muted);
+}
+
+.f1-modal-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--heading);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.f1-modal-sub {
+  margin-top: -0.5rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.f1-modal-heading {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: var(--muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.f1-sessions {
+  list-style: none;
+  border: 1px solid var(--border);
+}
+
+.f1-sessions li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.6rem 0.85rem;
+  font-size: 0.88rem;
+}
+
+.f1-sessions li + li {
+  border-top: 1px solid var(--border);
+}
+
+.f1-sessions li:last-child {
+  color: var(--heading);
+  font-weight: 700;
+}
+
+.f1-sessions-time {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--muted);
+  text-align: right;
+}
+
+.f1-stats {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+.f1-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0.75rem;
+  background: var(--surface);
+}
+
+.f1-stat dt {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.f1-stat dd {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--heading);
+}
+
+/* ---------- Móvil ---------- */
+
+@media (max-width: 640px) {
+  .f1-app {
+    padding: 6.5rem 1rem 4rem;
+  }
+
+  .f1-toolbar {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .f1-tab {
+    padding: 0.85rem 0.9rem;
+  }
+
+  .f1-race {
+    grid-template-columns: 2rem 1fr auto;
+    gap: 0.75rem;
+    padding: 0.8rem 0.75rem;
+  }
+
+  /* En pantallas estrechas sobran: el equipo sale con su color y en el modal */
+  .f1-col-team,
+  .f1-col-gap,
+  .f1-name-full + .f1-code {
+    display: none;
+  }
+
+  .f1-modal-backdrop {
+    padding: 0;
+    place-items: end stretch;
+  }
+
+  .f1-modal {
+    width: 100%;
+    max-height: 92vh;
+    padding: 1.25rem 1rem;
+  }
+
+  .f1-stats {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .f1-spin,
+  .f1-skeleton,
+  .f1-modal,
+  .f1-modal-backdrop {
+    animation: none;
+  }
+}
