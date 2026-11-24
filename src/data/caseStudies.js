@@ -64,7 +64,7 @@ const caseStudies = {
             },
             {
               title: "One photo per AI request",
-              body: "Each photo costs about 1,800 tokens at any size, so one 768 px photo is sent by default to stay on the free tier. Smaller images cost the same and were recognized worse.",
+              body: "To limit input usage, I send one 768 px main photo per request. Groq counts each image as 2,048 input tokens for this model, regardless of pixel dimensions; in my tests, smaller images used the same number of input tokens and were recognized less accurately.",
             },
           ],
         },
@@ -132,7 +132,7 @@ const caseStudies = {
             },
             {
               title: "Una foto por petición a la IA",
-              body: "Cada foto cuesta unos 1.800 tokens sin importar su tamaño, así que por defecto se envía una sola foto de 768 px para no salir del plan gratuito. Las imágenes más pequeñas cuestan lo mismo y se reconocían peor.",
+              body: "Para limitar el consumo de entrada, envío una foto principal de 768 px por petición. Groq cuenta cada imagen como 2.048 tokens de entrada para este modelo, sin importar sus dimensiones; en mis pruebas, las imágenes más pequeñas consumieron la misma cantidad de tokens de entrada y se reconocieron con menos precisión.",
             },
           ],
         },
