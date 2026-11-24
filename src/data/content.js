@@ -64,7 +64,15 @@ const content = {
       github: "↗ GitHub",
       live: "↗ Live",
       caseStudy: "→ Case study",
-      shotAlt: (title) => `Screenshot of ${title}`,
+      shotAlt: {
+        dankar: "Detalles DanKar storefront showing custom order steps and its accessory catalog.",
+        accanto: "Accanto restaurant landing page with reservation buttons and an illustrated Turin scene.",
+        matchday: "Matchday dashboard showing Premier League standings and competition navigation.",
+        glossia: "Glossia sign-in screen with email and Google options.",
+        lunar: "Lunar landing site comparison dashboard with candidate sites, rankings, and sunlight charts.",
+        gymlog: "GymLog landing page with workout metrics and a log-workout action.",
+        sacrament: "Sacrament Meeting Program page listing current and past meeting programs.",
+      },
       moreTitle: "More projects",
       badges: {
         client: "Real client",
@@ -403,7 +411,15 @@ const content = {
       github: "↗ GitHub",
       live: "↗ Ver en vivo",
       caseStudy: "→ Caso de estudio",
-      shotAlt: (title) => `Captura de ${title}`,
+      shotAlt: {
+        dankar: "Tienda Detalles DanKar con pasos para hacer pedidos y catálogo de accesorios.",
+        accanto: "Página de Accanto con botones para reservar y una ilustración de Turín.",
+        matchday: "Panel de Matchday con la clasificación de la Premier League y navegación de competiciones.",
+        glossia: "Pantalla de inicio de sesión de Glossia con opciones de email y Google.",
+        lunar: "Panel para comparar sitios de alunizaje con ubicaciones candidatas, clasificación y gráficos solares.",
+        gymlog: "Página de GymLog con métricas de entrenamiento y una opción para registrar una sesión.",
+        sacrament: "Página de programas de reunión sacramental con reuniones actuales y anteriores.",
+      },
       moreTitle: "Más proyectos",
       badges: {
         client: "Cliente real",

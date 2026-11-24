@@ -1,6 +1,7 @@
 // Casos de estudio: /projects/{key}. Cada uno necesita su ruta en App.jsx,
 // su rewrite en vercel.json, su entrada en el sitemap y caseStudy en projects.js.
 //
+// shotAlt: descripción de la captura {key}-case.webp (lo que se ve en ella).
 // testimonial: { quote, author } o null. Solo se muestra si existe: no se
 // inventa una cita, se pide al cliente.
 const caseStudies = {
@@ -9,11 +10,11 @@ const caseStudies = {
       label: "case study",
       back: "← All projects",
       facts: "Project facts",
-      shotAlt: (title) => `${title} home page`,
       live: "↗ Visit the live site",
       github: "↗ Read the code",
     },
     dankar: {
+      shotAlt: "Detalles DanKar storefront showing the order steps, personalization options, and product catalog.",
       intro:
         "An online catalog for a handmade hair-accessories shop in Pariaguán, Venezuela. Customers build an order and send it to WhatsApp in one message; the owner runs the catalog herself from a private admin panel.",
       facts: [
@@ -77,11 +78,11 @@ const caseStudies = {
       label: "caso de estudio",
       back: "← Todos los proyectos",
       facts: "Datos del proyecto",
-      shotAlt: (title) => `Página de inicio de ${title}`,
       live: "↗ Ver la tienda en vivo",
       github: "↗ Ver el código",
     },
     dankar: {
+      shotAlt: "Tienda Detalles DanKar con los pasos para hacer pedidos, opciones de personalización y catálogo de productos.",
       intro:
         "Catálogo en línea para una tienda de accesorios artesanales para el cabello en Pariaguán, Venezuela. Los clientes arman su pedido y lo envían a WhatsApp en un solo mensaje; la dueña gestiona el catálogo por su cuenta desde un panel privado.",
       facts: [

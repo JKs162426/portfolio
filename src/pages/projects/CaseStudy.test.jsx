@@ -25,6 +25,7 @@ describe("datos de los casos de estudio", () => {
   it.each(withCaseStudy.map((p) => [p.key, p]))("%s tiene textos, ruta, rewrite, sitemap y captura", (key, p) => {
     expect(caseStudies.en[key], `en.${key}`).toBeTruthy();
     expect(caseStudies.es[key], `es.${key}`).toBeTruthy();
+    expect(caseStudies.en[key].shotAlt && caseStudies.es[key].shotAlt, `${key}.shotAlt`).toBeTruthy();
     expect(fs.readFileSync("src/App.jsx", "utf8")).toContain(`<Route path="${p.caseStudy}"`);
     const rewrites = JSON.parse(fs.readFileSync("vercel.json", "utf8")).rewrites.map((r) => r.source);
     expect(rewrites).toContain(p.caseStudy);
@@ -52,7 +53,9 @@ describe("<CaseStudy />", () => {
       "The brief", "Key decisions", "Trade-offs and lessons",
     ]);
     expect(screen.getByText("In production")).toBeTruthy();
-    expect(screen.getByRole("img", { name: "Detalles DanKar home page" }).getAttribute("src")).toBe(
+    expect(screen.getByRole("img", {
+      name: "Detalles DanKar storefront showing the order steps, personalization options, and product catalog.",
+    }).getAttribute("src")).toBe(
       "/projects/dankar-case.webp"
     );
     expect(document.title).toBe("Detalles DanKar · case study | Jesus Figueroa");
